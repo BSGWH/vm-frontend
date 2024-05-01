@@ -10,7 +10,6 @@ import Header from "@/components/layout/header";
 import { Button } from "@/components/ui/button";
 import "./index.css";
 
-
 export default function Home() {
   return (
     <main>
