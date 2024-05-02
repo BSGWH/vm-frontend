@@ -14,7 +14,7 @@ interface FAQProps {
 const FAQList: FAQProps[] = [
   {
     question: "How do I sign up for Vehicle Manager?",
-    answer: "Signing up is easy. Just click <a href='/signup' class='text-primary border-primary hover:border-b'>sign up</a>, and follow the instructions to create your account and add your first vehicle to get started.",
+    answer: "Signing up is easy. Just click <a href='/signup' class='text-primary transition-all border-primary hover:border-b-2'>sign up</a>, and follow the instructions to create your account and add your first vehicle to get started.",
     value: "item-1",
   },
   {
@@ -101,7 +101,7 @@ export const FAQ = () => {
         Still have questions?{" "}
         <a
           href="#"
-          className="text-primary border-primary hover:border-b-2"
+          className="text-primary transition-all border-primary hover:border-b-2"
         >
           Contact us
         </a>
