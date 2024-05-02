@@ -74,6 +74,7 @@ export const Footer = () => {
           <div className="flex">
             {communities.map(({ name, link, icon }) => (
               <a
+                key={name}
                 href={link}
                 target="_blank"
                 className={buttonVariants({

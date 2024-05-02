@@ -1,6 +1,4 @@
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { MagnifierIcon, WalletIcon, ChartIcon } from "./Icons";
-import cubeLeg from "../assets/cube-leg.png";
 
 import MiscellaneousServicesIcon from "@mui/icons-material/MiscellaneousServices";
 import LeaderboardIcon from "@mui/icons-material/Leaderboard";
@@ -68,11 +66,11 @@ export const Services = () => {
           </div>
         </div>
 
-        <img
+        {/* <img
           src={"../assets/cube-leg.png"}
           className="w-[300px] md:w-[500px] lg:w-[600px] object-contain"
           alt="About services"
-        />
+        /> */}
       </div>
     </section>
   );
