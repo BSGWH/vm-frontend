@@ -6,15 +6,15 @@ export async function middleware(request: NextRequest) {
   const user = await getUserMeLoader();
   const currentPath = request.nextUrl.pathname;
 
-  if (currentPath.startsWith("/dashboard") && user.ok === false) {
-    return NextResponse.redirect(new URL("/signin", request.url));
-  }
-  if (currentPath.startsWith("/signin") && user.ok === true) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
-  }
+  // if (currentPath.startsWith("/dashboard") && user.ok === false) {
+  //   return NextResponse.redirect(new URL("/signin", request.url));
+  // }
+  // if (currentPath.startsWith("/signin") && user.ok === true) {
+  //   return NextResponse.redirect(new URL("/dashboard", request.url));
+  // }
 
-  if (currentPath.startsWith("/signup") && user.ok === true) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
-  }
+  // if (currentPath.startsWith("/signup") && user.ok === true) {
+  //   return NextResponse.redirect(new URL("/dashboard", request.url));
+  // }
   return NextResponse.next();
 }

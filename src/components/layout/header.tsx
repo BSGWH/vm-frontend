@@ -24,7 +24,7 @@ export default function Header() {
 
         <div className="flex items-center gap-2">
           <Button asChild>
-            <Link href={"/signin"}>Dashoboard</Link>
+            <Link href={"/dashboard"}>Dashoboard</Link>
           </Button>
           <ThemeToggle />
         </div>
