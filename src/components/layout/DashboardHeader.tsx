@@ -1,15 +1,17 @@
-"use client";
-import Link from "next/link";
+'use client'
 import { ThemeToggle } from "./theme-toggle";
-import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { UserNav } from "./user-nav";
+import Link from "next/link";
 import { useTheme } from "next-themes";
 
 export default function Header() {
-  const { theme } = useTheme();
-
+    const { theme } = useTheme();
   return (
+
     <div className="fixed top-0 left-0 right-0 supports-backdrop-blur:bg-background/60 border-b bg-background/95 backdrop-blur z-20">
       <nav className="h-14 flex items-center justify-between px-4">
+        <div className="hidden lg:block">
         <Link href={"/"}>
           <img
             src={
@@ -21,11 +23,9 @@ export default function Header() {
             className="w-40 h-auto object-cover"
           />
         </Link>
-
+        </div>
         <div className="flex items-center gap-2">
-          <Button asChild>
-            <Link href={"/dashboard"}>Dashboard</Link>
-          </Button>
+          <UserNav />
           <ThemeToggle />
         </div>
       </nav>
