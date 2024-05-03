@@ -13,34 +13,55 @@ interface FAQProps {
 
 const FAQList: FAQProps[] = [
   {
-    question: "Is this template free?",
-    answer: "Yes. It is a free ChadcnUI template.",
+    question: "How do I sign up for Vehicle Manager?",
+    answer: "Signing up is easy. Just click <a href='/signup' class='text-primary border-primary hover:border-b'>sign up</a>, and follow the instructions to create your account and add your first vehicle to get started.",
     value: "item-1",
   },
   {
-    question: "Lorem ipsum dolor sit amet consectetur adipisicing elit?",
+    question: "Can I track multiple vehicles on Vehicle Manager?",
     answer:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint labore quidem quam? Consectetur sapiente iste rerum reiciendis animi nihil nostrum sit quo, modi quod.",
+      "Yes, Vehicle Manager allows you to manage multiple vehicles from a single account, making it convenient for individuals with more than one vehicle or businesses with fleets.",
     value: "item-2",
   },
   {
     question:
-      "Lorem ipsum dolor sit amet  Consectetur natus dolores minus quibusdam?",
+      "Is Vehicle Manager compatible with all vehicle makes and models?",
     answer:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore qui nostrum reiciendis veritatis necessitatibus maxime quis ipsa vitae cumque quo?",
+      "Yes, Vehicle Manager is compatible with vehicles of all makes and models, ensuring that regardless of what you drive, our platform can meet your needs.",
     value: "item-3",
   },
   {
-    question: "Lorem ipsum dolor sit amet, consectetur adipisicing elit?",
-    answer: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+    question: "Is Vehicle Manager suitable for both individual vehicle owners and small businesses with fleets?",
+    answer: "Certainly! Vehicle Manager is designed to cater to the needs of both individual vehicle owners and small businesses managing fleets, offering tailored solutions for each.",
     value: "item-4",
   },
   {
     question:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur natus?",
+      "How does Vehicle Manager help me keep track of my vehicle maintenance schedule?",
     answer:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint labore quidem quam? Consectetur sapiente iste rerum reiciendis animi nihil nostrum sit quo, modi quod.",
+      "Vehicle Manager sends personalized maintenance reminders based on your vehicle's unique requirements, ensuring that you never miss an essential service appointment again.",
     value: "item-5",
+  },
+	{
+    question:
+      "Can I use Vehicle Manager to store and access important vehicle documents?",
+    answer:
+      "Yes, Vehicle Manager provides a secure space for storing and accessing crucial vehicle documents such as insurance papers, registration details, and service records.",
+    value: "item-6",
+  },
+	{
+    question:
+      "Can I access Vehicle Manager from my mobile device?",
+    answer:
+      "Yes, Vehicle Manager is accessible from any device with an internet connection, allowing you to manage your vehicles on the go.",
+    value: "item-7",
+  },
+	{
+    question:
+      "How does Vehicle Manager track mileage and expenses for tax purposes?",
+    answer:
+      "Vehicle Manager logs feature allows you to track your mileage and vehicle-related expenses, generating detailed reports.",
+    value: "item-8",
   },
 ];
 
@@ -71,7 +92,7 @@ export const FAQ = () => {
               {question}
             </AccordionTrigger>
 
-            <AccordionContent>{answer}</AccordionContent>
+            <AccordionContent><p dangerouslySetInnerHTML={{ __html: answer }}></p></AccordionContent>
           </AccordionItem>
         ))}
       </Accordion>
@@ -80,7 +101,7 @@ export const FAQ = () => {
         Still have questions?{" "}
         <a
           href="#"
-          className="text-primary transition-all border-primary hover:border-b-2"
+          className="text-primary border-primary hover:border-b-2"
         >
           Contact us
         </a>

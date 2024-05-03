@@ -1,5 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MedalIcon, MapIcon, PlaneIcon, GiftIcon } from "@/components/core/Icons";
+
+import CarRepairIcon from '@mui/icons-material/CarRepair';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import ArticleIcon from '@mui/icons-material/Article';
+import DataUsageIcon from '@mui/icons-material/DataUsage';
 
 interface FeatureProps {
   icon: JSX.Element;
@@ -9,28 +13,28 @@ interface FeatureProps {
 
 const features: FeatureProps[] = [
   {
-    icon: <MedalIcon />,
-    title: "Accesibility",
+    icon: <CarRepairIcon className="w-14 h-14 fill-primary"/>,
+    title: "Add Vehicles",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
+      "Register for an account on Vehicle Manager's platform and add your first vehicle to begin.",
   },
   {
-    icon: <MapIcon />,
-    title: "Community",
+    icon: <BarChartIcon className="w-14 h-14 fill-primary"/>,
+    title: "Manage Expenses",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
+      "Track usage and conduct cost analysis easily with Vehicle Manager's advanced features.",
   },
   {
-    icon: <PlaneIcon />,
-    title: "Scalability",
+    icon: <ArticleIcon className="w-14 h-14 fill-primary"/>,
+    title: "Store Documents",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
+      "Keep all your important vehicle documents organized and easily accessible with Vehicle Manager.",
   },
   {
-    icon: <GiftIcon />,
-    title: "Gamification",
+    icon: <DataUsageIcon className="w-14 h-14 fill-primary"/>,
+    title: "Gain Insights",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quas provident cum",
+      "Gain valuable service reminders and data-driven insights into your vehicle's performance with Vehicle Manager.",
   },
 ];
 

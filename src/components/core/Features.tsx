@@ -10,41 +10,35 @@ import {
 
 interface FeatureProps {
   title: string;
-  description: string;
-  image: string;
+  description: string
 }
 
 const features: FeatureProps[] = [
   {
-    title: "Responsive Design",
+    title: "Easy to Use",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
-    image: "../assets/growth.png",
+      "Navigate your vehicle management tasks effortlessly with our intuitive dashboard, designed for simplicity and ease of use."
   },
   {
-    title: "Intuitive user interface",
+    title: "Track Usage & Costs",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
-    image: "../assets/growth.png",
-  },
+      "Stay informed about your vehicle's financial health and usage patterns, empowering you to make informed decisions and optimize your driving experience."
+	},
   {
-    title: "AI-Powered insights",
+    title: "Everything for Your Vehicles",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
-    image: "../assets/growth.png",
+      "From maintenance reminders to document storage, Vehicle Manager offers a comprehensive solution, ensuring vehicles are always in top condition."
   },
 ];
 
 const featureList: string[] = [
-  "Dark/Light theme",
-  "Reviews",
-  "Features",
-  "Pricing",
-  "Contact form",
-  "Our team",
-  "Responsive design",
-  "Newsletter",
-  "Minimalist",
+  "User-Friendly Dashboard",
+  "Service Reminders",
+  "Cost Analysis",
+  "VIN Authentication",
+  "Vehicle Documents",
+  "Mileage Tracking",
+  "Fuel Tracking",
 ];
 
 export const Features = () => {
@@ -74,7 +68,7 @@ export const Features = () => {
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {features.map(({ title, description, image }: FeatureProps) => (
+        {features.map(({ title, description }: FeatureProps) => (
           <Card key={title}>
             <CardHeader>
               <CardTitle>{title}</CardTitle>
@@ -82,13 +76,13 @@ export const Features = () => {
 
             <CardContent>{description}</CardContent>
 
-            <CardFooter>
+            {/* <CardFooter>
               <img
                 src={image}
                 alt="About feature"
                 className="w-[200px] lg:w-[300px] mx-auto"
               />
-            </CardFooter>
+            </CardFooter> */}
           </Card>
         ))}
       </div>

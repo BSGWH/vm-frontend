@@ -1,6 +1,8 @@
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { MagnifierIcon, WalletIcon, ChartIcon } from "./Icons";
-import cubeLeg from "../assets/cube-leg.png";
+
+import MiscellaneousServicesIcon from "@mui/icons-material/MiscellaneousServices";
+import LeaderboardIcon from "@mui/icons-material/Leaderboard";
+import QueryStatsIcon from "@mui/icons-material/QueryStats";
 
 interface ServiceProps {
   title: string;
@@ -10,22 +12,22 @@ interface ServiceProps {
 
 const serviceList: ServiceProps[] = [
   {
-    title: "Code Collaboration",
+    title: "Maintain Services",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
-    icon: <ChartIcon />,
+    icon: <MiscellaneousServicesIcon className="w-14 h-14 fill-primary"/>
   },
   {
-    title: "Project Management",
+    title: "Track Vehicle Data",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
-    icon: <WalletIcon />,
+    icon: <LeaderboardIcon className="w-14 h-14 fill-primary"/>,
   },
   {
-    title: "Task Automation",
+    title: "Gain Custom Insight",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
-    icon: <MagnifierIcon />,
+    icon: <QueryStatsIcon className="w-14 h-14 fill-primary"/>,
   },
 ];
 
@@ -35,16 +37,15 @@ export const Services = () => {
       <div className="grid lg:grid-cols-[1fr,1fr] gap-8 place-items-center">
         <div>
           <h2 className="text-3xl md:text-4xl font-bold">
+						A full overview,{" "}
             <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
-              Client-Centric{" "}
+              simplified
             </span>
-            Services
           </h2>
 
           <p className="text-muted-foreground text-xl mt-4 mb-8 ">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis
-            dolor.
-          </p>
+						Vehicle Manager offers a packaged overview of your vehicle's maintenance, expenses, and documentation, all presented in a simplified and user-friendly format, making it efficient and easy.
+					</p>
 
           <div className="flex flex-col gap-8">
             {serviceList.map(({ icon, title, description }: ServiceProps) => (
@@ -65,11 +66,11 @@ export const Services = () => {
           </div>
         </div>
 
-        <img
+        {/* <img
           src={"../assets/cube-leg.png"}
           className="w-[300px] md:w-[500px] lg:w-[600px] object-contain"
           alt="About services"
-        />
+        /> */}
       </div>
     </section>
   );
