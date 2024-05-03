@@ -8,6 +8,7 @@ export async function middleware(request: NextRequest) {
 
   // if (currentPath.startsWith("/dashboard") && user.ok === false) {
   //   return NextResponse.redirect(new URL("/signin", request.url));
+
   // }
   // if (currentPath.startsWith("/signin") && user.ok === true) {
   //   return NextResponse.redirect(new URL("/dashboard", request.url));
