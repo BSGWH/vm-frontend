@@ -2,6 +2,7 @@ import DashboardBreadcrumb from "@/components/dashboardComponents/DashboardBread
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
+import { SwitchForm } from "@/components/forms/SettingForm";
 
 const breadcrumbItems = [{ title: "Profile", link: "/dashboard/profile" }]
 
@@ -12,6 +13,7 @@ export default function page() {
         <DashboardBreadcrumb items={breadcrumbItems}/>
         <Heading title="Settings" description="Manage account settings"/>
         <Separator />
+        <SwitchForm />
       </div>
     </ScrollArea>
   )
