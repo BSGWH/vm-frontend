@@ -14,19 +14,19 @@ const serviceList: ServiceProps[] = [
   {
     title: "Maintain Services",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
+      "",
     icon: <MiscellaneousServicesIcon className="w-14 h-14 fill-primary"/>
   },
   {
     title: "Track Vehicle Data",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
+      "",
     icon: <LeaderboardIcon className="w-14 h-14 fill-primary"/>,
   },
   {
     title: "Gain Custom Insight",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi nesciunt est nostrum omnis ab sapiente.",
+      "",
     icon: <QueryStatsIcon className="w-14 h-14 fill-primary"/>,
   },
 ];
@@ -50,15 +50,12 @@ export const Services = () => {
           <div className="flex flex-col gap-8">
             {serviceList.map(({ icon, title, description }: ServiceProps) => (
               <Card key={title}>
-                <CardHeader className="space-y-1 flex md:flex-row justify-start items-start gap-4">
+                <CardHeader className="space-y-1 flex md:flex-row justify-start items-start gap-4 items-center">
                   <div className="mt-1 bg-primary/20 p-1 rounded-2xl">
                     {icon}
                   </div>
                   <div>
                     <CardTitle>{title}</CardTitle>
-                    <CardDescription className="text-md mt-2">
-                      {description}
-                    </CardDescription>
                   </div>
                 </CardHeader>
               </Card>

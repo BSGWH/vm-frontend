@@ -3,7 +3,6 @@ import {
   Breadcrumb,
   BreadcrumbList,
   BreadcrumbItem,
-  BreadcrumbLink,
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "../ui/breadcrumb";
@@ -23,18 +22,14 @@ export default function DashboardBreadcrumb({ items }: BreadCrumbPropsType) {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink>
-            <Link href={"/dashboard"}>Dashboard</Link>
-          </BreadcrumbLink>
+          <Link href={"/dashboard"}>Dashboard</Link>
         </BreadcrumbItem>
         {items?.map((item: BreadCrumbType, index: number) => (
           <React.Fragment key={item.title}>
             <BreadcrumbSeparator />
             <BreadcrumbItem key={item.title}>
               {index !== items.length - 1 ? (
-                <BreadcrumbLink>
-                  <Link href={item.link}>{item.title}</Link>
-                </BreadcrumbLink>
+                <Link href={item.link}>{item.title}</Link>
               ) : (
                 <BreadcrumbPage>{item.title}</BreadcrumbPage>
               )}
