@@ -11,8 +11,6 @@ export const Pricing = () => {
         Access
       </h2>
       <h3 className="text-xl text-center text-muted-foreground pt-4 pb-8">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias
-        reiciendis.
       </h3>
       <div style={{ width: "100%" }}>
         <stripe-pricing-table
