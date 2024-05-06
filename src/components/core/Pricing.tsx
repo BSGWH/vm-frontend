@@ -1,8 +1,8 @@
 
 export const Pricing = () => {
   return (
-    <section id="pricing" className="container py-24 sm:py-32">
-      <h2 className="text-3xl md:text-4xl font-bold text-center">
+    <section id="pricing" className="py-16 sm:py-24 w-full" style={{ backgroundColor: '#ffffff' }} >
+      <h2 className="text-3xl md:text-4xl font-bold text-center" style={{ color : "black"}}>
         Get
         <span className="bg-gradient-to-b from-primary/60 to-primary text-transparent bg-clip-text">
           {" "}
@@ -11,8 +11,6 @@ export const Pricing = () => {
         Access
       </h2>
       <h3 className="text-xl text-center text-muted-foreground pt-4 pb-8">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias
-        reiciendis.
       </h3>
       <div style={{ width: "100%" }}>
         <stripe-pricing-table
