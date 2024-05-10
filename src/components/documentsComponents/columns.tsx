@@ -5,12 +5,35 @@ import { ColumnDef } from "@tanstack/react-table"
 import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
 import { types, vehicles } from "../../data/doc_data/data"
-import { Task } from "../../data/doc_data/schema"
+import { Document } from "../../data/doc_data/schema"
 import { DataTableColumnHeader } from "./data-table-column-header"
 import { DataTableRowActions } from "./data-table-row-actions"
 import { Label } from "../ui/label"
 
-export const columns: ColumnDef<Task>[] = [
+// export type Document = {
+//     id: string
+//   title: string
+//   type: "Registration"|"Inspection Report"|"Maintenance Records"|"Proof Of Insurance"
+//   vehicle: string
+//   }
+
+//   export const columns: ColumnDef<Document>[] = [
+//     {
+//       accessorKey: "title",
+//       header: "Title",
+//     },
+//     {
+//       accessorKey: "type",
+//       header: "Type",
+//     },
+//     {
+//       accessorKey: "vehicle",
+//       header: "Vehicle",
+//     },
+//   ]
+export const columns: ColumnDef<Document>[] = [
+
+    
   {
     id: "select",
     header: ({ table }) => (
@@ -38,7 +61,7 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: "id",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Task" />
+      <DataTableColumnHeader column={column} title="Document ID" />
     ),
     cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
     enableSorting: false,
@@ -49,9 +72,7 @@ export const columns: ColumnDef<Task>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Title" />
     ),
-    cell: ({ row }) => 
-
-
+    cell: ({ row }) =>
         <div className="flex space-x-2">
           <span className="max-w-[500px] truncate font-medium">
             {row.getValue("title")}
@@ -72,9 +93,9 @@ export const columns: ColumnDef<Task>[] = [
         {row.getValue("type")}
         </span>
    </div>,
-    // filterFn: (row, id, value) => {
-    //   return value.includes(row.getValue(id))
-    // },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id))
+    },
   },
   {
     accessorKey: "vehicle",
@@ -88,9 +109,9 @@ export const columns: ColumnDef<Task>[] = [
         {row.getValue("vehicle")}
         </span>
     </div>,
-    // filterFn: (row, id, value) => {
-    //   return value.includes(row.getValue(id))
-    // },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id))
+    },
   },
   {
     id: "actions",

@@ -8,6 +8,31 @@ import { Input } from "@/components/ui/input"
 
 import { vehicles, types } from "../../data/doc_data/data"
 import { DataTableFacetedFilter } from "./data-table-faceted-filter"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+  } from "@/components/ui/dialog"
+  import { Label } from "@/components/ui/label"
+  import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuPortal,
+    DropdownMenuSeparator,
+    DropdownMenuShortcut,
+    DropdownMenuSub,
+    DropdownMenuSubContent,
+    DropdownMenuSubTrigger,
+    DropdownMenuTrigger,
+  } from "@/components/ui/dropdown-menu"
+  import { AddDialog } from "./addDialog"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -22,7 +47,7 @@ export function DataTableToolbar<TData>({
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
         <Input
-          placeholder="Filter doccuments..."
+          placeholder="search doccuments..."
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("title")?.setFilterValue(event.target.value)
@@ -53,13 +78,10 @@ export function DataTableToolbar<TData>({
             <Cross2Icon className="ml-2 h-4 w-4" />
           </Button>
         )}
+   
+        <AddDialog />
+    
         <Button variant="outline" size="sm" className="h-8 border-dashed"
-            onClick={() => table.resetColumnFilters()}
-            >Add New
-
-        </Button>
-        <Button variant="outline" size="sm" className="h-8 border-dashed"
-            onClick={() => table.resetColumnFilters()}
             >Download
 
         </Button>

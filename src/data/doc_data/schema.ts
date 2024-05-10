@@ -7,4 +7,4 @@ export const docSchema = z.object({
   vehicle: z.string(),
 })
 
-export type Task = z.infer<typeof docSchema>
+export type Document = z.infer<typeof docSchema>

@@ -2,7 +2,15 @@
 
 import { DotsHorizontalIcon } from "@radix-ui/react-icons"
 import { Row } from "@tanstack/react-table"
-
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+  } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -16,10 +24,15 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
+  DropdownMenuGroup,
 } from "@/components/ui/dropdown-menu"
-
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { types } from "../../data/doc_data/data"
 import { docSchema } from "../../data/doc_data/schema"
+import {EditDocument} from "./editDocument"
+import { EditDialog } from "./editDialog"
+
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>
@@ -28,7 +41,7 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const task = docSchema.parse(row.original)
+  const doc = docSchema.parse(row.original)
 
   return (
     <DropdownMenu>
@@ -43,7 +56,9 @@ export function DataTableRowActions<TData>({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
       <DropdownMenuItem>View</DropdownMenuItem>
-        <DropdownMenuItem>Edit</DropdownMenuItem>
+      <DropdownMenuItem>Edit
+      {/* <EditDialog /> */}
+      </DropdownMenuItem>
         <DropdownMenuItem>Favorite</DropdownMenuItem>
         <DropdownMenuItem>
           Delete

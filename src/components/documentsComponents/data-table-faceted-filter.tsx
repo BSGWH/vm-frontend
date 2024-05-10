@@ -1,5 +1,5 @@
 import * as React from "react"
-import { CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons"
+import { CheckIcon, PlusCircledIcon,DrawingPinIcon } from "@radix-ui/react-icons"
 import { Column } from "@tanstack/react-table"
 
 import { cn } from "@/lib/utils"
@@ -27,7 +27,6 @@ interface DataTableFacetedFilterProps<TData, TValue> {
   options: {
     label: string
     value: string
-    icon?: React.ComponentType<{ className?: string }>
   }[]
 }
 
@@ -43,7 +42,7 @@ export function DataTableFacetedFilter<TData, TValue>({
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="outline" size="sm" className="h-8 border-dashed">
-          <PlusCircledIcon className="mr-2 h-4 w-4" />
+          <DrawingPinIcon className="mr-2 h-4 w-4" />
           {title}
           {selectedValues?.size > 0 && (
             <>
@@ -113,9 +112,6 @@ export function DataTableFacetedFilter<TData, TValue>({
                     >
                       <CheckIcon className={cn("h-4 w-4")} />
                     </div>
-                    {option.icon && (
-                      <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-                    )}
                     <span>{option.label}</span>
                     {facets?.get(option.value) && (
                       <span className="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
