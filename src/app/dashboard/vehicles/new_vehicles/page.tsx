@@ -24,7 +24,7 @@ export default async function page() {
         <DashboardBreadcrumb items={breadcrumbItems} />
         <Heading title="Add Vehicles" description="Please select one of the options to add your car" />
         <Separator />
-        <NewVehicleOptions makesWithModels={allCarMakes}/>
+        {/* <NewVehicleOptions makesWithModels={allCarMakes}/> */}
       </div>
     </ScrollArea>
   );
