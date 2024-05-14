@@ -15,8 +15,8 @@ const breadcrumbItems = [
 
 export default async function page() {
 
-  const carModelData = await getAllModelsByMake();
-  const allCarMakes: CarMakeWithModels[] = Object.values(carModelData);
+  // const carModelData = await getAllModelsByMake();
+  // const allCarMakes: CarMakeWithModels[] = Object.values(carModelData);
 
   return (
     <ScrollArea className="h-full">
