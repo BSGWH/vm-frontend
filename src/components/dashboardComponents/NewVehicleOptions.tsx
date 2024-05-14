@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/accordion";
 import VinForm from "../forms/VinForm";
 import VehicleForm from "../forms/VehicleForm";
-import { CarMake, CarMakeWithModels } from "@/types/car";
+import { CarMakeWithModels } from "@/types/car";
 import React from "react";
 
 interface AddMethod {

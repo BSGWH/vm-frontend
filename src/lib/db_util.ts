@@ -21,3 +21,4 @@ export async function getAllModelsByMake(): Promise<any> {
   const data = await fetchRailsData("/models");
   return data;
 }
+

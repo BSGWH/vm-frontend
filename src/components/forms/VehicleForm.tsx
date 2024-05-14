@@ -21,15 +21,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { CarMake, CarMakeWithModels, CarModel } from "@/types/car";
+import { CarMakeWithModels, CarModel } from "@/types/car";
 import { SelectGroup, SelectLabel } from "@radix-ui/react-select";
 import { useEffect, useState } from "react";
 
 const FormSchema = z.object({
-  make: z.string({
+  make_id: z.string({
     required_error: "Please select an car make.",
   }),
-  model: z.string({
+  model_id: z.string({
     required_error: "Please select an brand.",
   }),
   color: z.string({
@@ -47,14 +47,13 @@ interface VehicleFormProps {
 const VehicleForm: React.FC<VehicleFormProps> = ({ makesWithModels }) => {
   const [selectedMake, setSelectedMake] = useState<string>("");
   const [selectedModel, setSelectedModel] = useState<string>("");
-  const [modelOptions, setModelOptions] =
-    useState<CarMakeWithModels[]>(makesWithModels);
+  const [modelOptions, setModelOptions] = useState<CarMakeWithModels[]>(makesWithModels);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
-	// filter model options after a make is selected
+  // filter model options after a make is selected
   useEffect(() => {
     if (selectedMake.length) {
       const filteredModels = makesWithModels.filter(
@@ -64,46 +63,43 @@ const VehicleForm: React.FC<VehicleFormProps> = ({ makesWithModels }) => {
     }
   }, [selectedMake]);
 
-	// set selected make after a model is selected 
-	useEffect(() => {
-		if (selectedModel.length !== 0 && selectedMake.length === 0 ) {
-			for (const carMake of makesWithModels) {
-				const foundModel = carMake.models.find(model => String(model.model_id) === selectedModel)
-				if (foundModel) {
-					setSelectedMake(String(carMake.make_id));
-				}
-			}
-		}
-	}, [selectedModel])
+  // set selected make after a model is selected
+  useEffect(() => {
+    if (selectedModel.length !== 0 && selectedMake.length === 0) {
+      for (const carMake of makesWithModels) {
+        const foundModel = carMake.models.find(
+          (model) => String(model.model_id) === selectedModel
+        );
+        if (foundModel) {
+          setSelectedMake(String(carMake.make_id));
+        }
+      }
+    }
+  }, [selectedModel]);
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    const formData = {
-      title: "You submitted the following values:",
-      description: JSON.stringify(data, null),
-    };
+    const formData = JSON.stringify(data, null);
 
     console.log(formData);
-  }
 
-	console.log(makesWithModels)
+  }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
-        <FormField 
+        <FormField
           control={form.control}
-          name="make"
+          name="make_id"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Make</FormLabel>
               <Select
                 onValueChange={(value) => {
-                  field.onChange;
+                  field.onChange(value);
                   setSelectedMake(value);
-                  console.log(value);
                 }}
                 defaultValue={field.value}
-								value={selectedMake}
+                value={selectedMake}
               >
                 <FormControl>
                   <SelectTrigger>
@@ -130,7 +126,7 @@ const VehicleForm: React.FC<VehicleFormProps> = ({ makesWithModels }) => {
 
         <FormField
           control={form.control}
-          name="model"
+          name="model_id"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Model</FormLabel>
@@ -138,10 +134,10 @@ const VehicleForm: React.FC<VehicleFormProps> = ({ makesWithModels }) => {
                 onValueChange={(value) => {
                   field.onChange(value);
 
-									setSelectedModel(value);
+                  setSelectedModel(value);
                 }}
                 defaultValue={field.value}
-								value={selectedModel}
+                value={selectedModel}
               >
                 <FormControl>
                   <SelectTrigger>
