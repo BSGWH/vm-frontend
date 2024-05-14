@@ -52,5 +52,5 @@ export function getStrapiURL() {
 
 
 export function getRailsURL() {
-  return process.env.RAILS_URL ?? "http://127.0.0.1:3000";
+  return process.env.RAILS_URL ?? "http://127.0.0.1:4000";
 }
