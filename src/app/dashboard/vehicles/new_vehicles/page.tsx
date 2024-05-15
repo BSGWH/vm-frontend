@@ -5,7 +5,7 @@ import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import NewVehicleOptions from "@/components/dashboardComponents/NewVehicleOptions";
 import { CarMakeWithModels } from "@/types/car";
-import { getAllModelsByMake } from "@/lib/db_util";
+import { getAllModelsByMake } from "@/lib/fetch_util_server";
 
 
 const breadcrumbItems = [
