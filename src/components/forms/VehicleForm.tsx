@@ -24,6 +24,7 @@ import { Input } from "@/components/ui/input";
 import { CarMakeWithModels, CarModel } from "@/types/car";
 import { SelectGroup, SelectLabel } from "@radix-ui/react-select";
 import { useEffect, useState } from "react";
+import { usePostRequest } from "@/lib/fetch_util_client";
 
 const FormSchema = z.object({
   make_id: z.string({
@@ -78,11 +79,35 @@ const VehicleForm: React.FC<VehicleFormProps> = ({ makesWithModels }) => {
   }, [selectedModel]);
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
+		const { responseData, postData } = usePostRequest();
     const formData = JSON.stringify(data, null);
 
     console.log(formData);
 
-  }
+		fetch('http://127.0.0.1:4000/vehicles',{
+			method: 'POST', 
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: formData,
+		})
+		.then((response) => {
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
+      // Handle success response here
+      return response.json();
+    })
+    .then((data) => {
+      console.log('Form submitted successfully:', data);
+      // Handle success data here
+    })
+    .catch((error) => {
+      console.error('Error submitting form:', error);
+      // Handle error here
+    });
+  };
+
 
   return (
     <Form {...form}>
