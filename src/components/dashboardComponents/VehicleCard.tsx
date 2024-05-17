@@ -14,7 +14,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle }) => {
         <div className="flex-col p-6 space-y-1 flex md:flex-row gap-8 items-center justify-between">
           <div className="flex items-center flex w-[64px] h-[64px]  px-1 bg-white rounded-full">
             <img
-              src="/car_make_logos/toyota-logo-2020-europe-download.png"
+              src={`/car_make_logos/${vehicle.make_name.replace(/\s+/g, '_').toLowerCase()}.png`}
               alt="Description"
               className="max-w-full max-h-full object-contain"
             />

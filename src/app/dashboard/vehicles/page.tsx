@@ -28,7 +28,7 @@ const vehicles: Vehicle[] = [
   {
     vehicle_id: 1,
     make_id: 1,
-    make_name: "Ford",
+    make_name: "Toyota",
     model_id: 1,
     model_name: "Explorer",
     color: "white",
