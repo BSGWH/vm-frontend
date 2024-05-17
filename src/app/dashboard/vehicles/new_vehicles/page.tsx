@@ -6,6 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import NewVehicleOptions from "@/components/dashboardComponents/NewVehicleOptions";
 import { CarMakeWithModels } from "@/types/car";
 import { getAllModelsByMake } from "@/lib/fetch_util_server";
+import { useRouter } from "next/router";
 
 
 const breadcrumbItems = [
@@ -15,8 +16,8 @@ const breadcrumbItems = [
 
 export default async function page() {
 
-  // const carModelData = await getAllModelsByMake();
-  // const allCarMakes: CarMakeWithModels[] = Object.values(carModelData);
+  const carModelData = await getAllModelsByMake();
+  const allCarMakes: CarMakeWithModels[] = Object.values(carModelData);
 
   return (
     <ScrollArea className="h-full">
@@ -24,7 +25,7 @@ export default async function page() {
         <DashboardBreadcrumb items={breadcrumbItems} />
         <Heading title="Add Vehicles" description="Please select one of the options to add your car" />
         <Separator />
-        {/* <NewVehicleOptions makesWithModels={allCarMakes}/> */}
+        <NewVehicleOptions makesWithModels={allCarMakes}/>
       </div>
     </ScrollArea>
   );

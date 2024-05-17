@@ -25,6 +25,9 @@ import { CarMakeWithModels, CarModel } from "@/types/car";
 import { SelectGroup, SelectLabel } from "@radix-ui/react-select";
 import { useEffect, useState } from "react";
 import { usePostRequest } from "@/lib/fetch_util_client";
+import { getRailsURL } from "@/lib/utils";
+import { useRouter } from 'next/navigation';
+
 
 const FormSchema = z.object({
   make_id: z.string({
@@ -46,9 +49,11 @@ interface VehicleFormProps {
 }
 
 const VehicleForm: React.FC<VehicleFormProps> = ({ makesWithModels }) => {
-  const [selectedMake, setSelectedMake] = useState<string>("");
+  const formRouter = useRouter();
+	const [selectedMake, setSelectedMake] = useState<string>("");
   const [selectedModel, setSelectedModel] = useState<string>("");
-  const [modelOptions, setModelOptions] = useState<CarMakeWithModels[]>(makesWithModels);
+  const [modelOptions, setModelOptions] =
+    useState<CarMakeWithModels[]>(makesWithModels);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -78,36 +83,28 @@ const VehicleForm: React.FC<VehicleFormProps> = ({ makesWithModels }) => {
     }
   }, [selectedModel]);
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-		const { responseData, postData } = usePostRequest();
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
     const formData = JSON.stringify(data, null);
+    const path = "/vehicles";
 
-    console.log(formData);
-
-		fetch('http://127.0.0.1:4000/vehicles',{
-			method: 'POST', 
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: formData,
-		})
-		.then((response) => {
+    try {
+      const response = await fetch(`${getRailsURL()}${path}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: formData,
+      });
       if (!response.ok) {
-        throw new Error('Failed to submit form');
+        throw new Error("Failed to submit form");
       }
-      // Handle success response here
-      return response.json();
-    })
-    .then((data) => {
-      console.log('Form submitted successfully:', data);
-      // Handle success data here
-    })
-    .catch((error) => {
-      console.error('Error submitting form:', error);
-      // Handle error here
-    });
-  };
-
+      const data = await response.json();
+      console.log(data);
+			formRouter.push(`${data.id}`);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
+  }
 
   return (
     <Form {...form}>

@@ -14,13 +14,15 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import VinForm from "../forms/VinForm";
+import { VinForm2 } from "../forms/VinForm";
 import VehicleForm from "../forms/VehicleForm";
 import { CarMakeWithModels } from "@/types/car";
-import React from "react";
+import React from "react"; 
+import { NextRouter } from "next/router";
 
 interface AddMethod {
   title: string;
+	subtitle:string;
   description: string;
   icon: JSX.Element;
   form: JSX.Element;
@@ -33,16 +35,18 @@ interface NewVehicleOptionsProps {
 const NewVehicleOptions: React.FC<NewVehicleOptionsProps> = ({ makesWithModels }) => {
 	const options: AddMethod[] = [
 		{
-			title: "Year Make Model",
-			description: "Enter by year, make and model",
-			icon: <DirectionsCarIcon className="w-14 h-14 fill-primary" />,
-			form: <VehicleForm makesWithModels={makesWithModels}/>,
+			title: "VIN",
+			subtitle: "(Recommended)",
+			description: "Enter the Vehicle Identification Number (VIN), and the vehicle details, such as make, model, and year, will be automatically populated.",
+			icon: <NumbersIcon className="w-14 h-14 fill-primary" />,
+			form: <VinForm2 />,
 		},
 		{
-			title: "VIN",
-			description: "Enter by Vehicle Identification Number",
-			icon: <NumbersIcon className="w-14 h-14 fill-primary" />,
-			form: <VinForm />,
+			title: "Year Make Model",
+			subtitle: "",
+			description: "Enter by year, make and model.",
+			icon: <DirectionsCarIcon className="w-14 h-14 fill-primary" />,
+			form: <VehicleForm makesWithModels={makesWithModels} />,
 		},
 	];
 	
@@ -51,7 +55,7 @@ const NewVehicleOptions: React.FC<NewVehicleOptionsProps> = ({ makesWithModels }
       <Accordion type="single" collapsible className="flex flex-col gap-6">
         {options.map(
           (
-            { icon, title, description, form }: AddMethod,
+            { icon, title,subtitle, description, form }: AddMethod,
             index: number
           ) => (
             <Card key={index}>
@@ -60,7 +64,7 @@ const NewVehicleOptions: React.FC<NewVehicleOptionsProps> = ({ makesWithModels }
                   <CardHeader className="space-y-1 flex md:flex-row justify-start items-start gap-4 items-center">
                     <div className="bg-primary/20 p-2 rounded-full">{icon}</div>
                     <div className="flex flex-col items-start">
-                      <CardTitle>{title}</CardTitle>
+                      <CardTitle>{title} <span className="text-muted-foreground">{subtitle}</span></CardTitle>
                       <CardDescription>{description}</CardDescription>
                     </div>
                   </CardHeader>
