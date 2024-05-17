@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import Modal from "../ui/modal";
 
 const FormSchema = z.object({
   vin: z.string().regex(/^\w{17}$/, {
@@ -25,22 +26,27 @@ const FormSchema = z.object({
 });
 
 export function VinForm2() {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [decodedData, setDecodedData] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+
+  const toggleModal = () => {
+    setModalIsOpen(!modalIsOpen);
+  };
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {},
   });
 
   function processApiData(data: any) {
-
     interface KeyMap {
       [key: string]: string;
     }
-    
+
     const keyMap: KeyMap = {
-      "Make": "make_name",
-      "Model": "model_name",
+      Make: "make_name",
+      Model: "model_name",
       "Model Year": "year",
     };
 
@@ -48,11 +54,14 @@ export function VinForm2() {
       return Object.keys(keyMap).includes(item.Variable);
     });
 
-    const formData: Record<string, string> = filteredData.reduce((acc: Record<string, string>, curr: any) => {
-      const newKey = keyMap[curr.Variable] || curr.Variable; // Use the mapped key if available, otherwise use the original key
-      acc[newKey] = curr.Value;
-      return acc;
-    }, {});
+    const formData: Record<string, string> = filteredData.reduce(
+      (acc: Record<string, string>, curr: any) => {
+        const newKey = keyMap[curr.Variable] || curr.Variable; // Use the mapped key if available, otherwise use the original key
+        acc[newKey] = curr.Value;
+        return acc;
+      },
+      {}
+    );
 
     return formData;
   }
@@ -64,24 +73,42 @@ export function VinForm2() {
     const vin = data.vin;
 
     try {
-      const response = await fetch(
-        `https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinExtended/${vin}?format=json`
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
-
-      const data = await response.json();
-      setDecodedData(data);
-      setError(null);
-      console.log("Decoded data:", data);
-      const processedData = processApiData(data.Results)
-      console.log(processedData);
+      const res = await fetch("http://localhost:4000/vehicles/vin_lookup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({"vin": vin }),})
+        if (res.ok) {
+          const data = await res.json();
+          console.log(data)
+        } else {
+          throw new Error("Failed to submit data")
+        }
+      
     } catch (error) {
-      setError("Failed to fetch data. Please try again.");
       console.error("Error fetching data:", error);
     }
+
+    
+
+    // try {
+    //   const response = await fetch(
+    //     `https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinExtended/${vin}?format=json`
+    //   );
+
+    //   if (!response.ok) {
+    //     throw new Error("Failed to fetch data");
+    //   }
+
+    //   const data = await response.json();
+    //   setDecodedData(data);
+    //   setError(null);
+    //   console.log("Decoded data:", data);
+    //   const processedData = processApiData(data.Results)
+    //   console.log(processedData);
+    // } catch (error) {
+    //   setError("Failed to fetch data. Please try again.");
+    //   console.error("Error fetching data:", error);
+    // }
   }
 
   return (
@@ -140,6 +167,11 @@ export function VinForm2() {
           </table>
         </div>
       )}
+      <Button onClick={toggleModal}>Open</Button>
+      <Modal isOpen={modalIsOpen} toggleModal={toggleModal}>
+        <h2>Modal Content</h2>
+        {/* <p>This is the content of the modal.</p> */}
+      </Modal>
     </div>
   );
 }
