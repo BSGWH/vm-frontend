@@ -65,7 +65,7 @@ const NewVehicleOptions: React.FC<NewVehicleOptionsProps> = ({ makesWithModels }
                     <div className="bg-primary/20 p-2 rounded-full">{icon}</div>
                     <div className="flex flex-col items-start">
                       <CardTitle>{title} <span className="text-muted-foreground">{subtitle}</span></CardTitle>
-                      <CardDescription>{description}</CardDescription>
+                      <CardDescription className="text-left">{description}</CardDescription>
                     </div>
                   </CardHeader>
                 </AccordionTrigger>

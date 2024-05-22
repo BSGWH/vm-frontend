@@ -1,6 +1,7 @@
 // components/Modal.tsx
 import React from "react";
 import { Button } from "./button";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 interface ModalProps {
   isOpen: boolean;
@@ -17,15 +18,17 @@ const Modal: React.FC<ModalProps> = ({ isOpen, toggleModal, children }) => {
       onClick={toggleModal}
     >
       <div
-        className="relative modal-content bg-background rounded-lg p-8 max-w-md"
+        className="relative modal-content bg-background rounded-lg p-4 max-w-md"
         onClick={(e) => e.stopPropagation()}
       >
-        <span
+        <div
           className="modal-close absolute top-0 right-0 mt-2 mr-2 text-gray-500 cursor-pointer"
           onClick={toggleModal}
         >
-          Close
-        </span>
+          <Button variant="ghost" className="p-2">
+            <CloseOutlinedIcon />
+          </Button>
+        </div>
         {children}
       </div>
     </div>

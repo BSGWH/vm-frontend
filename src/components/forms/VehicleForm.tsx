@@ -24,7 +24,6 @@ import { Input } from "@/components/ui/input";
 import { CarMakeWithModels, CarModel } from "@/types/car";
 import { SelectGroup, SelectLabel } from "@radix-ui/react-select";
 import { useEffect, useState } from "react";
-import { usePostRequest } from "@/lib/fetch_util_client";
 import { getRailsURL } from "@/lib/utils";
 import { useRouter } from 'next/navigation';
 

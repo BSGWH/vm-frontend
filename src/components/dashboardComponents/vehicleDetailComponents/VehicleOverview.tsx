@@ -5,7 +5,7 @@ import CollapsibleHeader from "./CollapsibleHeader";
 export default function VehicleOverview() {
 
   return (
-    <CollapsibleHeader title="Overview">
+    <CollapsibleHeader title="Overview ">
       <div className="pt-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 py-2 max-w-[500px] lg:max-w-[1000px]">
           <div className="grid grid-cols-2 py-2  ">

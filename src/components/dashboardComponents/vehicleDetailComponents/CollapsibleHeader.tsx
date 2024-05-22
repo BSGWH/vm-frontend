@@ -1,6 +1,6 @@
 import * as React from "react";
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 import {
   Collapsible,
@@ -13,15 +13,14 @@ interface CollapsibleHeaderProps {
   children: React.ReactNode;
 }
 
-export default function CollapsibleHeader({ title, children }: CollapsibleHeaderProps) {
+export default function CollapsibleHeader({
+  title,
+  children,
+}: CollapsibleHeaderProps) {
   const [isOpen, setIsOpen] = React.useState(true);
 
   return (
-    <Collapsible
-      open={isOpen}
-      onOpenChange={setIsOpen}
-      className=""
-    >
+    <Collapsible open={isOpen} onOpenChange={setIsOpen} className="">
       <div className="border-b-2 bg-card text-card-foreground w-full p-8">
         <div className="flex items-center justify-between">
           <h3 className="text-2xl font-semibold leading-none tracking-tight">
@@ -35,7 +34,11 @@ export default function CollapsibleHeader({ title, children }: CollapsibleHeader
             )}
           </CollapsibleTrigger>
         </div>
-        <CollapsibleContent className="space-y-2">
+        <CollapsibleContent
+          className={`space-y-2 overflow-hidden transition-max-height duration-500 ease-in-out ${
+            isOpen ? "max-h-screen" : "max-h-0"
+          }`}
+        >
           {children}
         </CollapsibleContent>
       </div>
