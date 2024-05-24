@@ -16,7 +16,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { ZodErrors } from "@/components/authenticationComponents/ZodErrors";
-import { StrapiErrors } from "@/components/authenticationComponents/StrapiErrors";
+import { StrapiErrors } from "@/components/authenticationComponents/RailsErrors";
 import { SubmitButton } from "@/components/authenticationComponents/SubmitButton";
 
 const INITIAL_STATE = {

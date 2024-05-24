@@ -15,13 +15,14 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { ZodErrors } from "@/components/authenticationComponents/ZodErrors";
-import { StrapiErrors } from "@/components/authenticationComponents/StrapiErrors";
+import { RailsErrors } from "@/components/authenticationComponents/RailsErrors";
 import { SubmitButton } from "@/components/authenticationComponents/SubmitButton";
 
 const INITIAL_STATE = {
   data: null,
   ZodErrors: null,
   message: null,
+  railsErrors: null,
 };
 
 export function SignupForm() {
@@ -41,16 +42,6 @@ export function SignupForm() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="username">Username</Label>
-              <Input
-                id="username"
-                name="username"
-                type="text"
-                placeholder="username"
-              />
-              <ZodErrors error={formState?.zodErrors?.username} />
-            </div>
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -89,7 +80,7 @@ export function SignupForm() {
               text="Sign Up"
               loadingText="Loading"
             />
-            <StrapiErrors error={formState?.strapiErrors} />
+            <RailsErrors error={{ errors: formState?.railsErrors }} />
           </CardFooter>
         </Card>
         <div className="mt-4 text-center text-sm">

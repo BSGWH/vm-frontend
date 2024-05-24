@@ -17,14 +17,7 @@ const config = {
 };
 
 const schemaRegister = z.object({
-  username: z
-  .string()
-  .min(3, {
-    message: "Username must be between 3 and 30 characters",
-  })
-  .max(30, {
-    message: "Username must be between 3 and 30 characters",
-  }),
+
   password: z
   .string()
   .min(6, {
@@ -48,7 +41,6 @@ const schemaRegister = z.object({
 
 export async function registerUserAction(prevState: any, formData: FormData) {
   const validatedFields = schemaRegister.safeParse({
-    username: formData.get("username"),
     password: formData.get("password"),
     email: formData.get("email"),
     confirmPassword: formData.get("confirmPassword")
@@ -58,33 +50,46 @@ export async function registerUserAction(prevState: any, formData: FormData) {
     return {
       ...prevState,
       zodErrors: validatedFields.error.flatten().fieldErrors,
-      strapiErrors: null,
+      railsErrors: null,
       message: "Missing Fields. Failed to Register.",
     };
   }
 
-  const responseData = await registerUserService(validatedFields.data);
+  const userPayload = {
+    user: {
+      email: validatedFields.data.email,
+      password: validatedFields.data.password,
+      password_confirmation: validatedFields.data.confirmPassword,
+    }
+  };
 
+
+  const responseData = await registerUserService(userPayload);
+  console.log(responseData)
+  console.log(responseData.errors)
   if (!responseData) {
     return {
       ...prevState,
-      strapiErrors: null,
+      railsErrors: null,
       zodErrors: null,
       message: "Ops! Something went wrong. Please try again.",
     };
   }
 
-  if (responseData.error) {
+  if (responseData.errors) {
     return {
       ...prevState,
-      strapiErrors: responseData.error,
+      railsErrors: responseData.errors,
       zodErrors: null,
       message: "Failed to Register.",
     };
   }
+  if (responseData.message === 'Signed up successfully') {
 
-  cookies().set("jwt", responseData.jwt, config);
-  redirect("/dashboard");
+    // Only when we set the response with a jwt for signup we need the next line of code
+    // cookies().set("jwt", responseData.jwt, config);
+    redirect("/dashboard");
+  } 
 }
 
 const schemaLogin = z.object({

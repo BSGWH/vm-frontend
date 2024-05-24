@@ -1,9 +1,12 @@
-import { getStrapiURL } from "@/lib/utils";
+import { getRailsURL, getStrapiURL } from "@/lib/utils";
 
 interface RegisterUserProps {
-  username: string;
-  password: string;
-  email: string;
+  user: {
+    password: string;
+    email: string;
+    password_confirmation: string;
+  }
+
 }
 
 interface LoginUserProps {
@@ -11,10 +14,10 @@ interface LoginUserProps {
   password: string;
 }
 
-const baseUrl = getStrapiURL();
+const baseUrl = getRailsURL();
 
 export async function registerUserService(userData: RegisterUserProps) {
-  const url = new URL("/api/auth/local/register", baseUrl);
+  const url = new URL("/api/v1/user/register", baseUrl);
 
   try {
     const response = await fetch(url, {
@@ -33,7 +36,7 @@ export async function registerUserService(userData: RegisterUserProps) {
 }
 
 export async function loginUserService(userData: LoginUserProps) {
-  const url = new URL("/api/auth/local", baseUrl);
+  const url = new URL("/api/v1/user/login", baseUrl);
 
   try {
     const response = await fetch(url, {
