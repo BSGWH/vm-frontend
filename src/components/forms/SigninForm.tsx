@@ -16,12 +16,12 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { ZodErrors } from "@/components/authenticationComponents/ZodErrors";
-import { StrapiErrors } from "@/components/authenticationComponents/RailsErrors";
+import { RailsErrors } from "@/components/authenticationComponents/RailsErrors";
 import { SubmitButton } from "@/components/authenticationComponents/SubmitButton";
 
 const INITIAL_STATE = {
   zodErrors: null,
-  strapiErrors: null,
+  railsErrors: null,
   data: null,
   message: null,
 };
@@ -66,7 +66,7 @@ export function SigninForm() {
               text="Sign In"
               loadingText="Loading"
             />
-            <StrapiErrors error={formState?.strapiErrors} />
+            <RailsErrors error={formState?.railsErrors} />
           </CardFooter>
         </Card>
         <div className="mt-4 text-center text-sm">

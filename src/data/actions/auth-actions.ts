@@ -126,7 +126,7 @@ export async function loginUserAction(prevState: any, formData: FormData) {
   if (!responseData) {
     return {
       ...prevState,
-      strapiErrors: responseData.error,
+      railsErrors: responseData.error,
       zodErrors: null,
       message: "Ops! Something went wrong. Please try again.",
     };
@@ -135,7 +135,7 @@ export async function loginUserAction(prevState: any, formData: FormData) {
   if (responseData.error) {
     return {
       ...prevState,
-      strapiErrors: responseData.error,
+      railsErrors: responseData.error,
       zodErrors: null,
       message: "Failed to Login.",
     };
