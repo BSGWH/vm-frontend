@@ -11,6 +11,18 @@ export const navItems: NavItem[] = [
     label: "Dashboard",
   },
   {
+    title: "Profile",
+    href: "/dashboard/profile",
+    icon: "Profile",
+    label: "profile",
+  },
+  {
+    title: "Addresses",
+    href: "/dashboard/addresses",
+    icon: "Addresses",
+    label: "addresses",
+  },
+  {
     title: "My Vehicles",
     href: "/dashboard/vehicles",
     icon: "MyVehicles",
@@ -40,12 +52,4 @@ export const navItems: NavItem[] = [
     icon: "Settings",
     label: "Settings",
   },
-  {
-    title: "Profile",
-    href: "/dashboard/profile",
-    icon: "Profile",
-    label: "profile",
-  },
-  
-  
 ];

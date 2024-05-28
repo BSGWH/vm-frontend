@@ -5,8 +5,8 @@ import TableRowsIcon from '@mui/icons-material/TableRows';
 import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PersonIcon from '@mui/icons-material/Person';
+import AddressesIcon from '@mui/icons-material/LocationOn';
 import { SvgIconComponent } from '@mui/icons-material';
-
 
   
   export type Icon = SvgIconComponent;
@@ -18,5 +18,6 @@ import { SvgIconComponent } from '@mui/icons-material';
     Logs: TableRowsIcon,
     Insights:AutoGraphIcon,
     Settings:SettingsIcon,
-    Profile:PersonIcon
+    Profile:PersonIcon,
+    Addresses: AddressesIcon
   };

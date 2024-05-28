@@ -47,7 +47,7 @@ export function ProfileForm() {
 			last_name: "Bill",
 			email: "robert@bostonauto.com",
 			phone_number: "617-555-2180",
-			address: "Home Address: 180 Franklin Street, Boston MA"
+			address: "180 Franklin Street, Boston MA"
 
     },
   })
@@ -76,7 +76,6 @@ export function ProfileForm() {
                 <Input placeholder="enter your username..." {...field} />
               </FormControl>
               <FormDescription>
-                This is your public display name.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -140,21 +139,8 @@ export function ProfileForm() {
             </FormItem>
           )}
         />
-
-				<FormField
-          control={form.control}
-          name="address"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Address</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter address" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Submit</Button>
+        
+        <Button type="submit">Save</Button>
       </form>
     </Form>
   )
