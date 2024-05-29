@@ -102,14 +102,14 @@ const schemaLogin = z.object({
       message: "Password must be between 6 and 30 characters",
     }),
 
-  identifier: z.string().email({
+  email: z.string().email({
     message: "Please enter a valid email address",
   }),
 });
 
 export async function loginUserAction(prevState: any, formData: FormData) {
   const validatedFields = schemaLogin.safeParse({
-    identifier: formData.get("identifier"),
+    email: formData.get("identifier"),
     password: formData.get("password"),
   });
 
@@ -121,7 +121,16 @@ export async function loginUserAction(prevState: any, formData: FormData) {
     };
   }
 
-  const responseData = await loginUserService(validatedFields.data);
+  console.log(validatedFields.data)
+  const userEmailAndPassword = {
+    user: {
+      email: validatedFields.data.email,
+      password: validatedFields.data.password,
+
+    }
+  };
+
+  const responseData = await loginUserService(userEmailAndPassword);
 
   if (!responseData) {
     return {

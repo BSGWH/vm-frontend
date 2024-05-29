@@ -10,8 +10,11 @@ interface RegisterUserProps {
 }
 
 interface LoginUserProps {
-  identifier: string;
-  password: string;
+  user: {
+    email: string;
+    password: string;
+  }
+
 }
 
 const baseUrl = getRailsURL();
