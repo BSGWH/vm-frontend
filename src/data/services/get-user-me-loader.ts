@@ -10,13 +10,15 @@ export async function getUserMeLoader() {
   const baseUrl = getRailsURL();
 
   const url = new URL("api/v1/users/me", baseUrl);
+
+
   url.search = query;
 
   const authToken = await getAuthToken();
   if (!authToken) return { ok: false, data: null, error: null };
 
   try {
-    console.log(url)
+    
     const response = await fetch(url.href, {
       method: "GET",
       headers: {

@@ -1,5 +1,5 @@
 "use server";
-import { z } from "zod";
+import { z, ZodError } from "zod";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -7,6 +7,7 @@ import {
   registerUserService,
   loginUserService,
 } from "@/data/services/service-auth";
+
 
 const config = {
   maxAge: 60 * 60 * 24 * 7, // 1 week
@@ -65,8 +66,7 @@ export async function registerUserAction(prevState: any, formData: FormData) {
 
 
   const responseData = await registerUserService(userPayload);
-  console.log(responseData)
-  console.log(responseData.errors)
+
   if (!responseData) {
     return {
       ...prevState,
@@ -84,12 +84,23 @@ export async function registerUserAction(prevState: any, formData: FormData) {
       message: "Failed to Register.",
     };
   }
-  if (responseData.message === 'Signed up successfully') {
+  // if (responseData.message === 'Signed up successfully') {
 
-    // Only when we set the response with a jwt for signup we need the next line of code
-    // cookies().set("jwt", responseData.jwt, config);
-    redirect("/dashboard");
-  } 
+  //   // Only when we set the response with a jwt for signup we need the next line of code
+  //   // cookies().set("jwt", responseData.jwt, config);
+
+  //   // redirect("/signin");
+  // }
+  if (responseData.message) {
+    return {
+      ...prevState,
+      railsErrors: null,
+      zodErrors: null,
+      message: responseData.message,
+      success: true,
+      data: { email: validatedFields.data.email }, // Only for the resend confirmation
+    };
+  }
 }
 
 const schemaLogin = z.object({
@@ -108,12 +119,15 @@ const schemaLogin = z.object({
 });
 
 export async function loginUserAction(prevState: any, formData: FormData) {
+
   const validatedFields = schemaLogin.safeParse({
-    email: formData.get("identifier"),
+    email: formData.get("email"),
     password: formData.get("password"),
   });
 
+
   if (!validatedFields.success) {
+
     return {
       ...prevState,
       zodErrors: validatedFields.error.flatten().fieldErrors,
@@ -121,7 +135,9 @@ export async function loginUserAction(prevState: any, formData: FormData) {
     };
   }
 
-  console.log(validatedFields.data)
+
+
+
   const userEmailAndPassword = {
     user: {
       email: validatedFields.data.email,
@@ -130,31 +146,45 @@ export async function loginUserAction(prevState: any, formData: FormData) {
     }
   };
 
-  const responseData = await loginUserService(userEmailAndPassword);
+  try {
+    const responseData = await loginUserService(userEmailAndPassword);
 
-  if (!responseData) {
+  
+    if (!responseData.ok) {
+      
+      return {
+        ...prevState,
+        railsErrors: responseData.error,
+        zodErrors: null,
+        message: "Failed to Login.",
+      };
+    }
+  
+    else {
+      cookies().set("jwt", responseData.jwt);
+      return {
+        ...prevState,
+        railsErrors: null,
+        zodErrors: null,
+        success: true,
+      }
+    }
+
+
+
+    // window.location.reload()
+    // window.location.href = "/dashboard";
+
+  } catch (error) {
     return {
       ...prevState,
-      railsErrors: responseData.error,
-      zodErrors: null,
-      message: "Ops! Something went wrong. Please try again.",
+      railsErrors: null,
+      message: "An unexpected error occurred. Please try again later.",
     };
-  }
-
-  if (responseData.error) {
-    return {
-      ...prevState,
-      railsErrors: responseData.error,
-      zodErrors: null,
-      message: "Failed to Login.",
-    };
-  }
-
-  cookies().set("jwt", responseData.jwt);
-  redirect("/dashboard");
+  } 
 }
 
 export async function logoutAction() {
   cookies().set("jwt", "", { ...config, maxAge: 0 });
-  redirect("/");
+  redirect("/signin");
 }

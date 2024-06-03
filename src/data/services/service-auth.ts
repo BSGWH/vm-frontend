@@ -6,7 +6,6 @@ interface RegisterUserProps {
     email: string;
     password_confirmation: string;
   }
-
 }
 
 interface LoginUserProps {
@@ -14,7 +13,10 @@ interface LoginUserProps {
     email: string;
     password: string;
   }
+}
 
+interface ResendProps {
+    email: string;
 }
 
 const baseUrl = getRailsURL();
@@ -51,9 +53,35 @@ export async function loginUserService(userData: LoginUserProps) {
       cache: "no-cache",
     });
 
-    return response.json();
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      const jsonResponse = await response.json();
+      return { ...jsonResponse, ok: response.ok };
+    } else {
+      const textResponse = await response.text();
+      return { error: textResponse, ok: response.ok };
+    }
   } catch (error) {
     console.error("Login Service Error:", error);
     throw error;
+  }
+}
+
+export async function resendConfirmation(userData: ResendProps) {
+  const url = new URL("/api/v1/resend_confirmation", baseUrl);
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...userData }),
+      cache: "no-cache",
+    });
+    console.log('Resend sent')
+    return response.json();
+  } catch (error) {
+    console.error("Resend confirmation Error:", error);
   }
 }

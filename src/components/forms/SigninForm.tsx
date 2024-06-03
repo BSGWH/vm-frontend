@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useFormState } from "react-dom";
 import { loginUserAction } from "@/data/actions/auth-actions";
-
+import React, { useEffect, useState } from "react";
 import {
   CardTitle,
   CardDescription,
@@ -12,22 +12,31 @@ import {
   CardFooter,
   Card,
 } from "@/components/ui/card";
-
+import { useRouter } from "next/navigation";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { ZodErrors } from "@/components/authenticationComponents/ZodErrors";
 import { RailsErrors } from "@/components/authenticationComponents/RailsErrors";
 import { SubmitButton } from "@/components/authenticationComponents/SubmitButton";
+import { RailsErrorsLogin } from "../authenticationComponents/RailsErrorslogin";
 
 const INITIAL_STATE = {
   zodErrors: null,
   railsErrors: null,
   data: null,
   message: null,
+  success: false,
 };
 
 export function SigninForm() {
   const [formState, formAction] = useFormState(loginUserAction, INITIAL_STATE);
+  const router = useRouter();
+  useEffect(() => {
+    if (formState.success) {
+      router.push("/dashboard");
+    }
+  }, [formState.success, router]);
+
   return (
     <div className="w-full max-w-md">
       <form action={formAction}>
@@ -41,13 +50,8 @@ export function SigninForm() {
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
-              <Input
-                id="identifier"
-                name="identifier"
-                type="text"
-                placeholder="username or email"
-              />
-              <ZodErrors error={formState?.zodErrors?.identifier} />
+              <Input id="email" name="email" type="text" placeholder="email" />
+              <ZodErrors error={formState?.zodErrors?.email} />
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
@@ -57,7 +61,7 @@ export function SigninForm() {
                 type="password"
                 placeholder="password"
               />
-              <ZodErrors error={formState.zodErrors?.password} />
+              <ZodErrors error={formState?.zodErrors?.password} />
             </div>
           </CardContent>
           <CardFooter className="flex flex-col">
@@ -66,7 +70,7 @@ export function SigninForm() {
               text="Sign In"
               loadingText="Loading"
             />
-            <RailsErrors error={formState?.railsErrors} />
+            <RailsErrorsLogin error={{ errors: formState?.railsErrors }} />
           </CardFooter>
         </Card>
         <div className="mt-4 text-center text-sm">
