@@ -1,50 +1,26 @@
 "use client";
-
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, useFieldArray } from "react-hook-form";
 import { z } from "zod";
-
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
 import { Delete as DeleteIcon } from "@mui/icons-material";
-import {
-  Box,
-  IconButton,
-  Typography,
-  Select,
-  MenuItem,
-} from "@mui/material";
+import { Box, IconButton, Typography, Select, MenuItem } from "@mui/material";
+import AddressAutocomplete from "@/components/dashboardComponents/AddessAutocomplete";
 
 const FormSchema = z.object({
   addresses: z
     .array(
       z.object({
-        state: z.string().min(2, {
-          message: "State must be at least 2 characters.",
-        }),
-        city: z.string().min(2, {
-          message: "City must be at least 2 characters.",
-        }),
-        addressline1: z.string().min(5, {
-          message: "Street must be at least 5 characters.",
-        }),
+        state: z.string().min(2, { message: "State must be at least 2 characters." }),
+        city: z.string().min(2, { message: "City must be at least 2 characters." }),
+        addressline1: z.string().min(5, { message: "Street must be at least 5 characters." }),
         addressline2: z.string().optional(),
-        zip: z.string().min(4, {
-          message: "Zip code must be at least 4 characters.",
-        }),
-        tag: z.string().min(2, {
-          message: "Tag must be at least 2 characters.",
-        }),
+        zip: z.string().regex(/^\d{5}$/, { message: "Zip code must be exactly 5 digits." }),
+        tag: z.string().min(2, { message: "Tag must be at least 2 characters." }).nonempty("Tag is required."),
       })
     )
     .nonempty("Must have at least one address."),
@@ -59,7 +35,7 @@ const USStates = [
 ];
 
 export function AddressesForm() {
-  const form = useForm<z.infer<typeof FormSchema>>({
+  const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       addresses: [
@@ -73,6 +49,7 @@ export function AddressesForm() {
         },
       ],
     },
+    mode: 'onChange' // Ensure validation is triggered on change
   });
 
   const { fields, append, remove } = useFieldArray({
@@ -80,7 +57,7 @@ export function AddressesForm() {
     name: "addresses",
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  function onSubmit(data: any) {
     toast({
       title: "You submitted the following values:",
       description: (
@@ -102,7 +79,6 @@ export function AddressesForm() {
     });
   };
 
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
@@ -116,7 +92,7 @@ export function AddressesForm() {
                 <IconButton
                   color="secondary"
                   onClick={() => remove(index)}
-                  disabled={fields.length === 1} // in case delete all the addresses
+                  disabled={fields.length === 1}
                 >
                   <DeleteIcon />
                 </IconButton>
@@ -129,7 +105,10 @@ export function AddressesForm() {
                     <FormItem className="flex-1">
                       <FormLabel>Address Line 1</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter address line 1" {...field} />
+                        <AddressAutocomplete
+                          value={field.value}
+                          onChange={(newAddress: { state: string; city: string; addressline1: string; addressline2: string; zip: string; tag: string; }) => form.setValue(`addresses.${index}`, newAddress)}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -176,7 +155,7 @@ export function AddressesForm() {
                           labelId={`addresses.${index}.state-label`}
                           {...field}
                           label="State"
-                          sx={{ height: '40px', display: 'flex', alignItmes: 'center'}}
+                          sx={{ height: '40px', display: 'flex', alignItems: 'center' }}
                         >
                           {USStates.map((state) => (
                             <MenuItem key={state} value={state}>
@@ -216,7 +195,6 @@ export function AddressesForm() {
                   )}
                 />
               </Box>
-
             </Box>
           ))}
           <Button
