@@ -55,3 +55,33 @@ export const navItems: NavItem[] = [
   
   
 ];
+
+
+export const providerNavItems: NavItem[]= [
+  {
+    title: "My Dashboard",
+    href: "/provider/dashboard-provider",
+    icon: "dashboard",
+    label: "My Dashboard",
+  },
+
+  {
+    title: "Service",
+    href: "/provider/dashboard-provider/provider-service",
+    icon: "Service",
+    label: "Service",
+  },
+
+  {
+    title: "Settings",
+    href: "/provider/dashboard-provider/settings",
+    icon: "Settings",
+    label: "Settings",
+  },
+  {
+    title: "Profile",
+    href: "/provider/dashboard-provider/profile",
+    icon: "Profile",
+    label: "profile",
+  },
+]

@@ -1,20 +1,20 @@
-import { getUserAuthToken } from "./get-token";
-import { getRailsURL, getStrapiURL } from "@/lib/utils";
+import { getProviderAuthToken } from "./get-token";
+import { getRailsURL } from "@/lib/utils";
 import qs from "qs";
 
 const query = qs.stringify({
   populate: { image: { fields: ["url", "alternativeText"] } },
 });
 
-export async function getUserMeLoader() {
+export async function getProviderMeLoader() {
   const baseUrl = getRailsURL();
 
-  const url = new URL("api/v1/users/me", baseUrl);
+  const url = new URL("api/v1/providers/me", baseUrl);
 
 
   url.search = query;
 
-  const authToken = await getUserAuthToken();
+  const authToken = await getProviderAuthToken();
   if (!authToken) return { ok: false, data: null, error: null };
 
   try {
