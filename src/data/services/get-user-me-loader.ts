@@ -1,4 +1,4 @@
-import { getAuthToken } from "./get-token";
+import { getUserAuthToken } from "./get-token";
 import { getRailsURL, getStrapiURL } from "@/lib/utils";
 import qs from "qs";
 
@@ -14,7 +14,7 @@ export async function getUserMeLoader() {
 
   url.search = query;
 
-  const authToken = await getAuthToken();
+  const authToken = await getUserAuthToken();
   if (!authToken) return { ok: false, data: null, error: null };
 
   try {

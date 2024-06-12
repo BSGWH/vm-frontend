@@ -11,9 +11,14 @@ import { Dispatch, SetStateAction } from "react";
 interface DashboardNavProps {
   items: NavItem[];
   setOpen?: Dispatch<SetStateAction<boolean>>;
+  isMobileNav?: boolean;
 }
 
-export function DashboardNav({ items, setOpen }: DashboardNavProps) {
+export function ProviderDashboardSidebarNav({
+  items,
+  setOpen,
+  isMobileNav = false,
+}: DashboardNavProps) {
   const path = usePathname();
 
   if (!items?.length) {

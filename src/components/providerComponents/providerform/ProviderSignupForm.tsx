@@ -31,7 +31,7 @@ import { Input } from "@/components/ui/input";
 import { ZodErrors } from "@/components/authenticationComponents/ZodErrors";
 import { RailsErrors } from "@/components/authenticationComponents/RailsErrors";
 import { SubmitButton } from "@/components/authenticationComponents/SubmitButton";
-import { Message } from "../authenticationComponents/Message";
+import { Message } from "../../authenticationComponents/Message";
 import { resendProviderConfirmation } from "@/data/services/provider-service-auth";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";

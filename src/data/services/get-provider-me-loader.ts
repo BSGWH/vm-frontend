@@ -1,4 +1,4 @@
-import { getAuthToken } from "./get-token";
+import { getProviderAuthToken } from "./get-token";
 import { getRailsURL } from "@/lib/utils";
 import qs from "qs";
 
@@ -14,7 +14,7 @@ export async function getProviderMeLoader() {
 
   url.search = query;
 
-  const authToken = await getAuthToken();
+  const authToken = await getProviderAuthToken();
   if (!authToken) return { ok: false, data: null, error: null };
 
   try {

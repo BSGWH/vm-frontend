@@ -168,7 +168,7 @@ export async function loginUserAction(prevState: any, formData: FormData) {
     }
   
     else {
-      cookies().set("jwt", responseData.jwt, config);
+      cookies().set("jwt-user", responseData.jwt, config);
       return {
         ...prevState,
         railsErrors: null,
@@ -194,6 +194,6 @@ export async function loginUserAction(prevState: any, formData: FormData) {
 // User log out
 
 export async function logoutAction() {
-  cookies().set("jwt", "", { ...config, maxAge: 0 });
+  cookies().set("jwt-user", "", { ...config, maxAge: 0 });
   redirect("/signin");
 }

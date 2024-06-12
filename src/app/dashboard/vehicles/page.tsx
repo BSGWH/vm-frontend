@@ -12,7 +12,7 @@ export default function page() {
     <ScrollArea className="h-full">
       <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
         <DashboardBreadcrumb items={breadcrumbItems} />
-        <Heading title="My Vecicles" description="Manage my vehicles" />
+        <Heading title="My Vehicles" description="Manage my vehicles" />
         <Separator />
         <Button>
           <Link href="/dashboard/vehicles/new_vehicles">Add a vehicle</Link>

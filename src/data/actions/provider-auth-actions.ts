@@ -168,7 +168,7 @@ export async function loginProviderAction(prevState: any, formData: FormData) {
     }
   
     else {
-      cookies().set("jwt", responseData.jwt, config);
+      cookies().set("jwt-provider", responseData.jwt, config);
       return {
         ...prevState,
         railsErrors: null,
@@ -193,7 +193,7 @@ export async function loginProviderAction(prevState: any, formData: FormData) {
 
 // Provider log out
 
-export async function logoutAction() {
-  cookies().set("jwt", "", { ...config, maxAge: 0 });
+export async function logoutProviderAction() {
+  cookies().set("jwt-provider", "", { ...config, maxAge: 0 });
   redirect("/provider/signin");
 }
