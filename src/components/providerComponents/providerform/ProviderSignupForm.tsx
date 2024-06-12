@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { registerUserAction } from "@/data/actions/auth-actions";
+import { registerProviderAction } from "@/data/actions/provider-auth-actions";
 import { useFormState } from "react-dom";
 import {
   CardTitle,
@@ -31,8 +31,8 @@ import { Input } from "@/components/ui/input";
 import { ZodErrors } from "@/components/authenticationComponents/ZodErrors";
 import { RailsErrors } from "@/components/authenticationComponents/RailsErrors";
 import { SubmitButton } from "@/components/authenticationComponents/SubmitButton";
-import { Message } from "../authenticationComponents/Message";
-import { resendConfirmation } from "@/data/services/service-auth";
+import { Message } from "../../authenticationComponents/Message";
+import { resendProviderConfirmation } from "@/data/services/provider-service-auth";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -44,9 +44,9 @@ const INITIAL_STATE = {
   success: false,
 };
 
-export function SignupForm() {
+export function ProviderSignupForm() {
   const [formState, formAction] = useFormState(
-    registerUserAction,
+    registerProviderAction,
     INITIAL_STATE
   );
 
@@ -67,7 +67,7 @@ export function SignupForm() {
           <CardHeader className="space-y-1">
             <CardTitle className="text-3xl font-bold">Sign Up</CardTitle>
             <CardDescription>
-              Enter your details to create a new account
+              Enter your details to create a new provider account
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -127,7 +127,9 @@ export function SignupForm() {
                     onClick={async () => {
                       const email = formState?.data?.email;
                       if (email) {
-                        const result = await resendConfirmation({ email });
+                        const result = await resendProviderConfirmation({
+                          email,
+                        });
                         if (result.error) {
                           toast.error(result.error);
                         } else {
@@ -140,7 +142,7 @@ export function SignupForm() {
                   </AlertDialogCancel>
                   <AlertDialogAction
                     onClick={() => {
-                      router.push("/signin");
+                      router.push("/provider/signin");
                     }}
                   >
                     Sign in

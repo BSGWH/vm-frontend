@@ -4,9 +4,9 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 import {
-  registerUserService,
-  loginUserService,
-} from "@/data/services/service-auth";
+  registerProviderService,
+  loginProviderService,
+} from "@/data/services/provider-service-auth";
 
 
 const config = {
@@ -17,7 +17,7 @@ const config = {
   secure: process.env.NODE_ENV === "production",
 };
 
-// User sign up
+// Provider sign up
 
 const schemaRegister = z.object({
 
@@ -44,7 +44,7 @@ const schemaRegister = z.object({
 
 
 
-export async function registerUserAction(prevState: any, formData: FormData) {
+export async function registerProviderAction(prevState: any, formData: FormData) {
   const validatedFields = schemaRegister.safeParse({
     password: formData.get("password"),
     email: formData.get("email"),
@@ -61,7 +61,7 @@ export async function registerUserAction(prevState: any, formData: FormData) {
   }
 
   const userPayload = {
-    user: {
+    provider: {
       email: validatedFields.data.email,
       password: validatedFields.data.password,
       password_confirmation: validatedFields.data.confirmPassword,
@@ -69,7 +69,7 @@ export async function registerUserAction(prevState: any, formData: FormData) {
   };
 
   console.log(userPayload)
-  const responseData = await registerUserService(userPayload);
+  const responseData = await registerProviderService(userPayload);
   console.log(responseData.message)
   if (!responseData) {
     return {
@@ -108,7 +108,7 @@ export async function registerUserAction(prevState: any, formData: FormData) {
 }
 
 
-// User sign in
+// Provider sign in
 
 const schemaLogin = z.object({
   password: z
@@ -125,7 +125,7 @@ const schemaLogin = z.object({
   }),
 });
 
-export async function loginUserAction(prevState: any, formData: FormData) {
+export async function loginProviderAction(prevState: any, formData: FormData) {
 
   const validatedFields = schemaLogin.safeParse({
     email: formData.get("email"),
@@ -146,7 +146,7 @@ export async function loginUserAction(prevState: any, formData: FormData) {
 
 
   const userEmailAndPassword = {
-    user: {
+    provider: {
       email: validatedFields.data.email,
       password: validatedFields.data.password,
 
@@ -154,7 +154,7 @@ export async function loginUserAction(prevState: any, formData: FormData) {
   };
 
   try {
-    const responseData = await loginUserService(userEmailAndPassword);
+    const responseData = await loginProviderService(userEmailAndPassword);
 
   
     if (!responseData.ok) {
@@ -168,7 +168,7 @@ export async function loginUserAction(prevState: any, formData: FormData) {
     }
   
     else {
-      cookies().set("jwt-user", responseData.jwt, config);
+      cookies().set("jwt-provider", responseData.jwt, config);
       return {
         ...prevState,
         railsErrors: null,
@@ -191,9 +191,9 @@ export async function loginUserAction(prevState: any, formData: FormData) {
   } 
 }
 
-// User log out
+// Provider log out
 
-export async function logoutAction() {
-  cookies().set("jwt-user", "", { ...config, maxAge: 0 });
-  redirect("/signin");
+export async function logoutProviderAction() {
+  cookies().set("jwt-provider", "", { ...config, maxAge: 0 });
+  redirect("/provider/signin");
 }

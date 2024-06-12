@@ -15,14 +15,18 @@ type BreadCrumbType = {
 
 type BreadCrumbPropsType = {
   items: BreadCrumbType[];
+  basePath?: string;
 };
 
-export default function DashboardBreadcrumb({ items }: BreadCrumbPropsType) {
+export default function DashboardBreadcrumb({
+  items,
+  basePath = "/dashboard",
+}: BreadCrumbPropsType) {
   return (
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <Link href={"/dashboard"}>Dashboard</Link>
+          <Link href={basePath}>Dashboard</Link>
         </BreadcrumbItem>
         {items?.map((item: BreadCrumbType, index: number) => (
           <React.Fragment key={item.title}>
