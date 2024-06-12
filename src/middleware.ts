@@ -18,18 +18,18 @@ export async function middleware(request: NextRequest) {
   }
 
 
-  // Protect /dashboard route if user is null or user.ok is false
-  if (currentPath.startsWith("/dashboard")) {
-    if (!user || (user && !user.ok)) {
-      return NextResponse.redirect(new URL("/signin", request.url));
-    }
-  }
-  // Redirect authenticated users away from /signin and /signup if user logs in 
-  if (currentPath.startsWith("/signin") || currentPath.startsWith("/signup")) {
-    if (user && user.ok) {
-      return NextResponse.redirect(new URL("/dashboard", request.url));
-    }
-  }
+  // // Protect /dashboard route if user is null or user.ok is false
+  // if (currentPath.startsWith("/dashboard")) {
+  //   if (!user || (user && !user.ok)) {
+  //     return NextResponse.redirect(new URL("/signin", request.url));
+  //   }
+  // }
+  // // Redirect authenticated users away from /signin and /signup if user logs in 
+  // if (currentPath.startsWith("/signin") || currentPath.startsWith("/signup")) {
+  //   if (user && user.ok) {
+  //     return NextResponse.redirect(new URL("/dashboard", request.url));
+  //   }
+  // }
 
 //   // Protect /provider/dashboard-provider route if provider is null or provider.ok is false
 //   if (currentPath.startsWith("/provider/dashboard-provider")) {
