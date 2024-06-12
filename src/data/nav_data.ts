@@ -17,6 +17,12 @@ export const navItems: NavItem[] = [
     label: "MyVehicles",
   },
   {
+    title: "My Seivices",
+    href: "/dashboard/services",
+    icon: "MySeivices",
+    label: "MySeivices",
+  },
+  {
     title: "Documents",
     href: "/dashboard/documents",
     icon: "Documents",
