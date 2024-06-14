@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://vm-frontend-shadcn.vercel.app/"),
-  title: "Vehicle Manager",
+  title: "Logic Auto",
   description: "Manage vehicles with ease",
 };
 

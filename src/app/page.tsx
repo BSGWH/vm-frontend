@@ -1,13 +1,13 @@
-import { FAQ } from "@/components/core/FAQ";
-import { Features } from "@/components/core/Features";
-import { Footer } from "@/components/core/Footer";
-import { Hero } from "@/components/core/Hero";
-import { HowItWorks } from "@/components/core/HowItWorks";
-import { Pricing } from "@/components/core/Pricing";
-import { ScrollToTop } from "@/components/core/ScrollToTop";
-import { Services } from "@/components/core/Services";
-import Header from "@/components/layout/header";
-import { Button } from "@/components/ui/button";
+import Header from "@/components/customer/layout/header";
+import { Hero } from "@/components/customer/core/Hero";
+import { HowItWorks } from "@/components/customer/core/HowItWorks";
+import { Features } from "@/components/customer/core/Features";
+import { Services } from "@/components/customer/core/Services";
+import { FAQ } from "@/components/customer/core/FAQ";
+import { Footer } from "@/components/customer/core/Footer";
+{/* import { ScrollToTop } from "@/components/core/ScrollToTop"; */}
+
+
 import "./index.css";
 
 export default function Home() {
@@ -18,7 +18,6 @@ export default function Home() {
       <HowItWorks />
       <Features />
       <Services />
-      <Pricing />
       <FAQ />
       <Footer />
       {/* <ScrollToTop /> */}

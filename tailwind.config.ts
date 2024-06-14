@@ -24,9 +24,15 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+        primaryCustomer: {
+          DEFAULT: "hsl(var(--primaryCustomer))",
+          foreground: "hsl(var(--primaryCustomer-foreground))",
+          hover: "hsl(var(--primaryCustomer-hover))",
+        },
+        primaryProvider: {
+          DEFAULT: "hsl(var(--primaryProvider))",
+          foreground: "hsl(var(--primaryProvider-foreground))",
+          hover: "hsl(var(--primaryProvider-hover))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
