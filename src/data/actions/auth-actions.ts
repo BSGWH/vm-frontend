@@ -68,9 +68,9 @@ export async function registerUserAction(prevState: any, formData: FormData) {
     }
   };
 
-  console.log(userPayload)
+
   const responseData = await registerUserService(userPayload);
-  console.log(responseData.message)
+
   if (!responseData) {
     return {
       ...prevState,
