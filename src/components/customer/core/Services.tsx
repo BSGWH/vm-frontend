@@ -33,10 +33,10 @@ const serviceList: ServiceProps[] = [
 
 export const Services = () => {
   return (
-    <section className="container py-24 sm:py-32">
+    <section className="container py-32 sm:py-20">
       <div className="grid lg:grid-cols-[1fr,1fr] gap-8 place-items-center">
         <div>
-          <h2 className="text-3xl md:text-4xl font-bold">
+          <h2 className="text-5xl font-bold">
 						A full overview,{" "}
             <span className="bg-gradient-to-b from-primaryCustomer/60 to-primaryCustomer text-transparent bg-clip-text">
               simplified

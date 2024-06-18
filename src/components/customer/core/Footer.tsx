@@ -1,8 +1,9 @@
 "use client";
-import { buttonVariants } from "@/components/ui/button";
+import { useTheme } from 'next-themes';
 import XIcon from "@mui/icons-material/X";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { Logo } from "../../logo/Logo";
+import { buttonVariants } from "@/components/ui/button";
 
 interface CommunityProps {
   name: string;
@@ -10,38 +11,46 @@ interface CommunityProps {
   icon: JSX.Element;
 }
 
-const communities: CommunityProps[] = [
-  // {
-  //   name: "Youtube icon",
-  //   link: "",
-  //   icon: <YouTubeIcon />,
-  // },
-  {
-    name: "X icon",
-    link: "https://twitter.com/vehicle_manager",
-    icon: <XIcon />,
-  },
-  {
-    name: "Linkedin icon",
-    link: "https://www.linkedin.com/company/vehiclemanager/",
-    icon: <LinkedInIcon style={{ fontSize: 30 }}/>,
-  },
-];
-
 export const Footer = () => {
+  const { theme, setTheme } = useTheme();
+
+  const communities: CommunityProps[] = [
+    {
+      name: "X icon",
+      link: "https://twitter.com/vehicle_manager",
+      icon: (
+        <XIcon
+          style={{ color: theme === "dark" ? "#FFFFFF" : "#000000" }}
+        />
+      ),
+    },
+    {
+      name: "Linkedin icon",
+      link: "https://www.linkedin.com/company/vehiclemanager/",
+      icon: (
+        <LinkedInIcon
+          style={{
+            fontSize: 30,
+            color: theme === "dark" ? "#FFFFFF" : "#000000",
+          }}
+        />
+      ),
+    },
+  ];
 
   return (
     <footer id="footer">
       <hr className="w-11/12 mx-auto" />
 
-      <section className="container py-20 grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-x-12 gap-y-8 justify-center">
-        <div className="col-span-full xl:col-span-2">
-          <a href="/" className="font-bold text-xl flex w-6/12">
-						<Logo  />						
+      <section className="container py-20 flex flex-wrap justify-center gap-8">
+        {/* Logo */}
+        <div className="flex w-1/4 border-r items-center">
+          <a href="/" className="font-bold text-xl">
+            <Logo />
           </a>
         </div>
 
-        <div className="flex flex-col gap-2"></div>
+        {/* About */}
         <div className="flex flex-col gap-2">
           <h3 className="font-bold text-lg">About</h3>
           <div>
@@ -49,19 +58,16 @@ export const Footer = () => {
               Features
             </a>
           </div>
-
           <div>
             <a href="#pricing" className="opacity-60 hover:opacity-100">
               Pricing
             </a>
           </div>
-
           <div>
             <a href="#" className="opacity-60 hover:opacity-100">
               Terms & Conditions
             </a>
           </div>
-
           <div>
             <a href="#" className="opacity-60 hover:opacity-100">
               Privacy Policy
@@ -69,6 +75,7 @@ export const Footer = () => {
           </div>
         </div>
 
+        {/* Community */}
         <div className="flex flex-col gap-2">
           <h3 className="font-bold text-lg">Community</h3>
           <div className="flex">

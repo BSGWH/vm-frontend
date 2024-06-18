@@ -37,9 +37,9 @@ const features: FeatureProps[] = [
 
 export const HowItWorks = () => {
   return (
-    <section id="howItWorks" className="text-center py-12 sm:py-24">
+    <section id="howItWorks" className="text-center py-8 sm:py-16">
       <div className="container">
-        <h2 className="text-3xl md:text-4xl font-bold p-8">
+        <h2 className="text-5xl font-bold p-8">
           How It{" "}
           <span className="bg-gradient-to-b from-[#2FA16D]/60 to-[#2FA16D] text-transparent bg-clip-text">
             Works?

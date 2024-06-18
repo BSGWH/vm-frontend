@@ -43,7 +43,6 @@ export const Services = () => {
   return (
     <section
       className="py-12 sm:py-24"
-      style={{ backgroundColor: "#2FA16D33" }}
     >
       <div className="container grid lg:grid-cols-[1.5fr,1fr] gap-8 place-items-center">
         <Box sx={{ display: "flex", width: "100%", height: "400px" }}>
@@ -110,7 +109,7 @@ export const Services = () => {
           </Tabs>
         </Box>
         <div className="w-full max-w-md mx-auto"> {/* Adjust the max-width to control the width of the right section */}
-          <h2 className="text-3xl md:text-4xl font-bold">
+          <h2 className="text-5xl font-bold">
             A full overview,{" "}
             <span className="bg-gradient-to-b from-[#2FA16D]/20 to-[#2FA16D] text-transparent bg-clip-text">
               simplified.
