@@ -1,14 +1,14 @@
-"use client"
+"use client";
 
-import { ColumnDef } from "@tanstack/react-table"
+import { ColumnDef } from "@tanstack/react-table";
 
-import { Badge } from "@/components/ui/badge"
-import { Checkbox } from "@/components/ui/checkbox"
-import { types, vehicles } from "../../data/doc_data/data"
-import { Document } from "../../data/doc_data/schema"
-import { DataTableColumnHeader } from "./data-table-column-header"
-import { DataTableRowActions } from "./data-table-row-actions"
-import { Label } from "../ui/label"
+import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
+import { types, vehicles } from "../../../data/doc_data/data";
+import { Document } from "../../../data/doc_data/schema";
+import { DataTableColumnHeader } from "./data-table-column-header";
+import { DataTableRowActions } from "./data-table-row-actions";
+import { Label } from "../../ui/label";
 
 // export type Document = {
 //     id: string
@@ -32,8 +32,6 @@ import { Label } from "../ui/label"
 //     },
 //   ]
 export const columns: ColumnDef<Document>[] = [
-
-    
   {
     id: "select",
     header: ({ table }) => (
@@ -72,29 +70,29 @@ export const columns: ColumnDef<Document>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Title" />
     ),
-    cell: ({ row }) =>
-        <div className="flex space-x-2">
-          <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("title")}
-          </span>
-        </div>
-    
-    },
-  
+    cell: ({ row }) => (
+      <div className="flex space-x-2">
+        <span className="max-w-[500px] truncate font-medium">
+          {row.getValue("title")}
+        </span>
+      </div>
+    ),
+  },
+
   {
     accessorKey: "type",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Type" />
     ),
-    cell: ({ row }) => 
-
-    <div className="flex space-x-2">
+    cell: ({ row }) => (
+      <div className="flex space-x-2">
         <span className="max-w-[500px] truncate font-medium">
-        {row.getValue("type")}
+          {row.getValue("type")}
         </span>
-   </div>,
+      </div>
+    ),
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
+      return value.includes(row.getValue(id));
     },
   },
   {
@@ -102,19 +100,19 @@ export const columns: ColumnDef<Document>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Vehicle" />
     ),
-    cell: ({ row }) => 
-
-    <div className="flex space-x-2">
+    cell: ({ row }) => (
+      <div className="flex space-x-2">
         <span className="max-w-[500px] truncate font-medium">
-        {row.getValue("vehicle")}
+          {row.getValue("vehicle")}
         </span>
-    </div>,
+      </div>
+    ),
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
+      return value.includes(row.getValue(id));
     },
   },
   {
     id: "actions",
     cell: ({ row }) => <DataTableRowActions row={row} />,
   },
-]
+];
