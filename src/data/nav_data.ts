@@ -6,13 +6,25 @@ import { NavItem} from "@/types";
 export const navItems: NavItem[] = [
   {
     title: "Dashboard",
-    href: "/dashboard",
+    href: "/customer/dashboard",
     icon: "dashboard",
     label: "Dashboard",
   },
   {
+    title: "Profile",
+    href: "/customer/dashboard/profile",
+    icon: "Profile",
+    label: "profile",
+  },
+  {
+    title: "Addresses",
+    href: "/customer/dashboard/addresses",
+    icon: "Addresses",
+    label: "addresses",
+  },
+  {
     title: "My Vehicles",
-    href: "/dashboard/vehicles",
+    href: "/customer/dashboard/vehicles",
     icon: "MyVehicles",
     label: "MyVehicles",
   },
@@ -24,25 +36,25 @@ export const navItems: NavItem[] = [
   },
   {
     title: "Documents",
-    href: "/dashboard/documents",
+    href: "/customer/dashboard/documents",
     icon: "Documents",
     label: "Documents",
   },
   {
     title: "Logs",
-    href: "/dashboard/logs",
+    href: "/customer/dashboard/logs",
     icon: "Logs",
     label: "Logs",
   },
   {
     title: "Insights",
-    href: "/dashboard/insights",
+    href: "/customer/dashboard/insights",
     icon: "Insights",
     label: "Insights",
   },
   {
     title: "Settings",
-    href: "/dashboard/settings",
+    href: "/customer/dashboard/settings",
     icon: "Settings",
     label: "Settings",
   },

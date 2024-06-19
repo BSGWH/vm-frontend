@@ -7,11 +7,14 @@ body {
   padding: 0 16px;
 }
 
+section {
+  margin: 0ch;
+}
 
 /* HeroCards background shadow */
 .shadow {
   position: absolute;
-  background: hsl(var(--primary) / 0%);
+  background: #2FA16D00;/*hsl(var(--primary) / 0%)*/
   border-radius: 24px;
   rotate: 35deg;
 
@@ -24,11 +27,11 @@ body {
 
 @keyframes shadow-slide {
   from {
-    background: hsl(var(--primary) / 20%);
+    background: #2FA16D33/*hsl(var(--primary) / 20%)*/;
     right: 460px;
   }
   to {
-    background: hsl(var(--primary) / 80%);
+    background: #2FA16DCC/*hsl(var(--primary) / 80%)*/;
     right: 160px;
   }
 }
@@ -40,11 +43,11 @@ body {
 
   @keyframes shadow-slide {
     from {
-      background: hsl(var(--primary) / 20%);
+      background: #2FA16D33/*hsl(var(--primary) / 20%)*/;
       right: 460px;
     }
     to {
-      background: hsl(var(--primary) / 50%);
+      background: #2FA16D80/*hsl(var(--primary) / 50%)*/;
       right: 160px;
     }
   }
@@ -60,14 +63,12 @@ body {
 
   @keyframes shadow-slide {
     from {
-      background: hsl(var(--primary) / 20%);
+      background: #2FA16D33/*hsl(var(--primary) / 20%)*/;
       right: 280px;
     }
     to {
-      background: hsl(var(--primary) / 30%);
+      background: #2FA16D4D/*hsl(var(--primary) / 30%)*/;
       right: 100px;
     }
   }
 }
-
-
