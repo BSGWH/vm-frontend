@@ -1,5 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import DashboardBreadcrumb from "@/components/dashboardComponents/DashboardBreadcrumb";
+import DashboardBreadcrumb from "@/components/customer/dashboard/DashboardBreadcrumb";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";

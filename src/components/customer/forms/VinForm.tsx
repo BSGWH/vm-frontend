@@ -16,7 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Modal from "../ui/modal";
+import Modal from "@/components/ui/modal";
 
 import {
   Card,
@@ -28,7 +28,7 @@ import {
 } from "@/components/ui/card";
 import { getRailsURL } from "@/lib/utils";
 import { useRouter } from "next/navigation";
-import Snackbar from "../ui/snackbar";
+import Snackbar from "@/components/ui/snackbar";
 
 const FormSchema = z.object({
   vin: z.string().regex(/^\w{17}$/, {
@@ -87,12 +87,12 @@ export function VinForm2() {
     for (const key in confirmationData) {
       if (confirmationData.hasOwnProperty(key)) {
         const value = confirmationData[key].value;
-        const name = confirmationData[key].name
+        const name = confirmationData[key].name;
         payload[name] = value;
       }
     }
 
-    console.log(payload)
+    console.log(payload);
 
     const path = "/vehicles/create_with_vin";
 
@@ -110,7 +110,9 @@ export function VinForm2() {
       const data = await response.json();
       console.log(data);
       toggleModal();
-      setSnackbarMessage('A new vehicle has been created! You will be redirected to the vehicle page shortly!');
+      setSnackbarMessage(
+        "A new vehicle has been created! You will be redirected to the vehicle page shortly!"
+      );
 
       setTimeout(() => {
         formRouter.push(`${data.id}`); // Redirect to another page
