@@ -73,7 +73,7 @@ export const FAQ = () => {
     >
       <h2 className="text-3xl md:text-4xl font-bold mb-4">
         Frequently Asked{" "}
-        <span className="bg-gradient-to-b from-primaryCustomer/60 to-primaryCustomer text-transparent bg-clip-text">
+        <span className="bg-gradient-to-b text-primaryCustomer bg-clip-text">
           Questions
         </span>
       </h2>
@@ -101,7 +101,7 @@ export const FAQ = () => {
         Still have questions?{" "}
         <a
           href="#"
-          className="text-primary border-primaryCustomer hover:border-b-2"
+          className="text-primaryCustomer border-primaryCustomer hover:border-b-2"
         >
           Contact us
         </a>

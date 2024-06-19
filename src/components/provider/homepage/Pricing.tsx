@@ -2,9 +2,9 @@
 export const Pricing = () => {
   return (
     <section id="pricing" className="py-12 sm:py-24 w-full bg-white" >
-      <h2 className="text-5xl font-bold text-center p-3" style={{ color : "black"}}>
+      <h2 className="text-4xl font-bold text-center p-3" style={{ color : "black"}}>
         Get
-        <span className="bg-gradient-to-b from-[#2FA16D]/60 to-[#2FA16D] text-transparent bg-clip-text">
+        <span className="bg-gradient-to-b text-primaryProvider bg-clip-text">
           {" "}
           Unlimited{" "}
         </span>

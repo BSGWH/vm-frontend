@@ -20,10 +20,10 @@ export default function Header() {
             <Link href={"/provider"}>I'm a Provider </Link>
           </Button>
           <Button variant="customerDefault" asChild>
-            <Link href={"/customer/signup"}>Sign Up</Link>
+            <Link href={"/signup"}>Sign Up</Link>
           </Button>
           <Button variant="customerOutline" asChild>
-            <Link href={"/customer/login"}>Log In</Link>
+            <Link href={"/login"}>Log In</Link>
           </Button>
           <ThemeToggle />
         </div>

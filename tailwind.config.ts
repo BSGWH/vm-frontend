@@ -25,7 +25,7 @@ const config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primaryCustomer: {
-          DEFAULT: "hsl(var(--primaryCustomer))",
+          DEFAULT: "hsl(var(--primaryCustomer) / <alpha-value>)",
           foreground: "hsl(var(--primaryCustomer-foreground))",
           hover: "hsl(var(--primaryCustomer-hover))",
         },

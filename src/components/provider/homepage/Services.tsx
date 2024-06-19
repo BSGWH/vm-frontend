@@ -15,106 +15,107 @@ interface ServiceProps {
 // Define the list of services
 const serviceList: ServiceProps[] = [
   {
-    title: "Full Business Suite",
-    description: "Get a complete suite of business tools for success.",
-    icon: <QueryStatsIcon className="w-14 h-14 fill-primaryProvider" />,
+    title: "Grow Your Business",
+    description: "Join Logic Auto to reach more local customers looking for auto repair services. Increase your business visibility and attract new clients.",
+    icon: <QueryStatsIcon className="w-8 h-8 fill-primaryProvider" />,
   },
   {
-    title: "Customer Acquisition",
-    description: "Acquire new customers with our unique strategies.",
-    icon: <MiscellaneousServicesIcon className="w-14 h-14 fill-primaryProvider" />,
+    title: "Manage Requests Easily",
+    description: "Effortlessly manage customer requests with our platform. Accept or reschedule bookings based on your availability, ensuring a seamless experience for both you and your customers.",
+    icon: <MiscellaneousServicesIcon className="w-8 h-8 fill-primaryProvider" />,
   },
   {
-    title: "Optimize Operations",
-    description: "Optimize your business operations for better efficiency.",
-    icon: <LeaderboardIcon className="w-14 h-14 fill-primaryProvider" />,
+    title: "Promote Your Services",
+    description: "Drive more business by creating and managing promotions directly through our platform. Attract new customers with special offers and retain existing ones with exclusive deals.",
+    icon: <LeaderboardIcon className="w-8 h-8 fill-primaryProvider" />,
+  },
+  {
+    title: "Monitor Performance",
+    description: "Use our comprehensive dashboard to track your earnings, monitor key performance metrics, and gain valuable insights into your business operations.",
+    icon: <LeaderboardIcon className="w-8 h-8 fill-primaryProvider" />,
   },
 ];
 
 export const Services = () => {
-  // State to track the selected tab
   const [selectedTab, setSelectedTab] = useState(0);
 
-  // Handle tab change
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setSelectedTab(newValue);
   };
 
   return (
-    <section
-      className="py-12 sm:py-24"
-    >
-      <div className="container grid lg:grid-cols-[1.5fr,1fr] gap-8 place-items-center">
-        <Box sx={{ display: "flex", width: "100%", height: "400px" }}>
-          {/* Pic Box */}
-          <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              padding: 2,
-              backgroundColor: "white",
-              boxShadow: 3,
-              borderRadius: 2,
-              height: "100%", // Ensures that the box takes the full height of its container
-              overflow: "hidden", // Prevents overflow of content
-            }}
-          >
-            <img
-              src={`/images/overview/${selectedTab + 1}.png`} // pic name: 1.png and so on
-              alt={serviceList[selectedTab].title}
-              style={{
-                width: "100%",
-                height: "auto",
-                maxWidth: "100%",
-                maxHeight: "100%",
-                objectFit: "contain",
-              }}
-            />
-          </Box>
-          {/* Right Tabs */}
+    <section className="py-10 sm:py-20">
+      <div className="container mx-auto">
+        <div className="flex flex-col items-center">
+          <h2 className="text-4xl font-bold mb-4 text-center text-black dark:text-white"> {/* Ensure text color changes in dark mode */}
+            Fix more
+          </h2>
+          <Typography className="text-center mb-6 text-black dark:text-gray-300"> {/* Adjust text color for dark mode */}
+            Logic Auto Merchant Suite delivers many ways to help you grow.
+          </Typography>
           <Tabs
-            orientation="vertical"
             value={selectedTab}
             onChange={handleChange}
+            centered
             sx={{
-              width: "30%", // Adjust width as needed
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-around", // Evenly distribute space around items
-              height: "100%", // Ensure that the tabs take the full height of the container
-              borderRight: 1,
-              borderColor: "divider",
+              flexWrap: 'wrap',
+              paddingX: '16px',
+              gap: '8px',
+              justifyContent: 'center',
+              mb: '12px',
+              '& .MuiTabs-indicator': {
+                backgroundColor: 'hsl(154, 70%, 45%)',
+              },
             }}
           >
             {serviceList.map((service, index) => (
               <Tab
                 key={index}
-                label={
-                  <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                    {service.icon}
-                    <Typography>{service.title}</Typography>
-                  </Box>
-                }
-                sx={{
-                  flexGrow: 1, // Ensure each tab takes up equal vertical space
+                label={service.title}
+                className="text-center text-black dark:text-gray-300"
+                style={{
                   display: "flex",
-                  justifyContent: "center",
+                  flexDirection: "column",
                   alignItems: "center",
-                  minHeight: "calc(100% / 3)", // Ensure each Tab takes up one-third of the container height
+                  fontSize: '0.875rem',
+                  minHeight: '48px',
+                  padding: '6px 12px',
+                  whiteSpace: 'normal',
+                  textAlign: 'center',
+                  flexBasis: 'calc(25% - 16px)',
+                  textTransform: 'none',
+                  minWidth: '210px',
+                }}
+                sx={{
+                  '&.Mui-selected': {
+                    color: 'hsl(154, 70%, 45%)',
+                  },
                 }}
               />
             ))}
           </Tabs>
-        </Box>
-        <div className="w-full max-w-md mx-auto"> {/* Adjust the max-width to control the width of the right section */}
-          <h2 className="text-5xl font-bold">
-            A full overview,{" "}
-            <span className="bg-gradient-to-b from-[#2FA16D]/20 to-[#2FA16D] text-transparent bg-clip-text">
-              simplified.
-            </span>
-          </h2>
+        </div>
+        <div className="mt-0 p-6 bg-white dark:bg-[hsl(222.2,84%,4.9%)] dark:text-white rounded-lg flex flex-col lg:flex-row items-center lg:items-start"> {/* Set background color for dark mode */}
+          <Box className="w-full lg:w-1/3 p-4 text-center lg:text-left">
+            <Typography variant="h5" className="mt-4 mb-2 text-black dark:text-gray-300"> {/* Adjust text color for dark mode */}
+              {serviceList[selectedTab].title}
+            </Typography>
+            <Typography className="text-black dark:text-gray-300"> {/* Adjust text color for dark mode */}
+              {serviceList[selectedTab].description}
+            </Typography>
+          </Box>
+          <Box className="w-full lg:w-2/3 p-4 flex justify-center lg:justify-end bg-white dark:bg-[hsl(222.2,84%,4.9%)] rounded-lg"> {/* Ensure background color for dark mode */}
+            <img
+              src={'/images/provider-Dashboard.jpg'}
+              alt={serviceList[selectedTab].title}
+              style={{
+                width: "100%",
+                height: "auto",
+                maxWidth: "800px",
+                objectFit: "contain",
+              }}
+            />
+          </Box>
         </div>
       </div>
     </section>

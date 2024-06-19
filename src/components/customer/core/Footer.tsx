@@ -1,4 +1,5 @@
 "use client";
+import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 import XIcon from "@mui/icons-material/X";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -13,6 +14,12 @@ interface CommunityProps {
 
 export const Footer = () => {
   const { theme, setTheme } = useTheme();
+  const [iconColor, setIconColor] = useState("#000000");
+
+  useEffect(() => {
+    // Set initial icon color based on theme
+    setIconColor(theme === "dark" ? "#FFFFFF" : "#000000");
+  }, [theme]);
 
   const communities: CommunityProps[] = [
     {
@@ -20,7 +27,7 @@ export const Footer = () => {
       link: "https://twitter.com/vehicle_manager",
       icon: (
         <XIcon
-          style={{ color: theme === "dark" ? "#FFFFFF" : "#000000" }}
+          style={{ color: iconColor }}
         />
       ),
     },
@@ -31,7 +38,7 @@ export const Footer = () => {
         <LinkedInIcon
           style={{
             fontSize: 30,
-            color: theme === "dark" ? "#FFFFFF" : "#000000",
+            color: iconColor,
           }}
         />
       ),

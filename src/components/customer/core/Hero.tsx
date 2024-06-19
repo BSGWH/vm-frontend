@@ -4,16 +4,16 @@ export const Hero = () => {
   return (
     <section className="container flex items-center justify-center py-20 md:py-32 min-h-screen">
       <div className="flex flex-col items-center space-y-6 text-center">
-        <main className="text-5xl md:text-8xl font-bold">
+        <main className="text-3xl md:text-7xl font-bold">
           <h1 className="inline from-primary/60 to-primary leading-relaxed">
             Auto Service
             <br />
-            Made Simple
+            Made <span className="text-primaryCustomer">Simple</span>
           </h1>
         </main>
 
         <p
-          className="text-xl text-muted-foreground max-w-2xl mx-auto"
+          className="text-sm md:text-lg text-muted-foreground max-w-2xl mx-auto"
           style={{ marginTop: "0rem" }}
         >
           The All in One Platform for Managing Vehicles & Fleets.

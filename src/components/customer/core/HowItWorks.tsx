@@ -47,7 +47,7 @@ export const HowItWorks = () => {
     >
       <h2 className="text-5xl font-bold leading-loose mb-8">
         How It{" "}
-        <span className="bg-gradient-to-b from-primaryCustomer/60 to-primaryCustomer text-transparent bg-clip-text">
+        <span className="bg-gradient-to-b text-primaryCustomer bg-clip-text">
           Works{" "}
         </span>
       </h2>
@@ -68,10 +68,6 @@ export const HowItWorks = () => {
           </Card>
         ))}
       </div>
-
-      <div className="flex space-x-4 justify-center mt-12">
-          <Button className="w-full w-auto px-6 py-3 min-w-[200px]">Get Started</Button>
-        </div>
     </section>
   );
 };
