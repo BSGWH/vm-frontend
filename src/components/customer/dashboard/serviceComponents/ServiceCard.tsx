@@ -7,7 +7,7 @@ interface ServiceCardProps {
   service: Service;
 }
 
-const VehicleCard: React.FC<ServiceCardProps> = ({ service }) => {
+const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
   return (
     <Link href={`services/${service.service_id}`}>
       <div className="rounded-lg border bg-card text-card-foreground shadow-sm w-full py-6 pl-6 pr-4 hover:bg-accent hover:text-accent-foreground transparent">
@@ -42,4 +42,4 @@ const VehicleCard: React.FC<ServiceCardProps> = ({ service }) => {
   );
 };
 
-export default VehicleCard;
+export default ServiceCard;

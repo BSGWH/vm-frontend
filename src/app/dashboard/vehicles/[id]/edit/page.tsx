@@ -1,9 +1,9 @@
-import DashboardBreadcrumb from "@/components/dashboardComponents/DashboardBreadcrumb";
+import DashboardBreadcrumb from "@/components/customer/dashboard/DashboardBreadcrumb";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import { fetchRailsData } from "@/lib/fetch_util_server";
-import { VehicleAction } from "@/components/dashboardComponents/vehicleDetailComponents/VehicleAction";
+import { VehicleAction } from "@/components/customer/dashboard/vehicleDetailComponents/VehicleAction";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { VinForm2 } from "@/components/forms/VinForm";
+import { VinForm2 } from "@/components/customer/forms/VinForm";
 
 export default async function page({ params }: { params: { id: number } }) {
   const breadcrumbItems = [
@@ -67,7 +67,9 @@ export default async function page({ params }: { params: { id: number } }) {
           </CardHeader>
           <CardContent className="space-x-4 flex">
             <div className="font-semibold">VIN</div>
-            <div className="font-light text-muted-foreground">2HJHK234HB843901</div>
+            <div className="font-light text-muted-foreground">
+              2HJHK234HB843901
+            </div>
           </CardContent>
           {/* <CardFooter>
             <Button>Save password</Button>

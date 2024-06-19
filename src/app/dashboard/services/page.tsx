@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Service } from "@/types/service";
-import ServiceCard from "@/components/dashboardComponents/serviceComponents/ServiceCard";
+import ServiceCard from "@/components/customer/dashboard/serviceComponents/ServiceCard";
 // import { ServiceForm } from "@/components/forms/ServiceForm";
 
 const breadcrumbItems = [{ title: "Services", link: "/dashboard/services" }];
