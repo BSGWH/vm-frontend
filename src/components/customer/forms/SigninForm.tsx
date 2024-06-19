@@ -18,7 +18,7 @@ import { Input } from "@/components/ui/input";
 import { ZodErrors } from "@/components/authenticationComponents/ZodErrors";
 import { RailsErrors } from "@/components/authenticationComponents/RailsErrors";
 import { SubmitButton } from "@/components/authenticationComponents/SubmitButton";
-import { RailsErrorsLogin } from "../authenticationComponents/RailsErrorslogin";
+import { RailsErrorsLogin } from "@/components/authenticationComponents/RailsErrorslogin";
 
 const INITIAL_STATE = {
   zodErrors: null,

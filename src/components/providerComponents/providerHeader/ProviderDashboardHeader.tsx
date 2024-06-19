@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { ThemeToggle } from "@/components/provider/nav/theme-toggle";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 

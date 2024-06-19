@@ -7,7 +7,8 @@ import Link from "next/link";
 import { Vehicle } from "@/types/car";
 import * as React from "react";
 import { fetchRailsData } from "@/lib/fetch_util_server";
-import VehicleCard from "@/components/dashboardComponents/VehicleCard";
+
+import VehicleCard from "@/components/customer/dashboard/VehicleCard";
 
 const breadcrumbItems = [{ title: "My Vehicles", link: "/dashboard/vehicles" }];
 
