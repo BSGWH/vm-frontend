@@ -3,7 +3,8 @@ import DashboardBreadcrumb from "@/components/customer/dashboard/DashboardBreadc
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
-import UpcomingService from "@/components/providerComponents/providerService/upcomingService";
+import UpcomingService from "@/components/providerComponents/providerService/upcoming/upcomingService";
+import RequestService from "@/components/providerComponents/providerService/request/requestService";
 
 const breadcrumbItems = [
   { title: "Service", link: "/provider/dashboard-provider/provider-service" },
@@ -23,14 +24,16 @@ export default function ProviderService() {
         />
 
         <Tabs defaultValue="Request" className="w-full">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="Request">Request</TabsTrigger>
             <TabsTrigger value="Upcoming">Upcoming</TabsTrigger>
-            <TabsTrigger value="Ongoing">Ongoing</TabsTrigger>
+            <TabsTrigger value="In Progress">In Progress</TabsTrigger>
             <TabsTrigger value="Completed">Completed</TabsTrigger>
-            <TabsTrigger value="Denied">Denied</TabsTrigger>
           </TabsList>
           <Separator className="my-4 border-t border-gray-200 w-full" />
+          <TabsContent value="Request">
+            <RequestService />
+          </TabsContent>
           <TabsContent value="Upcoming">
             <UpcomingService />
           </TabsContent>
