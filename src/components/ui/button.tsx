@@ -17,11 +17,14 @@ const buttonVariants = cva(
           "bg-primaryProvider text-white hover:bg-primaryProvider-hover",
         providerOutline:
           "border border-primaryProvider text-primaryProvider-foreground hover:bg-primaryProvider-hover/10",
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
         destructive: "bg-[#dc3545] text-white hover:bg-[#c82333]",
-        outline: "border border-[#2FA16D] text-black hover:bg-[#2FA16D]/10",
-        secondary: "bg-[#2FA16D]/20 text-black hover:bg-[#2FA16D]/30",
-        ghost: "text-black hover:bg-[#2FA16D]/10",
-        link: "text-primaryCustomer-foreground underline-offset-4 hover:underline",
+        outline:
+          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        secondary:
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
         default: "h-10 px-4 py-2",
@@ -31,7 +34,7 @@ const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: "customerDefault",
+      variant: "default",
       size: "default",
     },
   }
