@@ -15,7 +15,7 @@ const FAQList: FAQProps[] = [
   {
     question: "How do I sign up for Logic Auto?",
     answer:
-      "Signing up is easy. Just click <a href='/signup' class='text-primary border-primary hover:border-b'>sign up</a>, and follow the instructions to create your account and add your first vehicle to get started.",
+      "Signing up is easy. Just click <a href='/provider/signup' class='text-primaryProvider border-primaryProvider hover:border-b'>sign up</a>, and follow the instructions to create your account and add your first vehicle to get started.",
     value: "item-1",
   },
   {
@@ -93,7 +93,7 @@ export const FAQ = () => {
 
       <h3 className="font-medium mt-4">
         Still have questions?{" "}
-        <a href="#" className="text-primaryProvider border-primary hover:border-b-2">
+        <a href="#" className="text-primaryProvider border-primaryProvider hover:border-b-2">
           Contact us
         </a>
       </h3>

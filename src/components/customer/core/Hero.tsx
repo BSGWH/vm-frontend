@@ -1,4 +1,5 @@
 import { Button, buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
 
 export const Hero = () => {
   return (
@@ -20,8 +21,8 @@ export const Hero = () => {
         </p>
 
         <div className="flex space-x-4">
-          <Button className="w-full md:w-auto px-6 py-4 min-w-[200px]">
-            Get Started
+          <Button variant="customerDefault" className="w-full md:w-auto px-6 py-4 min-w-[200px]">
+            <Link href={"/signup"}>Get Started</Link>
           </Button>
         </div>
 

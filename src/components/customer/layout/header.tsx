@@ -23,7 +23,7 @@ export default function Header() {
             <Link href={"/signup"}>Sign Up</Link>
           </Button>
           <Button variant="customerOutline" asChild>
-            <Link href={"/login"}>Log In</Link>
+            <Link href={"/signin"}>Log In</Link>
           </Button>
           <ThemeToggle />
         </div>

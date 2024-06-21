@@ -38,7 +38,7 @@ export const Services = () => {
         <div>
           <h2 className="text-5xl font-bold">
 						A full overview,{" "}
-            <span className="bg-gradient-to-b text-primaryCustomer text-transparent bg-clip-text">
+            <span className="bg-gradient-to-b text-primaryCustomer bg-clip-text">
               simplified
             </span>
           </h2>
