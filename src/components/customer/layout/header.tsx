@@ -2,11 +2,9 @@
 import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
 import { Button } from "@/components/ui/button";
-// import { useTheme } from "next-themes";
 import { Logo } from "../../logo/Logo";
 
 export default function Header() {
-  // const { theme } = useTheme();
 
   return (
     <div className="fixed top-0 left-0 right-0 supports-backdrop-blur:bg-background/60 border-b bg-background/95 backdrop-blur z-20">
@@ -23,7 +21,7 @@ export default function Header() {
             <Link href={"/signup"}>Sign Up</Link>
           </Button>
           <Button variant="customerOutline" asChild>
-            <Link href={"/signin"}>Log In</Link>
+            <Link href={"/signin"}>Sign In</Link>
           </Button>
           <ThemeToggle />
         </div>

@@ -13,58 +13,86 @@ interface FAQProps {
 
 const FAQList: FAQProps[] = [
   {
-    question: "How do I sign up for Logic Auto?",
+    question: "What is Logic Auto, and how does it work?",
     answer:
-      "Signing up is easy. Just click <a href='/provider/signup' class='text-primaryProvider border-primaryProvider hover:border-b'>sign up</a>, and follow the instructions to create your account and add your first vehicle to get started.",
+      "Logic Auto is an innovative platform that simplifies the auto service experience for both customers and service providers. Customers can easily schedule services based on location and availability.",
     value: "item-1",
   },
   {
-    question: "Can I track multiple vehicles on Logic Auto?",
+    question: "How can service providers benefit from Logic Auto?",
     answer:
-      "Yes, Logic Auto allows you to manage multiple vehicles from a single account, making it convenient for individuals with more than one vehicle or businesses with fleets.",
+        "Service providers can leverage Logic Auto to attract new customers and manage appointments. Logic Auto offers an effective way for service providers to grow and optimize.",
     value: "item-2",
   },
   {
     question:
-      "Is Logic Auto compatible with all vehicle makes and models?",
+      "How can Logic Auto help grow my customer base?",
     answer:
-      "Yes, Logic Auto is compatible with vehicles of all makes and models, ensuring that regardless of what you drive, our platform can meet your needs.",
+      "By joining the Logic Auto network, your auto shop gains access to a broader customer base. Our platform connects you with a diverse audience actively seeking auto services, increasing your chances of reaching potential customers who may not have discovered your shop otherwise.",
     value: "item-3",
   },
   {
     question:
-      "Is Logic Auto suitable for both individual vehicle owners and small businesses with fleets?",
+      "What kind of exposure can I expect by joining Logic Auto?",
     answer:
-      "Certainly! Logic Auto is designed to cater to the needs of both individual vehicle owners and small businesses managing fleets, offering tailored solutions for each.",
+      "Logic Auto provides your auto shop with increased visibility in our online marketplace. This heightened exposure showcases your services to potential customers actively searching for auto solutions, enhancing the chances of converting leads into loyal, repeat customers.",
     value: "item-4",
   },
   {
     question:
-      "How does Logic Auto help me keep track of my vehicle maintenance schedule?",
+      "Can I create custom promotions and incentives on Logic Auto?",
     answer:
-      "Logic Auto sends personalized maintenance reminders based on your vehicle's unique requirements, ensuring that you never miss an essential service appointment again.",
+      "Yes, Logic Auto offers the flexibility to design custom promotions and incentives tailored to your business goals. You can create enticing offers, such as discounts, special deals, or exclusive packages, to attract new customers and boost loyalty.",
     value: "item-5",
   },
   {
     question:
-      "Can I use Logic Auto to store and access important vehicle documents?",
+      "How does Logic Auto assist with targeted marketing? ",
     answer:
-      "Yes, Logic Auto provides a secure space for storing and accessing crucial vehicle documents such as insurance papers, registration details, and service records.",
+      "Our platform provides insights into customer preferences and local market trends, enabling you to target your marketing efforts effectively. By understanding what customers are looking for, you can fine-tune your promotions to align with demand.",
     value: "item-6",
   },
   {
-    question: "Can I access Logic Auto from my mobile device?",
+    question: "How does Logic Auto increase my shop's visibility? ",
     answer:
-      "Yes, Logic Auto is accessible from any device with an internet connection, allowing you to manage your vehicles on the go.",
+      "Logic Auto’s online marketplace increases your shop’s visibility by showcasing your services to potential customers actively searching for auto solutions. This exposure helps convert leads into loyal, repeat customers.",
     value: "item-7",
   },
   {
     question:
-      "How does Logic Auto track mileage and expenses for tax purposes?",
+      "How does Logic Auto help with appointment management?",
     answer:
-      "Logic Auto logs feature allows you to track your mileage and vehicle-related expenses, generating detailed reports.",
+      "Logic Auto simplifies the scheduling process for both providers and customers, ensuring seamless service. Our user-friendly platform allows you to efficiently manage appointments and bookings.",
     value: "item-8",
   },
+  {
+    question:
+      "What kind of data insights does Logic Auto provide?",
+    answer:
+      "Logic Auto provides valuable data insights that help you make informed decisions to optimize your operations and marketing strategies. These insights enable you to identify trends and preferences, fostering better customer engagement.",
+    value: "item-9"
+  },
+  {
+    question:
+      "How can I engage with customers through Logic Auto?",
+    answer:
+      "Logic Auto allows you to engage with customers before, during, and after their service appointments. Personalized communication builds trust and encourages repeat business, fostering long-term customer relationships.",
+    value: "item-10"
+  },
+  {
+    question:
+      "Will integrating Logic Auto disrupt my existing workflow?",
+    answer:
+      "No, Logic Auto seamlessly integrates with your existing auto shop systems, making it easy to adapt to the platform without disrupting your workflow. This streamlined approach saves time and resources, maximizing operational efficiency.",
+    value: "item-11"
+  },
+  {
+    question:
+      "How do I get started with Logic Auto?",
+    answer:
+      "To get started, simply sign up on our platform and complete your auto shop profile. Once your profile is active, you can begin leveraging all the benefits Logic Auto offers to grow your customer base and revenue.",
+    value: "item-12"
+  }
 ];
 
 export const FAQ = () => {
