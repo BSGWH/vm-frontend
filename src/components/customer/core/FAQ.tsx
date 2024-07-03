@@ -14,7 +14,7 @@ interface FAQProps {
 const FAQList: FAQProps[] = [
   {
     question: "How do I sign up for Logic Auto?",
-    answer: "Signing up is easy. Just click <a href='/signup' class='text-primary border-primary hover:border-b'>sign up</a>, and follow the instructions to create your account and add your first vehicle to get started.",
+    answer: "Signing up is easy. Just click <a href='/signup' class='text-primaryCustomer border-primaryCustomer hover:border-b'>sign up</a>, and follow the instructions to create your account and add your first vehicle to get started.",
     value: "item-1",
   },
   {

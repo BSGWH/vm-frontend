@@ -46,7 +46,7 @@ export const Features = () => {
       id="features"
       className="container py-24 sm:py-12 space-y-8"
     >
-      <h2 className="text-5xl font-bold md:text-center leading-loose">
+      <h2 className="text-4xl font-bold md:text-center leading-loose">
         Many{" "}
         <span className="bg-gradient-to-b text-primaryCustomer bg-clip-text">
           Great Features

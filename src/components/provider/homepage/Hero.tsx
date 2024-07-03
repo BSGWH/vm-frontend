@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export const Hero = () => {
   return (
@@ -25,7 +26,7 @@ export const Hero = () => {
             variant="providerDefault"
             className="w-full md:w-auto px-6 py-3 min-w-[200px]"
           >
-            Get Started
+            <Link href={"/provider/signup"}>Get Started</Link>
           </Button>
         </div>
 
