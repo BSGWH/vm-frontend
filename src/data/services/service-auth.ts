@@ -22,7 +22,7 @@ interface ResendProps {
 const baseUrl = getRailsURL();
 
 export async function registerUserService(userData: RegisterUserProps) {
-  const url = new URL("/api/v1/user/register", baseUrl);
+  const url = new URL("/api/v1/users/register", baseUrl);
 
   try {
     const response = await fetch(url, {
@@ -41,7 +41,7 @@ export async function registerUserService(userData: RegisterUserProps) {
 }
 
 export async function loginUserService(userData: LoginUserProps) {
-  const url = new URL("/api/v1/user/login", baseUrl);
+  const url = new URL("/api/v1/users/login", baseUrl);
 
   try {
     const response = await fetch(url, {

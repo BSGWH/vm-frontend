@@ -33,7 +33,7 @@ export function SigninForm() {
   const router = useRouter();
   useEffect(() => {
     if (formState.success) {
-      router.push("/dashboard");
+      router.push("/customer/dashboard");
     }
   }, [formState.success, router]);
 
