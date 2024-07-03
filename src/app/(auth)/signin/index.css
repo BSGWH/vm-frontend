@@ -1,0 +1,15 @@
+.bg-logo-watermark {
+  background-image: url('/images/logo-dark.png');
+  background-repeat: repeat;
+  background-size: 300px;
+  opacity: 0.2;
+  z-index: 10;
+}
+
+.bg-logo-watermark-dark {
+  background-image: url('/images/logo-light.png');
+  background-repeat: repeat;
+  background-size: 300px;
+  opacity: 0.1;
+  z-index: 10;
+}
