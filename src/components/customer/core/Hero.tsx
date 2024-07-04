@@ -38,7 +38,7 @@ export const Hero = () => {
 
         <div className="w-1/2 shadow-lg">
           <img
-            src= {isDarkMode ? "/images/customer-dashboard-dark.png" : "/images/customer-dashboard.png"}
+            src= { isDarkMode ? "/images/customer-dashboard-dark.png" : "/images/customer-dashboard.png"}
             alt="Customer Dashboard"
             className="w-full mt-4"
           />
