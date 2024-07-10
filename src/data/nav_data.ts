@@ -86,7 +86,7 @@ export const providerNavItems: NavItem[]= [
 
   {
     title: "Settings",
-    href: "/provider/dashboard-provider/settings",
+    href: "/provider/dashboard-provider/provider-settings",
     icon: "Settings",
     label: "Settings",
   },
