@@ -2,8 +2,6 @@ import DashboardBreadcrumb from "@/components/customer/dashboard/DashboardBreadc
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Heading } from "@/components/ui/heading";
 
-import { BusinessInfo } from "@/components/providerComponents/providerSettings/businessInfo";
-
 const breadcrumbItems = [
   { title: "Settings", link: "/provider/dashboard-provider/provider-settings" },
 ];
