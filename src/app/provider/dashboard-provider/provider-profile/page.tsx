@@ -2,13 +2,13 @@ import DashboardBreadcrumb from "@/components/customer/dashboard/DashboardBreadc
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Heading } from "@/components/ui/heading";
 
-import { BusinessInfo } from "@/components/providerComponents/providerSettings/businessInfo";
+import { BusinessInfo } from "@/components/providerComponents/providerProfile/businessInfo";
 
 const breadcrumbItems = [
-  { title: "Settings", link: "/provider/dashboard-provider/provider-settings" },
+  { title: "Profile", link: "/provider/dashboard-provider/provider-profile" },
 ];
 
-export default function ProviderSettings() {
+export default function ProviderProfile() {
   return (
     <ScrollArea className="h-full">
       <div className="flex-1 p-4 md:p-8 pt-6">
@@ -17,9 +17,9 @@ export default function ProviderSettings() {
           basePath="/provider/dashboard-provider"
         />
         <div className="mt-4">
-          <Heading title="Settings" description="Manage account settings" />
+          <Heading title="Profile" description="Manage your company profile" />
         </div>
-        Add more setting
+        <BusinessInfo />
       </div>
     </ScrollArea>
   );

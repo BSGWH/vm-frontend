@@ -16,21 +16,33 @@ interface BusinessInfo {
 export function BusinessInfo() {
   const [isEditing, setIsEditing] = useState(false);
   const [businessInfo, setBusinessInfo] = useState<BusinessInfo>({
-    companyName: "",
-    phoneNumber: "",
-    yoe: "",
+    companyName: "No Data",
+    phoneNumber: "No Data",
+    yoe: "No Data",
   });
   const [isLoading, setIsLoading] = useState(true);
+  // HasChange is to detect whether there are changes made
+  const [hasChanges, setHasChanges] = useState(false);
+  // Without originalInfo, we would face several issues:
+  // We couldn't accurately revert changes on cancel.
+  // We'd have difficulty determining if actual changes were made versus just focusing on an input without changing its value.
+  const [originalInfo, setOriginalInfo] = useState<BusinessInfo>({
+    companyName: "No Data",
+    phoneNumber: "No Data",
+    yoe: "No Data",
+  });
 
   useEffect(() => {
     const fetchBusinessInfo = async () => {
       try {
         const response = await axios.get("/api/business-info");
-        setBusinessInfo({
+        const newInfo = {
           companyName: response.data.company_name,
           phoneNumber: response.data.phone_number,
           yoe: response.data.year_of_experience,
-        });
+        };
+        setBusinessInfo(newInfo);
+        setOriginalInfo(newInfo);
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching business info:", error);
@@ -40,17 +52,26 @@ export function BusinessInfo() {
     fetchBusinessInfo();
   }, []);
 
-  const handleEditClick = () => setIsEditing(true);
-  const handleCancelClick = () => setIsEditing(false);
+  const handleEditClick = () => {
+    setIsEditing(true);
+    setHasChanges(false);
+  };
+  const handleCancelClick = () => {
+    setIsEditing(false);
+    setBusinessInfo(originalInfo);
+    setHasChanges(false);
+  };
 
   const handleSaveClick = async () => {
     try {
-      await axios.put("/api/business-info", {
+      await axios.patch("/api/business-info", {
         company_name: businessInfo.companyName,
         phone_number: businessInfo.phoneNumber,
         year_of_experience: businessInfo.yoe,
       });
       setIsEditing(false);
+      setOriginalInfo(businessInfo);
+      setHasChanges(false);
     } catch (error) {
       console.error("Error saving business info:", error);
     }
@@ -58,10 +79,14 @@ export function BusinessInfo() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setBusinessInfo((prevInfo) => ({
-      ...prevInfo,
-      [name]: value,
-    }));
+    const updatedInfo = { ...businessInfo, [name]: value };
+
+    setBusinessInfo(updatedInfo);
+    setHasChanges(
+      updatedInfo.companyName !== originalInfo.companyName ||
+        updatedInfo.phoneNumber !== originalInfo.phoneNumber ||
+        updatedInfo.yoe !== originalInfo.yoe
+    );
   };
 
   const renderInfoRow = (
@@ -69,23 +94,26 @@ export function BusinessInfo() {
     value: string,
     name: keyof BusinessInfo
   ) => (
-    <div className="flex flex-row py-4 px-2">
+    <div className="flex flex-row items-center py-4 px-1 h-16">
       <div className="w-1/3">
         <p className="font-medium text-sm">{label}</p>
       </div>
       <div className="w-2/3">
         {isLoading ? (
           <Spinner size="xs" />
-        ) : isEditing ? (
+        ) : (
           <input
             type="text"
             name={name}
             value={value}
             onChange={handleChange}
-            className="w-full border border-gray-300 p-2"
+            disabled={!isEditing}
+            className={`text-sm bg-transparent h-8 ${
+              isEditing
+                ? "border border-gray-300 px-2 rounded-md"
+                : "border-transparent px-2"
+            }`}
           />
-        ) : (
-          <p className="text-sm">{value}</p>
         )}
       </div>
     </div>
@@ -104,6 +132,10 @@ export function BusinessInfo() {
               variant="providerDefault"
               size="xs"
               onClick={handleSaveClick}
+              className={`${
+                hasChanges ? "opacity-100" : "opacity-50 cursor-not-allowed"
+              }`}
+              disabled={!hasChanges}
             >
               Save
             </Button>

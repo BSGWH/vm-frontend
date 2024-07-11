@@ -92,7 +92,7 @@ export const providerNavItems: NavItem[]= [
   },
   {
     title: "Profile",
-    href: "/provider/dashboard-provider/profile",
+    href: "/provider/dashboard-provider/provider-profile",
     icon: "Profile",
     label: "profile",
   },
