@@ -13,19 +13,26 @@ interface BusinessInfo {
   yoe: string;
 }
 
-export function BusinessInfo() {
+export function CompanyBasicInfo() {
   const [isEditing, setIsEditing] = useState(false);
   const [businessInfo, setBusinessInfo] = useState<BusinessInfo>({
     companyName: "No Data",
     phoneNumber: "No Data",
     yoe: "No Data",
   });
+
+  // Loading for data fetching
   const [isLoading, setIsLoading] = useState(true);
+
+  // Loading for save operation
+  const [isSaving, setIsSaving] = useState(false);
+
   // HasChange is to detect whether there are changes made
   const [hasChanges, setHasChanges] = useState(false);
   // Without originalInfo, we would face several issues:
   // We couldn't accurately revert changes on cancel.
   // We'd have difficulty determining if actual changes were made versus just focusing on an input without changing its value.
+
   const [originalInfo, setOriginalInfo] = useState<BusinessInfo>({
     companyName: "No Data",
     phoneNumber: "No Data",
@@ -35,7 +42,7 @@ export function BusinessInfo() {
   useEffect(() => {
     const fetchBusinessInfo = async () => {
       try {
-        const response = await axios.get("/api/business-info");
+        const response = await axios.get("/api/provider/profile/company-info");
         const newInfo = {
           companyName: response.data.company_name,
           phoneNumber: response.data.phone_number,
@@ -63,17 +70,21 @@ export function BusinessInfo() {
   };
 
   const handleSaveClick = async () => {
+    setIsSaving(true);
     try {
-      await axios.patch("/api/business-info", {
+      await axios.patch("/api/provider/profile/company-info", {
         company_name: businessInfo.companyName,
         phone_number: businessInfo.phoneNumber,
         year_of_experience: businessInfo.yoe,
       });
-      setIsEditing(false);
+
       setOriginalInfo(businessInfo);
       setHasChanges(false);
+      setIsEditing(false);
     } catch (error) {
       console.error("Error saving business info:", error);
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -108,10 +119,8 @@ export function BusinessInfo() {
             value={value}
             onChange={handleChange}
             disabled={!isEditing}
-            className={`text-sm bg-transparent h-8 ${
-              isEditing
-                ? "border border-gray-300 px-2 rounded-md"
-                : "border-transparent px-2"
+            className={`text-sm bg-transparent h-8 px-2 border ${
+              isEditing ? "border-gray-300 rounded-md" : "border-transparent"
             }`}
           />
         )}
@@ -135,9 +144,16 @@ export function BusinessInfo() {
               className={`${
                 hasChanges ? "opacity-100" : "opacity-50 cursor-not-allowed"
               }`}
-              disabled={!hasChanges}
+              disabled={!hasChanges || isSaving}
             >
-              Save
+              {isSaving ? (
+                <>
+                  <Spinner size="xs" className="mr-2" />
+                  Save
+                </>
+              ) : (
+                "Save"
+              )}
             </Button>
           </div>
         ) : (

@@ -6,7 +6,10 @@ const AddressAutocomplete = ({ value, onChange }) => {
     const inputRef = useRef(null);
     const [manualEntry, setManualEntry] = useState(false); // Check if it's typed manually
 
-    useLoadScript(`https://maps.googleapis.com/maps/api/js?key=AIzaSyCzMsKBStfaN6gAYSmzV1rz5cCkfw1JpIc&libraries=places`);
+
+    
+
+    useLoadScript(`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_AUTOCOMPLETE_API_KEY}&libraries=places`);
 
     useEffect(() => {
         const handleScriptLoad = () => {

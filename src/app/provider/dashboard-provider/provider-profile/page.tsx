@@ -2,7 +2,8 @@ import DashboardBreadcrumb from "@/components/customer/dashboard/DashboardBreadc
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Heading } from "@/components/ui/heading";
 
-import { BusinessInfo } from "@/components/providerComponents/providerProfile/businessInfo";
+import { CompanyBasicInfo } from "@/components/providerComponents/providerProfile/companybasicInfo";
+import { AddressInfo } from "@/components/providerComponents/providerProfile/addressInfo";
 
 const breadcrumbItems = [
   { title: "Profile", link: "/provider/dashboard-provider/provider-profile" },
@@ -19,7 +20,8 @@ export default function ProviderProfile() {
         <div className="mt-4">
           <Heading title="Profile" description="Manage your company profile" />
         </div>
-        <BusinessInfo />
+        <CompanyBasicInfo />
+        <AddressInfo />
       </div>
     </ScrollArea>
   );
