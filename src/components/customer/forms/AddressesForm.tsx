@@ -1,5 +1,4 @@
 "use client";
-import React from 'react';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, useFieldArray } from "react-hook-form";
 import { z } from "zod";
@@ -10,6 +9,16 @@ import { toast } from "@/components/ui/use-toast";
 import { Delete as DeleteIcon } from "@mui/icons-material";
 import { Box, IconButton, Typography, Select, MenuItem } from "@mui/material";
 import AddressAutocomplete from "@/components/features/AddessAutocomplete";
+import React, { useEffect, useState } from "react";
+import axios from "axios"
+import EditIcon from "@mui/icons-material/Edit";
+
+interface Address {
+  street: string;
+  city: string;
+  state: string;
+  zip_code: string;
+}
 
 const FormSchema = z.object({
   addresses: z
@@ -17,10 +26,8 @@ const FormSchema = z.object({
       z.object({
         state: z.string().min(2, { message: "State must be at least 2 characters." }),
         city: z.string().min(2, { message: "City must be at least 2 characters." }),
-        addressline1: z.string().min(5, { message: "Street must be at least 5 characters." }),
-        addressline2: z.string().optional(),
-        zip: z.string().regex(/^\d{5}$/, { message: "Zip code must be exactly 5 digits." }),
-        tag: z.string().min(2, { message: "Tag must be at least 2 characters." }).nonempty("Tag is required."),
+        street: z.string().min(5, { message: "Street must be at least 5 characters." }),
+        zip_code: z.string().regex(/^\d{5}$/, { message: "Zip code must be exactly 5 digits." }),
       })
     )
     .nonempty("Must have at least one address."),
@@ -42,95 +49,177 @@ export function AddressesForm() {
         {
           state: "MA",
           city: "Boston",
-          addressline1: "180 Franklin Street",
-          addressline2: "",
-          zip: "02110",
-          tag: "Home",
+          street: "180 Franklin Street",
+          zip_code: "02110",
         },
       ],
     },
     mode: 'onChange' // Ensure validation is triggered on change
   });
-
+  
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "addresses",
   });
 
-  function onSubmit(data: any) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
-  }
+  const [isEditing, setIsEditing] = useState(false);
+  const [address, setAddress] = useState<Address>({
+    street: "no data",
+    city: "",
+    state: "",
+    zip_code: ""
+  });
+  const [originalAddress, setOriginalAddress] = useState<Address>(address);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasChanges, setHasChanges] = useState(false);
+
+  
+  useEffect(() => {
+    const fetchAddressInfo = async () => {
+      try {
+        const { data } = await axios.get("/api/v1/users/profile/address");
+        const newAddress = {
+          street: data.street,
+          city: data.city,
+          state: data.state,
+          zip_code: data.zip_code,
+        };
+        setAddress(newAddress);
+        setOriginalAddress(newAddress);
+      } catch (error) {
+        console.error("Error fetching address info:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchAddressInfo();
+  }, []);
+
+  const handleEditClick = () => setIsEditing(true);
+
+  const handleCancelClick = () => {
+    setIsEditing(false);
+    setAddress(originalAddress);
+    setHasChanges(false);
+  };
+
+  const handleSaveClick = async () => {
+    try {
+      await axios.patch("/api/v1/users/profile/address", {
+        street: address.street,
+        city: address.city,
+        state: address.state,
+        zip_code: address.zip_code,
+      });
+      setOriginalAddress(address);
+      setIsEditing(false);
+      setHasChanges(false);
+    } catch (error) {
+      console.error("Error saving address info:", error);
+    }
+  };
+
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = e.target;
+  //   const updatedAddress = { ...address, [name]: value };
+  //   setAddress(updatedAddress);
+  //   setHasChanges(
+  //     updatedAddress.street !== originalAddress.street ||
+  //     updatedAddress.city !== originalAddress.city ||
+  //     updatedAddress.state !== originalAddress.state ||
+  //     updatedAddress.zip_code !== originalAddress.zip_code
+  //   );
+  // };
+
+  // const handleChange = (index, newAddress) => {
+  //   form.setValue(`addresses.${index}`, newAddress);
+    
+  
+  //   setHasChanges(
+  //     newAddress.street !== originalAddress.street ||
+  //     newAddress.city !== originalAddress.city ||
+  //     newAddress.state !== originalAddress.state ||
+  //     newAddress.zip_code !== originalAddress.zip_code
+  //   );
+  // };
 
   const handleAddAddress = () => {
     append({
       state: "",
       city: "",
-      addressline1: "",
-      addressline2: "",
-      zip: "",
-      tag: "",
+      street: "",
+      zip_code: ""
     });
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+    <div>
+      <div className="flex flex-row justify-between items-center mt-10 mb-2">
+        <p className="text-lg font-bold">Address Information</p>
+        {isEditing ? (
+          <div className="flex space-x-2">
+            <Button variant="outline" size="sm" onClick={handleCancelClick}>
+              Cancel
+            </Button>
+            <Button
+              variant="customerDefault"
+              size="sm"
+              onClick={handleSaveClick}
+              className={`${hasChanges ? "opacity-100" : "opacity-50 cursor-not-allowed"}`}
+              disabled={!hasChanges}
+            >
+              Save
+            </Button>
+          </div>
+        ) : (
+          <Button variant="outline" size="sm" onClick={handleEditClick}>
+            Edit
+            <EditIcon className="ml-2 h-4 w-4" />
+          </Button>
+        )}
+      </div>
+
+      <div>
+      <Form {...form}>
+      <form className="w-2/3 space-y-6">
         <div>
           {fields.map((field, index) => (
-            <Box key={field.id} mb={2} p={2} className="border rounded-lg">
-              <Box display="flex" alignItems="center" justifyContent="space-between">
-                <Typography variant="h6" gutterBottom>
-                  Address {index + 1}
-                </Typography>
-                <IconButton
-                  color="secondary"
+            <div key={field.id} className="mb-2 p-2 border-none rounded-lg">
+              <div className="flex items-center justify-between mb-4">
+                <h6 className="text-lg font-bold">Address {index + 1}</h6>
+                <button
+                  type="button"
                   onClick={() => remove(index)}
                   disabled={fields.length === 1}
                 >
                   <DeleteIcon />
-                </IconButton>
-              </Box>
-              <Box display="flex" gap={2} alignItems={"center"} mb={1}>
+                </button>
+              </div>
+              <div className="flex gap-2 items-center mb-4">
                 <FormField
                   control={form.control}
-                  name={`addresses.${index}.addressline1`}
+                  name={`addresses.${index}.street`}
+            
                   render={({ field }) => (
                     <FormItem className="flex-1">
-                      <FormLabel>Address Line 1</FormLabel>
+                      <FormLabel>Street</FormLabel>
                       <FormControl>
                         <AddressAutocomplete
                           value={field.value}
-                          onChange={(newAddress: { state: string; city: string; addressline1: string; addressline2: string; zip: string; tag: string; }) => form.setValue(`addresses.${index}`, newAddress)}
+                          onChange={(newAddress: { state: string; city: string; street: string; zip_code: string; }) => form.setValue(`addresses.${index}`, newAddress)}
+          
+     
+                          disabled={!isEditing}
+
                         />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-              </Box>
-              <Box display="flex" gap={2} alignItems={"center"} mb={1}>
-                <FormField
-                  control={form.control}
-                  name={`addresses.${index}.addressline2`}
-                  render={({ field }) => (
-                    <FormItem className="flex-1">
-                      <FormLabel>Address Line 2</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Optional" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </Box>
-              <Box display="flex" gap={2} alignItems={"center"} mb={1}>
+              </div>
+              <div className="flex gap-2 items-center mb-4">
                 <FormField
                   control={form.control}
                   name={`addresses.${index}.city`}
@@ -138,7 +227,7 @@ export function AddressesForm() {
                     <FormItem className="flex-1">
                       <FormLabel>City</FormLabel>
                       <FormControl>
-                        <Input placeholder="City" {...field} />
+                        <Input placeholder="City" disabled={!isEditing} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -155,6 +244,7 @@ export function AddressesForm() {
                           labelId={`addresses.${index}.state-label`}
                           {...field}
                           label="State"
+                          disabled={!isEditing}
                           sx={{ height: '40px', display: 'flex', alignItems: 'center' }}
                         >
                           {USStates.map((state) => (
@@ -170,43 +260,32 @@ export function AddressesForm() {
                 />
                 <FormField
                   control={form.control}
-                  name={`addresses.${index}.zip`}
+                  name={`addresses.${index}.zip_code`}
                   render={({ field }) => (
                     <FormItem className="flex-1">
                       <FormLabel>ZIP Code</FormLabel>
                       <FormControl>
-                        <Input placeholder="Zip" {...field} />
+                        <Input placeholder="Zip Code" disabled={!isEditing} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name={`addresses.${index}.tag`}
-                  render={({ field }) => (
-                    <FormItem className="flex-1">
-                      <FormLabel>Tag</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Tag" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </Box>
-            </Box>
+              </div>
+            </div>
           ))}
-          <Button
+          {isEditing?(<Button
             variant="customerOutline"
             onClick={handleAddAddress}
+            type="button"
           >
             Add Address
-          </Button>
+          </Button>)
+          :(<div></div>)}
         </div>
-
-        <Button variant="customerDefault" type="submit">Save</Button>
       </form>
     </Form>
-  );
-}
+    
+</div>
+</div>
+)};
