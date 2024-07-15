@@ -72,7 +72,7 @@ export function ProviderSignupForm() {
               </CardTitle>
               <CardTitle className="text-3xl font-bold">Sign Up</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-8 pb-4">
+            <CardContent className="space-y-4 pb-4">
               <div className="space-y-2 my-4">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -157,6 +157,18 @@ export function ProviderSignupForm() {
               {/* <Message message={formState?.message} /> */}
             </CardFooter>
           </Card>
+          <div className="flex justify-center">
+            <div className="text-center text-sm text-gray-400 w-2/3">
+              By clicking sign up, you agree to our
+              <Link className="underline ml-2" href="/termsofservice">
+                Terms of Service
+              </Link>{" "}
+              and
+              <Link className="underline ml-2" href="/privacypolicy">
+                Privacy Policy
+              </Link>
+            </div>
+          </div>
           <div className="mt-4 text-center text-sm">
             <Link className="underline ml-2" href="/signup">
               Sign Up as a Customer

@@ -34,6 +34,11 @@ const config = {
           foreground: "hsl(var(--primaryProvider-foreground))",
           hover: "hsl(var(--primaryProvider-hover))",
         },
+        newsroom: {
+          DEFAULT: "hsl(var(--newsroom))",
+          foreground: "hsl(var(--newsroom-foreground))",
+          hover: "hsl(var(--newsroom-hover))",
+        },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",

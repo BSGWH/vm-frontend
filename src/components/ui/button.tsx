@@ -17,6 +17,8 @@ const buttonVariants = cva(
           "bg-primaryProvider text-white hover:bg-primaryProvider-hover",
         providerOutline:
           "border border-primaryProvider text-primaryProvider-foreground hover:bg-primaryProvider-hover/10",
+        newsroomNav: "hover:bg-newsroom-hover",
+        newsroomOutline: "hover:bg-newsroom-hover",
         destructive: "bg-[#dc3545] text-white hover:bg-[#c82333]",
         outline: "border border-[#2FA16D] text-black hover:bg-[#2FA16D]/10",
         secondary: "bg-[#2FA16D]/20 text-black hover:bg-[#2FA16D]/30",

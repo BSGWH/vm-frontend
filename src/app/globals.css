@@ -21,6 +21,10 @@
     --primaryProvider-foreground: 0 0% 0%;
     --primaryProvider-hover: 154 70% 40%;
 
+    --newsroom: 0 0% 20%;
+    --newsroom-foreground: 0 0% 0%;
+    --newsroom-hover: 0 0% 90%;
+
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
@@ -57,6 +61,10 @@
     --primaryProvider: 154 70% 45%;
     --primaryProvider-foreground: 0 0% 100%;
     --primaryProvider-hover: 154 70% 40%;
+
+    --newsroom: 0 0% 80%;
+    --newsroom-foreground: 0 0% 0%;
+    --newsroom-hover: 0 0% 85%;
 
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
