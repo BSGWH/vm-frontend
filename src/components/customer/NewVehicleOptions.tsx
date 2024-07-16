@@ -15,7 +15,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { VinForm2 } from "../forms/VinForm";
-import VehicleForm from "../forms/VehicleForm";
+import VehicleForm from "@/components/customer/forms/VehicleForm";
 import { CarMakeWithModels } from "@/types/car";
 import React from "react"; 
 import { NextRouter } from "next/router";

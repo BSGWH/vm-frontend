@@ -97,6 +97,7 @@ const services: Service[] = [
               <TableHead>Service Type</TableHead>
               <TableHead>Service Date</TableHead>
               <TableHead>Status</TableHead>
+              <TableHead>Details</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -108,7 +109,7 @@ const services: Service[] = [
                 <TableCell>{service.service_date}</TableCell>
                 <TableCell>{service.status}</TableCell>
                 <TableCell>
-                  <Link href="/dashboard/services/${params.id}">Details</Link>
+                  <Link href={`/customer/dashboard/services/${service.service_id}`}>View</Link>
                 </TableCell>
               </TableRow>
             ))}

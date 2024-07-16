@@ -33,7 +33,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import { ServiceProviderTable } from "../dashboard/serviceComponents/ServiceProviderTable";
+import { ServiceProviderTable } from "@/components/customer/dashboard/serviceComponents/ServiceProviderTable";
 
 const FormSchema = z.object({
   vehicle: z.string().default("vehicle").optional(),
