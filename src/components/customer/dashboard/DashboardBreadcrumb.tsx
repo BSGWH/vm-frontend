@@ -20,7 +20,7 @@ type BreadCrumbPropsType = {
 
 export default function DashboardBreadcrumb({
   items,
-  basePath = "/dashboard",
+  basePath = "/customer/dashboard",
 }: BreadCrumbPropsType) {
   return (
     <Breadcrumb>

@@ -180,11 +180,11 @@ export function NewServiceForm() {
             )}
           />
 
-          <Button type="submit">Submit</Button>
+          <Button variant="customerDefault" type="submit">Submit</Button>
         </form>
       </Form>
 
-      <Separator />
+    
 
       {showTable && (
         <div>

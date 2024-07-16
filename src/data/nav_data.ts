@@ -23,8 +23,8 @@ export const navItems: NavItem[] = [
     label: "MyVehicles",
   },
   {
-    title: "My Seivices",
-    href: "/dashboard/services",
+    title: "My Services",
+    href: "/customer/dashboard/services",
     icon: "MySeivices",
     label: "MySeivices",
   },

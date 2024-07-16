@@ -62,7 +62,7 @@ export default async function page() {
         <div className="flex justify-between">
           <Heading title="My Vecicles" description="Manage my vehicles" />
           <Button>
-            <Link href="/dashboard/vehicles/new_vehicles">Add a vehicle</Link>
+            <Link href="/customer/dashboard/vehicles/new_vehicles">Add a vehicle</Link>
           </Button>
         </div>
         <Separator />

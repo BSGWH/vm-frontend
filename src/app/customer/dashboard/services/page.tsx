@@ -8,7 +8,7 @@ import { Service } from "@/types/service";
 import ServiceCard from "@/components/customer/dashboard/serviceComponents/ServiceCard";
 // import { ServiceForm } from "@/components/forms/ServiceForm";
 
-const breadcrumbItems = [{ title: "Services", link: "/dashboard/services" }];
+const breadcrumbItems = [{ title: "Services", link: "customer/dashboard/services" }];
 
 const services: Service[] = [
   {
@@ -39,7 +39,7 @@ export default async function page() {
         <div className="flex justify-between">
           <Heading title="My Services" description="Manage my services" />
           <Button>
-            <Link href="/dashboard/services/new_services">Add a service</Link>
+            <Link href="/customer/dashboard/services/new_services">Add a service</Link>
           </Button>
         </div>
         <Separator />
