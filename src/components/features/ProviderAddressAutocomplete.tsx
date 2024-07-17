@@ -11,11 +11,14 @@ declare global {
 interface AddressInfo {
   street_address_one: string;
   street_address_two: string;
+  city: string;
+  state: string;
+  zip: string;
 }
 
 interface ProviderAddressAutocompleteProps {
   value: AddressInfo;
-  onChange: (newAddress: AddressInfo) => void;
+  onChange: (newAddress: Partial<AddressInfo>) => void;
   className?: string;
   disabled?: boolean;
 }
@@ -52,11 +55,24 @@ const ProviderAddressAutocomplete: React.FC<
           const route =
             place.address_components.find((c: any) => c.types.includes("route"))
               ?.long_name || "";
-          const streetAddress = `${streetNumber} ${route}`.trim();
+          const city =
+            place.address_components.find((c: any) =>
+              c.types.includes("locality")
+            )?.long_name || "";
+          const state =
+            place.address_components.find((c: any) =>
+              c.types.includes("administrative_area_level_1")
+            )?.short_name || "";
+          const zip =
+            place.address_components.find((c: any) =>
+              c.types.includes("postal_code")
+            )?.long_name || "";
 
-          const address: AddressInfo = {
-            street_address_one: streetAddress,
-            street_address_two: value.street_address_two, // Preserve the existing street_address_two
+          const address: Partial<AddressInfo> = {
+            street_address_one: `${streetNumber} ${route}`.trim(),
+            city,
+            state,
+            zip,
           };
           onChange(address);
           setManualEntry(false);
@@ -71,17 +87,31 @@ const ProviderAddressAutocomplete: React.FC<
     }
   }, [onChange, value.street_address_two]);
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!disabled) {
+      const newValue = e.target.value;
+      onChange({ ...value, street_address_one: newValue });
+      setManualEntry(true);
+
+      // If manual entry, clear other fields
+      if (manualEntry) {
+        onChange({
+          ...value,
+          street_address_one: newValue,
+          city: "",
+          state: "",
+          zip: "",
+        });
+      }
+    }
+  };
+
   return (
     <input
       ref={inputRef}
       placeholder="Enter address"
       value={value.street_address_one}
-      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-        if (!disabled) {
-          onChange({ ...value, street_address_one: e.target.value });
-          setManualEntry(true);
-        }
-      }}
+      onChange={handleInputChange}
       className={className}
       disabled={disabled}
     />
