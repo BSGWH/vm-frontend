@@ -3,9 +3,9 @@ import path from "path";
 import { Metadata } from "next";
 import Image from "next/image";
 import { z } from "zod";
-import { columns } from "../../../../components//customer/documents/columns";
-import { DataTable } from "../../../../components/customer/documents/data-table";
-import { docSchema } from "../../../../data/doc_data/schema";
+import { columns } from "@/components/customer/documents/columns";
+import { DataTable } from "@/components/customer/documents/data-table";
+import { docSchema } from "@/data/doc_data/schema";
 
 export const metadata: Metadata = {
   title: "Docs",

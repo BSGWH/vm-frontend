@@ -5,10 +5,10 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Service } from "@/types/service";
-import ServiceCard from "@/components/customer/dashboard/serviceComponents/ServiceCard";
+import {ServiceTable} from "@/components/customer/dashboard/serviceComponents/ServiceTable";
 // import { ServiceForm } from "@/components/forms/ServiceForm";
 
-const breadcrumbItems = [{ title: "Services", link: "/dashboard/services" }];
+const breadcrumbItems = [{ title: "Services", link: "customer/dashboard/services" }];
 
 const services: Service[] = [
   {
@@ -18,7 +18,7 @@ const services: Service[] = [
     provider: "test provider",
     service_date: "2024-05-01",
     service_time: "",
-    is_completed: true,
+    status: "completed",
   },
   {
     service_id: 2,
@@ -27,7 +27,7 @@ const services: Service[] = [
     provider: "test provider",
     service_date: "2024-07-01",
     service_time: "",
-    is_completed: false,
+    status: "in progress",
   },
 ];
 
@@ -39,16 +39,12 @@ export default async function page() {
         <div className="flex justify-between">
           <Heading title="My Services" description="Manage my services" />
           <Button>
-            <Link href="/dashboard/services/new_services">Add a service</Link>
+            <Link href="/customer/dashboard/services/new_services">Add a service</Link>
           </Button>
         </div>
         <Separator />
         <div className="pt-2">
-          {services.map((service: Service) => (
-            <div className="mt-6">
-              <ServiceCard service={service} />
-            </div>
-          ))}
+        <ServiceTable />
         </div>
       </div>
     </ScrollArea>

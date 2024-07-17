@@ -4,10 +4,15 @@ import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 {/* import { SwitchForm } from "@/components/customer/forms/SettingForm"; */}
 import { ProfileForm } from "@/components/customer/forms/ProfileForm";
+import { AddressesForm } from "@/components/customer/forms/AddressesForm";
+import { useState } from 'react';
+
 
 const breadcrumbItems = [{ title: "Profile", link: "/dashboard/profile" }]
 
 export default function page() {
+ 
+    
   return (
     <ScrollArea className="h-full">
       <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
@@ -15,7 +20,8 @@ export default function page() {
         <Heading title="Profile" description="Manage profile"/>
         <Separator />
 				<ProfileForm />
+        <AddressesForm />
       </div>
     </ScrollArea>
   )
-}
+  }

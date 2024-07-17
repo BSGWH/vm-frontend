@@ -3,7 +3,7 @@ import DashboardBreadcrumb from "@/components/customer/dashboard/DashboardBreadc
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
-import NewVehicleOptions from "@/components/customer/dashboard/NewVehicleOptions";
+import NewVehicleOptions from "@/components/customer/dashboard/vehicleComponents/NewVehicleOptions";
 import { CarMakeWithModels } from "@/types/car";
 import { getAllModelsByMake } from "@/lib/fetch_util_server";
 import { useRouter } from "next/router";

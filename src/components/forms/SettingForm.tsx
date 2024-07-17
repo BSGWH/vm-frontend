@@ -29,10 +29,9 @@ import { ChevronRightIcon } from "@radix-ui/react-icons";
 
 const FormSchema = z.object({
   marketing_emails: z.boolean().default(false).optional(),
-  marketing_texts: z.boolean().default(false).optional(),
-  // security_emails: z.boolean(),
+  security_emails: z.boolean(),
 	password: z.boolean().default(false).optional(),
-	// two_factor_authentication: z.boolean().default(false).optional(),
+	two_factor_authentication: z.boolean().default(false).optional(),
 	dark_mode: z.boolean().default(false).optional(),
 	language: z.string().default("language").optional(),
 });
@@ -41,7 +40,7 @@ export function SwitchForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      // security_emails: true,
+      security_emails: true,
     },
   });
 
@@ -60,7 +59,7 @@ export function SwitchForm() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
         <div>
-          <h3 className="mb-4 text-lg font-medium">Notifications</h3>
+          <h3 className="mb-4 text-lg font-medium">Email Notifications</h3>
           <div className="space-y-4">
             <FormField
               control={form.control}
@@ -68,7 +67,7 @@ export function SwitchForm() {
               render={({ field }) => (
                 <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
                   <div className="space-y-0.5">
-                    <FormLabel>Marketing Emails</FormLabel>
+                    <FormLabel>Marketing emails</FormLabel>
                     <FormDescription>
                       Receive emails about new products, features, and more.
                     </FormDescription>
@@ -80,28 +79,6 @@ export function SwitchForm() {
                     />
                   </FormControl>
                 </FormItem>
-                
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="marketing_texts"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
-                  <div className="space-y-0.5">
-                    <FormLabel>Marketing Texts</FormLabel>
-                    <FormDescription>
-                      Receive texts about new products, features, and more.
-                    </FormDescription>
-                  </div>
-                  <FormControl>
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                </FormItem>
-                
               )}
             />
           </div>
@@ -115,8 +92,8 @@ export function SwitchForm() {
               render={({ field }) => (
                 <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
                   <div className="space-y-0.5">
-                    <FormLabel>Password</FormLabel>
-                    <FormDescription>Change password</FormDescription>
+                    <FormLabel>Paaword</FormLabel>
+                    <FormDescription>Change password.</FormDescription>
                   </div>
                   <FormControl>
 									<ChevronRightIcon className="h-4 w-4 opacity-50" style={{ marginTop : "0" }} />
@@ -124,7 +101,6 @@ export function SwitchForm() {
                 </FormItem>
               )}
             />
-            {/* 2FA Not Implemented
             <FormField
               control={form.control}
               name="two_factor_authentication"
@@ -143,8 +119,6 @@ export function SwitchForm() {
                 </FormItem>
               )}
             />
-            */}
-            {/* Roles Management Not Implemented
 						<FormField
               control={form.control}
               name="security_emails"
@@ -160,13 +134,11 @@ export function SwitchForm() {
                 </FormItem>
               )}
             />
-            */}
           </div>
         </div>
         <div>
           <h3 className="mb-4 text-lg font-medium">General</h3>
           <div className="space-y-4">
-            {/*
             <FormField
               control={form.control}
               name="dark_mode"
@@ -187,7 +159,6 @@ export function SwitchForm() {
                 </FormItem>
               )}
             />
-            */}
             <FormField
               control={form.control}
               name="language"
@@ -206,10 +177,12 @@ export function SwitchForm() {
 											</SelectTrigger>
 											<SelectContent>
 												<SelectGroup>
-													<SelectLabel className="text-gray-500"> - Language - </SelectLabel>
+													<SelectLabel>Language</SelectLabel>
 													<SelectItem value="english">English</SelectItem>
-													<SelectItem value="español">Español</SelectItem>
+													<SelectItem value="german">German</SelectItem>
+													<SelectItem value="japanese">Japanese</SelectItem>
 													<SelectItem value="mandarin">Mandarin</SelectItem>
+													<SelectItem value="french">French</SelectItem>
 												</SelectGroup>
 											</SelectContent>
 										</Select>
@@ -219,7 +192,7 @@ export function SwitchForm() {
             />
           </div>
         </div>
-        <Button variant="customerDefault" type="submit">Save</Button>
+        <Button type="submit">Submit</Button>
       </form>
     </Form>
   );
