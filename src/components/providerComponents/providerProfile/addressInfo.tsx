@@ -6,22 +6,25 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
 import axios from "axios";
+import ProviderAddressAutocomplete from "@/components/features/ProviderAddressAutocomplete";
 
 interface AddressInfo {
   street_address_one: string;
   street_address_two: string;
-  city: string;
-  state: string;
-  zip: string;
 }
 
 export function AddressInfo() {
   const [addressInfo, setAddressInfo] = useState<AddressInfo>({
     street_address_one: "No data",
     street_address_two: "No data",
-    city: "No data",
-    state: "No data",
-    zip: "No data",
+  });
+  const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
+  const [hasChanges, setHasChanges] = useState(false);
+  const [originalInfo, setOriginalInfo] = useState<AddressInfo>({
+    street_address_one: "No data",
+    street_address_two: "No data",
   });
 
   useEffect(() => {
@@ -31,64 +34,59 @@ export function AddressInfo() {
         const newInfo = {
           street_address_one: response.data.street_address_one,
           street_address_two: response.data.street_address_two,
-          city: response.data.city,
-          state: response.data.state,
-          zip: response.data.zip,
         };
         setAddressInfo(newInfo);
         setOriginalInfo(newInfo);
         setIsLoading(false);
       } catch (error) {
-        console.error("Error fetching business info:", error);
+        console.error("Error fetching address info:", error);
         setIsLoading(false);
       }
     };
     fetchAddressInfo();
   }, []);
 
-  const [isEditing, setIsEditing] = useState(false);
-  // Loading for data fetching
-  const [isLoading, setIsLoading] = useState(true);
-  // Loading for save operation
-  const [isSaving, setIsSaving] = useState(false);
-  // HasChange is to detect whether there are changes made
-  const [hasChanges, setHasChanges] = useState(false);
-
-  const [originalInfo, setOriginalInfo] = useState<AddressInfo>({
-    street_address_one: "No data",
-    street_address_two: "No data",
-    city: "No data",
-    state: "No data",
-    zip: "No data",
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | { target: { name: string; value: string } }
+  ) => {
     const { name, value } = e.target;
     const updatedInfo = { ...addressInfo, [name]: value };
-
     setAddressInfo(updatedInfo);
-    setHasChanges(
-      updatedInfo.street_address_one !== originalInfo.street_address_one ||
-        updatedInfo.street_address_two !== originalInfo.street_address_two ||
-        updatedInfo.city !== originalInfo.city ||
-        updatedInfo.state !== originalInfo.state ||
-        updatedInfo.zip !== originalInfo.zip
-    );
+    setHasChanges(JSON.stringify(updatedInfo) !== JSON.stringify(originalInfo));
   };
 
   const handleEditClick = () => {
     setIsEditing(true);
     setHasChanges(false);
   };
+
   const handleCancelClick = () => {
     setIsEditing(false);
     setAddressInfo(originalInfo);
     setHasChanges(false);
   };
-  const renderInfoRow = (
+
+  const handleSaveClick = async () => {
+    setIsSaving(true);
+    console.log("Saving address info:", addressInfo);
+    try {
+      await axios.patch("/api/provider/profile/address-info", addressInfo);
+      setOriginalInfo(addressInfo);
+      setHasChanges(false);
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error saving address info:", error);
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const renderAddressInput = (
     label: string,
-    value: string,
-    name: keyof AddressInfo
+    name: keyof AddressInfo,
+    placeholder?: string
   ) => (
     <div className="flex flex-row items-center py-4 px-1 h-16">
       <div className="w-1/3">
@@ -97,12 +95,36 @@ export function AddressInfo() {
       <div className="w-2/3">
         {isLoading ? (
           <Spinner size="xs" />
+        ) : name === "street_address_one" ? (
+          <ProviderAddressAutocomplete
+            value={addressInfo}
+            onChange={(newAddress: any) => {
+              if (isEditing) {
+                console.log("Selected address:", newAddress);
+                const updatedInfo = {
+                  ...addressInfo,
+                  street_address_one: newAddress.street_address_one,
+                };
+                setAddressInfo(updatedInfo);
+                setHasChanges(
+                  JSON.stringify(updatedInfo) !== JSON.stringify(originalInfo)
+                );
+              }
+            }}
+            className={`w-2/3 text-sm bg-transparent h-8 px-2 border ${
+              isEditing ? "border-gray-300 rounded-md" : "border-transparent"
+            }`}
+            disabled={!isEditing}
+          />
         ) : (
           <input
             type="text"
             name={name}
-            value={value}
-            className={`text-sm bg-transparent h-8 px-2 border ${
+            value={addressInfo[name]}
+            onChange={handleChange}
+            disabled={!isEditing}
+            placeholder={placeholder}
+            className={`w-1/3 text-sm bg-transparent h-8 px-2 border ${
               isEditing ? "border-gray-300 rounded-md" : "border-transparent"
             }`}
           />
@@ -115,7 +137,6 @@ export function AddressInfo() {
     <div>
       <div className="flex flex-row justify-between items-center mt-10 mb-2">
         <p className="text-lg font-bold">Company Address</p>
-
         {isEditing ? (
           <div className="flex space-x-2">
             <Button variant="outline" size="xs" onClick={handleCancelClick}>
@@ -124,7 +145,7 @@ export function AddressInfo() {
             <Button
               variant="providerDefault"
               size="xs"
-              // onClick={handleSaveClick}
+              onClick={handleSaveClick}
               className={`${
                 hasChanges ? "opacity-100" : "opacity-50 cursor-not-allowed"
               }`}
@@ -149,19 +170,12 @@ export function AddressInfo() {
       </div>
       <Separator />
       <div className="py-2">
-        {renderInfoRow(
-          "Address Line 1",
-          addressInfo.street_address_one,
-          "street_address_one"
-        )}
-        {renderInfoRow(
+        {renderAddressInput("Address Line 1", "street_address_one")}
+        {renderAddressInput(
           "Address Line 2",
-          addressInfo.street_address_two,
-          "street_address_two"
+          "street_address_two",
+          "Apt, suite, unit, building, floor, etc."
         )}
-        {renderInfoRow("City", addressInfo.city, "city")}
-        {renderInfoRow("State", addressInfo.state, "state")}
-        {renderInfoRow("ZIP Code", addressInfo.zip, "zip")}
       </div>
     </div>
   );

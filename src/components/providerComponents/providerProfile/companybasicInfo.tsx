@@ -103,7 +103,8 @@ export function CompanyBasicInfo() {
   const renderInfoRow = (
     label: string,
     value: string,
-    name: keyof BusinessInfo
+    name: keyof BusinessInfo,
+    placeholder: string
   ) => (
     <div className="flex flex-row items-center py-4 px-1 h-16">
       <div className="w-1/3">
@@ -119,7 +120,8 @@ export function CompanyBasicInfo() {
             value={value}
             onChange={handleChange}
             disabled={!isEditing}
-            className={`text-sm bg-transparent h-8 px-2 border ${
+            placeholder={placeholder}
+            className={`w-1/3 text-sm bg-transparent h-8 px-2 border ${
               isEditing ? "border-gray-300 rounded-md" : "border-transparent"
             }`}
           />
@@ -165,9 +167,24 @@ export function CompanyBasicInfo() {
       </div>
       <Separator />
       <div className="py-2">
-        {renderInfoRow("Company Name", businessInfo.companyName, "companyName")}
-        {renderInfoRow("Phone Number", businessInfo.phoneNumber, "phoneNumber")}
-        {renderInfoRow("Year of Experience", businessInfo.yoe, "yoe")}
+        {renderInfoRow(
+          "Company Name",
+          businessInfo.companyName,
+          "companyName",
+          "Enter company name"
+        )}
+        {renderInfoRow(
+          "Phone Number",
+          businessInfo.phoneNumber,
+          "phoneNumber",
+          "Enter phone number"
+        )}
+        {renderInfoRow(
+          "Year of Experience",
+          businessInfo.yoe,
+          "yoe",
+          "Enter years of experience"
+        )}
       </div>
     </div>
   );
