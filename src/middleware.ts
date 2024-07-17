@@ -31,19 +31,19 @@ export async function middleware(request: NextRequest) {
   //   }
   // }
 
-//   // Protect /provider/dashboard-provider route if provider is null or provider.ok is false
-//   if (currentPath.startsWith("/provider/dashboard-provider")) {
-//     if (!provider || (provider && !provider.ok)) {
-//       return NextResponse.redirect(new URL("/provider/signin", request.url));
-//     }
-//   }
+  // Protect /provider/dashboard-provider route if provider is null or provider.ok is false
+  if (currentPath.startsWith("/provider/dashboard-provider")) {
+    if (!provider || (provider && !provider.ok)) {
+      return NextResponse.redirect(new URL("/provider/signin", request.url));
+    }
+  }
 
-// // Redirect authenticated providers away from /provider/signin and /provider/signup if provider logs in
-//   if (currentPath.startsWith("/provider/signin") || currentPath.startsWith("/provider/signup")) {
-//     if (provider && provider.ok) {
-//       return NextResponse.redirect(new URL("/provider/dashboard-provider", request.url));
-//     }
-//   }
+// Redirect authenticated providers away from /provider/signin and /provider/signup if provider logs in
+  if (currentPath.startsWith("/provider/signin") || currentPath.startsWith("/provider/signup")) {
+    if (provider && provider.ok) {
+      return NextResponse.redirect(new URL("/provider/dashboard-provider", request.url));
+    }
+  }
 
   return NextResponse.next();
 }

@@ -44,7 +44,10 @@ export function ProviderDashboardSidebarNav({
                   path === item.href ? "bg-accent" : "transparent"
                 )}
               >
-                <Icon className="mr-2 h-4 w-4" />
+                <Icon
+                  className="mr-2 h-4 w-4"
+                  style={{ width: "16px", height: "16px" }}
+                />
                 <span>{item.title}</span>
               </span>
             </Link>
