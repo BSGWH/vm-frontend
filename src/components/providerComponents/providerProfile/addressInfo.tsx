@@ -11,12 +11,18 @@ import ProviderAddressAutocomplete from "@/components/features/ProviderAddressAu
 interface AddressInfo {
   street_address_one: string;
   street_address_two: string;
+  city: string;
+  state: string;
+  zip: string;
 }
 
 export function AddressInfo() {
   const [addressInfo, setAddressInfo] = useState<AddressInfo>({
     street_address_one: "No data",
     street_address_two: "No data",
+    city: "No data",
+    state: "No data",
+    zip: "No data",
   });
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -25,6 +31,9 @@ export function AddressInfo() {
   const [originalInfo, setOriginalInfo] = useState<AddressInfo>({
     street_address_one: "No data",
     street_address_two: "No data",
+    city: "No data",
+    state: "No data",
+    zip: "No data",
   });
 
   useEffect(() => {
@@ -34,6 +43,9 @@ export function AddressInfo() {
         const newInfo = {
           street_address_one: response.data.street_address_one,
           street_address_two: response.data.street_address_two,
+          city: response.data.city,
+          state: response.data.state,
+          zip: response.data.zip,
         };
         setAddressInfo(newInfo);
         setOriginalInfo(newInfo);
@@ -87,51 +99,57 @@ export function AddressInfo() {
     label: string,
     name: keyof AddressInfo,
     placeholder?: string
-  ) => (
-    <div className="flex flex-row items-center py-4 px-1 h-16">
-      <div className="w-1/3">
-        <p className="font-medium text-sm">{label}</p>
+  ) => {
+    const isDisabledField = ["city", "state", "zip"].includes(name);
+
+    return (
+      <div className="flex flex-row items-center py-4 px-1 h-16">
+        <div className="w-1/3">
+          <p className="font-medium text-sm">{label}</p>
+        </div>
+        <div className="w-2/3">
+          {isLoading ? (
+            <Spinner size="xs" />
+          ) : name === "street_address_one" ? (
+            <ProviderAddressAutocomplete
+              value={addressInfo}
+              onChange={(newAddress: Partial<AddressInfo>) => {
+                if (isEditing) {
+                  console.log("Selected address:", newAddress);
+                  const updatedInfo = {
+                    ...addressInfo,
+                    ...newAddress,
+                  };
+                  setAddressInfo(updatedInfo);
+                  setHasChanges(
+                    JSON.stringify(updatedInfo) !== JSON.stringify(originalInfo)
+                  );
+                }
+              }}
+              className={`w-2/3 text-sm bg-transparent h-8 px-2 border ${
+                isEditing ? "border-gray-300 rounded-md" : "border-transparent"
+              }`}
+              disabled={!isEditing}
+            />
+          ) : isDisabledField ? (
+            <p className="text-sm px-2">{addressInfo[name]}</p>
+          ) : (
+            <input
+              type="text"
+              name={name}
+              value={addressInfo[name]}
+              onChange={handleChange}
+              disabled={!isEditing}
+              placeholder={placeholder}
+              className={`w-1/3 text-sm bg-transparent h-8 px-2 border ${
+                isEditing ? "border-gray-300 rounded-md" : "border-transparent"
+              }`}
+            />
+          )}
+        </div>
       </div>
-      <div className="w-2/3">
-        {isLoading ? (
-          <Spinner size="xs" />
-        ) : name === "street_address_one" ? (
-          <ProviderAddressAutocomplete
-            value={addressInfo}
-            onChange={(newAddress: any) => {
-              if (isEditing) {
-                console.log("Selected address:", newAddress);
-                const updatedInfo = {
-                  ...addressInfo,
-                  street_address_one: newAddress.street_address_one,
-                };
-                setAddressInfo(updatedInfo);
-                setHasChanges(
-                  JSON.stringify(updatedInfo) !== JSON.stringify(originalInfo)
-                );
-              }
-            }}
-            className={`w-2/3 text-sm bg-transparent h-8 px-2 border ${
-              isEditing ? "border-gray-300 rounded-md" : "border-transparent"
-            }`}
-            disabled={!isEditing}
-          />
-        ) : (
-          <input
-            type="text"
-            name={name}
-            value={addressInfo[name]}
-            onChange={handleChange}
-            disabled={!isEditing}
-            placeholder={placeholder}
-            className={`w-1/3 text-sm bg-transparent h-8 px-2 border ${
-              isEditing ? "border-gray-300 rounded-md" : "border-transparent"
-            }`}
-          />
-        )}
-      </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div>
@@ -176,6 +194,9 @@ export function AddressInfo() {
           "street_address_two",
           "Apt, suite, unit, building, floor, etc."
         )}
+        {renderAddressInput("City", "city")}
+        {renderAddressInput("State", "state")}
+        {renderAddressInput("ZIP Code", "zip")}
       </div>
     </div>
   );
