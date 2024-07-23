@@ -7,6 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import axios from "axios";
 import { Spinner } from "@/components/ui/spinner";
 
+// Interface for BusinessInfo
 interface BusinessInfo {
   companyName: string;
   phoneNumber: string;
