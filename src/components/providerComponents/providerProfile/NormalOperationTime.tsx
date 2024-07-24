@@ -6,6 +6,8 @@ import axios from "axios";
 import { Spinner } from "@/components/ui/spinner";
 import { Separator } from "@/components/ui/separator";
 import EditIcon from "@mui/icons-material/Edit";
+import { Switch } from "@/components/ui/switch";
+import { SwitchCamera } from "lucide-react";
 
 interface OperationTime {
   id: number;
@@ -50,16 +52,6 @@ export function NormalOperationTime() {
     "Friday",
     "Saturday",
   ];
-
-  const dayOfWeekIndex = {
-    Sunday: 0,
-    Monday: 1,
-    Tuesday: 2,
-    Wednesday: 3,
-    Thursday: 4,
-    Friday: 5,
-    Saturday: 6,
-  };
 
   const sortAndFillOperationTimes = (
     data: OperationTime[]
@@ -115,18 +107,23 @@ export function NormalOperationTime() {
   const handleSaveClick = async () => {
     setIsSaving(true);
     try {
+      const dataToSend = operationTimes.map((time) => ({
+        ...time,
+        start_time: time.is_closed ? "" : time.start_time,
+        end_time: time.is_closed ? "" : time.end_time,
+      }));
       await axios.patch("/api/provider/profile/normal-operation-times", {
-        providers_availabilities: operationTimes,
+        providers_availabilities: dataToSend,
       });
       setOriginalTimes(operationTimes);
       setHasChanges(false);
       setIsEditing(false);
+      console.log(dataToSend);
     } catch (error) {
       console.error("Error saving operation times:", error);
     } finally {
       setIsSaving(false);
     }
-    console.log(operationTimes);
   };
 
   const handleChange = (
@@ -136,13 +133,24 @@ export function NormalOperationTime() {
   ) => {
     const updatedTimes = [...operationTimes];
 
-    updatedTimes[index] = { ...updatedTimes[index], [field]: value };
+    if (field === "is_closed") {
+      updatedTimes[index] = {
+        ...updatedTimes[index],
+        is_closed: value as boolean,
+        // Keep the existing times even when closed
+        start_time: updatedTimes[index].start_time,
+        end_time: updatedTimes[index].end_time,
+      };
+    } else {
+      updatedTimes[index] = { ...updatedTimes[index], [field]: value };
+    }
 
     setOperationTimes(updatedTimes);
     setHasChanges(
       JSON.stringify(updatedTimes) !== JSON.stringify(originalTimes)
     );
   };
+
   const renderTimeRow = (
     day: string,
     time: OperationTime | null,
@@ -156,32 +164,49 @@ export function NormalOperationTime() {
         {isLoading ? (
           <Spinner size="xs" />
         ) : isEditing ? (
-          <div className="flex w-2/3 space-x-2">
+          <div className="grid grid-cols-3 gap-4 items-center w-full p-4 ">
             <input
               type="time"
               value={time?.start_time || ""}
               onChange={(e) =>
                 handleChange(index, "start_time", e.target.value)
               }
-              className={`w-1/2 text-sm bg-transparent h-8 px-2 border ${
-                isEditing ? "border-gray-300 rounded-md" : "border-transparent"
+              className={`w-full text-sm bg-white h-10 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition ${
+                time?.is_closed ? "text-gray-400" : ""
               }`}
+              disabled={time?.is_closed}
             />
             <input
               type="time"
               value={time?.end_time || ""}
               onChange={(e) => handleChange(index, "end_time", e.target.value)}
-              className={`w-1/2 text-sm bg-transparent h-8 px-2 border ${
-                isEditing ? "border-gray-300 rounded-md" : "border-transparent"
+              className={`w-full text-sm bg-white h-10 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition ${
+                time?.is_closed ? "text-gray-400" : ""
               }`}
+              disabled={time?.is_closed}
             />
+            <div className="flex items-center justify-center space-x-2">
+              <Switch
+                checked={time?.is_closed}
+                onCheckedChange={(checked) =>
+                  handleChange(index, "is_closed", checked)
+                }
+                id={`closed-switch-${index}`}
+              />
+              <label
+                htmlFor={`closed-switch-${index}`}
+                className="text-sm font-medium text-gray-900 cursor-pointer"
+              >
+                Closed
+              </label>
+            </div>
           </div>
         ) : (
-          <p className="text-sm">
+          <p className={`text-sm`}>
             {time === null
               ? "No data"
               : time.is_closed
-              ? "Closed"
+              ? `Closed`
               : `${formatTime(time.start_time)} - ${formatTime(time.end_time)}`}
           </p>
         )}
