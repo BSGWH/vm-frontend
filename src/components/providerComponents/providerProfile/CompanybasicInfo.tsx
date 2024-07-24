@@ -7,6 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import axios from "axios";
 import { Spinner } from "@/components/ui/spinner";
 
+// Interface for BusinessInfo
 interface BusinessInfo {
   companyName: string;
   phoneNumber: string;
@@ -132,7 +133,7 @@ export function CompanyBasicInfo() {
 
   return (
     <div>
-      <div className="flex flex-row justify-between items-center mt-10 mb-2">
+      <div className="flex flex-row justify-between items-center mt-6 mb-2">
         <p className="text-lg font-bold">Company Information</p>
         {isEditing ? (
           <div className="flex space-x-2">
