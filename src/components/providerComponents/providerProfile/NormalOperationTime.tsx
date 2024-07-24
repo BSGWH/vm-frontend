@@ -107,18 +107,19 @@ export function NormalOperationTime() {
   const handleSaveClick = async () => {
     setIsSaving(true);
     try {
-      const dataToSend = operationTimes.map((time) => ({
-        ...time,
-        start_time: time.is_closed ? "" : time.start_time,
-        end_time: time.is_closed ? "" : time.end_time,
-      }));
+      // ONLY USE THIS IF WE WANT TO KEEP TIME EMPTY WHEN IS_CLOSED IS TRUE!
+
+      // const dataToSend = operationTimes.map((time) => ({
+      //   ...time,
+      //   start_time: time.is_closed ? "" : time.start_time,
+      //   end_time: time.is_closed ? "" : time.end_time,
+      // }));
       await axios.patch("/api/provider/profile/normal-operation-times", {
-        providers_availabilities: dataToSend,
+        providers_availabilities: operationTimes,
       });
       setOriginalTimes(operationTimes);
       setHasChanges(false);
       setIsEditing(false);
-      console.log(dataToSend);
     } catch (error) {
       console.error("Error saving operation times:", error);
     } finally {
