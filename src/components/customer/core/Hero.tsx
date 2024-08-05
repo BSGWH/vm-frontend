@@ -21,6 +21,17 @@ export const Hero = () => {
     textsRef.current = currentTexts;
   }, [currentTexts]);
 
+  useEffect(() => {
+    const styleSheet = document.createElement("style");
+    styleSheet.type = "text/css";
+    styleSheet.innerText = styles;
+    document.head.appendChild(styleSheet);
+
+    return () => {
+      document.head.removeChild(styleSheet);
+    };
+  }, []);
+
   const handleAnim = useCallback(() => {
     if (!wrapperRef.current) return;
 
@@ -125,10 +136,5 @@ const styles = `
     white-space: nowrap;
   }
 `;
-
-const styleSheet = document.createElement("style");
-styleSheet.type = "text/css";
-styleSheet.innerText = styles;
-document.head.appendChild(styleSheet);
 
 export default Hero;
