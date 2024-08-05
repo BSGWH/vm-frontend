@@ -15,11 +15,22 @@ export const Hero = () => {
   const texts = ["Gain Customers", "Grow Revenue", "Start Earning"];
   const [currentTexts, setCurrentTexts] = useState(texts);
   const textsRef = useRef(currentTexts);
-  const wrapperRef = useRef();
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     textsRef.current = currentTexts;
   }, [currentTexts]);
+
+  useEffect(() => {
+    const styleSheet = document.createElement("style");
+    styleSheet.type = "text/css";
+    styleSheet.innerText = styles;
+    document.head.appendChild(styleSheet);
+
+    return () => {
+      document.head.removeChild(styleSheet);
+    };
+  }, []);
 
   const handleAnim = useCallback(() => {
     if (!wrapperRef.current) return;
@@ -30,7 +41,9 @@ export const Hero = () => {
     setTimeout(() => {
       const copyTexts = [...textsRef.current];
       const firstElem = copyTexts.shift();
-      copyTexts.push(firstElem);
+      if (firstElem !== undefined) {
+        copyTexts.push(firstElem);
+      }
 
       requestAnimationFrame(() => {
         setCurrentTexts(copyTexts);
@@ -111,7 +124,7 @@ const styles = `
     overflow: hidden;
     display: inline-block;
     margin-top: -0.5em;
-    will-change: top; /* 添加这一行 */
+    will-change: top;
   }
   .text-container-word-wrapper {
     position: relative;
@@ -122,13 +135,8 @@ const styles = `
     line-height: 1.2em;
     font-size: inherit;
     font-weight: bold;
-    white-space: nowrap; /* 添加这一行 */
+    white-space: nowrap;
   }
 `;
-
-const styleSheet = document.createElement("style");
-styleSheet.type = "text/css";
-styleSheet.innerText = styles;
-document.head.appendChild(styleSheet);
 
 export default Hero;

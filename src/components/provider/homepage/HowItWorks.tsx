@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { Box, Typography, Tabs, Tab } from "@mui/material";
 import MiscellaneousServicesIcon from "@mui/icons-material/MiscellaneousServices";
@@ -49,6 +48,17 @@ export const HowItWorks = () => {
   useEffect(() => {
     setIsDarkMode(resolvedTheme === "dark");
   }, [resolvedTheme]);
+
+  useEffect(() => {
+    const styleSheet = document.createElement("style");
+    styleSheet.type = "text/css";
+    styleSheet.innerText = styles;
+    document.head.appendChild(styleSheet);
+
+    return () => {
+      document.head.removeChild(styleSheet);
+    };
+  }, []);
 
   return (
     <section id="howItWorks" className="container text-center py-10 lg:py-16">
@@ -116,10 +126,5 @@ const styles = `
     white-space: nowrap;
   }
 `;
-
-const styleSheet = document.createElement("style");
-styleSheet.type = "text/css";
-styleSheet.innerText = styles;
-document.head.appendChild(styleSheet);
 
 export default HowItWorks;
