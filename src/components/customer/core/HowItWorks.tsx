@@ -1,7 +1,7 @@
-"use client"
+"use client";
 import { useEffect, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useTheme } from "next-themes";
+import { useInView } from "react-intersection-observer";
 
 interface FeatureProps {
   imageSrcLight: string;
@@ -55,40 +55,51 @@ export const HowItWorks = () => {
   }, [resolvedTheme]);
 
   return (
-    <section
-      id="howItWorks"
-      className="container text-center py-24 sm:py-12"
-    >
-      <h2 className="text-4xl font-bold leading-loose mb-8">
+    <section id="howItWorks" className="container text-center py-10 lg:py-16">
+      <h2 className="text-3xl md:text-4xl font-bold leading-loose">
         How It{" "}
         <span className="bg-gradient-to-b text-primaryCustomer bg-clip-text">
           Works{" "}
         </span>
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {features.map(({ imageSrcLight, imageSrcDark, title, description, step }: FeatureProps) => (
-          <Card key={title} className="bg-muted/0 rounded-lg shadow-lg">
-            <CardHeader className="flex flex-col items-center p-4">
-              <div className="w-full h-48 sm:h-64 md:h-40 mb-4 overflow-hidden">
-                <img
-                  src={isDarkMode ? imageSrcDark : imageSrcLight}
-                  alt={title}
-                  className="w-full h-full object-contain"
-                />
+      <div className="flex flex-col">
+        {features.map(
+          (
+            { imageSrcLight, imageSrcDark, title, description, step },
+            index
+          ) => {
+            const isEven = index % 2 === 0;
+            return (
+              <div
+                key={title}
+                className={`flex flex-col md:flex-row ${
+                  isEven ? "md:flex-row-reverse" : ""
+                } items-center md:space-x-8 rounded-lg border-b border-gray-100 py-6`}
+              >
+                <div
+                  className={`flex w-full md:w-1/2 px-1 sm:px-10 md:px-16 ${
+                    isEven ? "md:pl-8" : "md:pr-8"
+                  } text-left flex flex-col justify-center items-center`}
+                >
+                  <div className={`text-left ${ isEven ? "" : "md:ml-8" } `}>
+                    <h3 className="text-lg md:text-xl font-bold mb-2">
+                      Step {step} : {title}
+                    </h3>
+                    <p>{description}</p>
+                  </div>
+                </div>
+                <div className="flex w-full md:w-1/2 h-4/5 justify-center items-center overflow-hidden">
+                  <img
+                    src={isDarkMode ? imageSrcDark : imageSrcLight}
+                    alt={title}
+                    className="object-contain py-4 md:py-0"
+                  />
+                </div>
               </div>
-              <CardTitle className="text-center w-full text-primaryCustomer">
-                Step {step} :
-              </CardTitle>
-              <CardTitle className="text-center w-full">
-                {title}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="text-center w-full px-4">
-              {description}
-            </CardContent>
-          </Card>
-        ))}
+            );
+          }
+        )}
       </div>
     </section>
   );
