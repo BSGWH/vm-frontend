@@ -15,7 +15,7 @@ export const Hero = () => {
   const texts = ["Auto Service", "Oil Changes", "Inspections", "Maintenance", "Vehicle Care"];
   const [currentTexts, setCurrentTexts] = useState(texts);
   const textsRef = useRef(currentTexts);
-  const wrapperRef = useRef();
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     textsRef.current = currentTexts;
@@ -30,7 +30,9 @@ export const Hero = () => {
     setTimeout(() => {
       const copyTexts = [...textsRef.current];
       const firstElem = copyTexts.shift();
-      copyTexts.push(firstElem);
+      if (firstElem !== undefined) {
+        copyTexts.push(firstElem);
+      }
 
       requestAnimationFrame(() => {
         setCurrentTexts(copyTexts);
@@ -109,7 +111,7 @@ const styles = `
     overflow: hidden;
     display: inline-block;
     margin-top: -0.5em;
-    will-change: top; /* 添加这一行 */
+    will-change: top;
   }
   .text-container-word-wrapper {
     position: relative;
@@ -120,7 +122,7 @@ const styles = `
     line-height: 1.2em;
     font-size: inherit;
     font-weight: bold;
-    white-space: nowrap; /* 添加这一行 */
+    white-space: nowrap;
   }
 `;
 
