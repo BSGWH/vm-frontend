@@ -3,24 +3,38 @@ import fs from "fs";
 import path from "path";
 import "./index.css";
 
-const getArticleData = (id) => {
+interface Article {
+  id: string;
+  title: string;
+  date: string;
+  image: string;
+  content: string;
+}
+
+const getArticleData = (id: string): Article | undefined => {
   const filePath = path.join(process.cwd(), "public", "articles.json");
   const fileContents = fs.readFileSync(filePath, "utf8");
-  const articles = JSON.parse(fileContents);
+  const articles: Article[] = JSON.parse(fileContents);
   return articles.find((article) => article.id === id);
 };
 
 export async function generateStaticParams() {
   const filePath = path.join(process.cwd(), "public", "articles.json");
   const fileContents = fs.readFileSync(filePath, "utf8");
-  const articles = JSON.parse(fileContents);
+  const articles: Article[] = JSON.parse(fileContents);
 
   return articles.map((article) => ({
     id: article.id,
   }));
 }
 
-const ArticlePage = ({ params }) => {
+interface Params {
+  params: {
+    id: string;
+  };
+}
+
+const ArticlePage = ({ params }: Params) => {
   const article = getArticleData(params.id);
 
   if (!article) {
