@@ -3,13 +3,21 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 
+interface Article {
+  id: string;
+  title: string;
+  date: string;
+  image: string;
+  content: string;
+}
+
 const HomePage = () => {
-  const [articles, setArticles] = useState([]);
+  const [articles, setArticles] = useState<Article[]>([]);
 
   useEffect(() => {
     const fetchArticles = async () => {
       const res = await fetch("/articles.json");
-      const data = await res.json();
+      const data: Article[] = await res.json();
       setArticles(data);
     };
     fetchArticles();
