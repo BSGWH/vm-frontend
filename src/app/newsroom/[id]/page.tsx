@@ -39,6 +39,7 @@ const ArticlePage = ({ params }: Params) => {
 
   if (!article) {
     notFound();
+    return null;
   }
 
   return (
