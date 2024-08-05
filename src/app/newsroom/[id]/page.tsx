@@ -18,13 +18,13 @@ const getArticleData = (id: string): Article | undefined => {
   return articles.find((article) => article.id === id);
 };
 
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<{ params: { id: string } }[]> {
   const filePath = path.join(process.cwd(), "public", "articles.json");
   const fileContents = fs.readFileSync(filePath, "utf8");
   const articles: Article[] = JSON.parse(fileContents);
 
   return articles.map((article) => ({
-    id: article.id,
+    params: { id: article.id },
   }));
 }
 
