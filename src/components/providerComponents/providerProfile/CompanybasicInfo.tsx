@@ -33,6 +33,7 @@ export function CompanyBasicInfo() {
   // Without originalInfo, we would face several issues:
   // We couldn't accurately revert changes on cancel.
   // We'd have difficulty determining if actual changes were made versus just focusing on an input without changing its value.
+  const [dataExists, setDataExists] = useState(false);
 
   const [originalInfo, setOriginalInfo] = useState<BusinessInfo>({
     companyName: "No Data",
@@ -45,12 +46,16 @@ export function CompanyBasicInfo() {
       try {
         const response = await axios.get("/api/provider/profile/company-info");
         const newInfo = {
-          companyName: response.data.company_name,
-          phoneNumber: response.data.phone_number,
-          yoe: response.data.year_of_experience,
+          companyName: response.data.company_name || "",
+          phoneNumber: response.data.phone_number || "",
+          yoe: response.data.year_of_experience || "",
         };
         setBusinessInfo(newInfo);
         setOriginalInfo(newInfo);
+        setDataExists(
+          response.data.company_name !== null &&
+            response.data.company_name !== undefined
+        );
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching business info:", error);
@@ -73,15 +78,20 @@ export function CompanyBasicInfo() {
   const handleSaveClick = async () => {
     setIsSaving(true);
     try {
-      await axios.patch("/api/provider/profile/company-info", {
+      const endpoint = "/api/provider/profile/company-info";
+      const method = dataExists ? "patch" : "post";
+      const data = {
         company_name: businessInfo.companyName,
         phone_number: businessInfo.phoneNumber,
         year_of_experience: businessInfo.yoe,
-      });
+      };
+
+      await axios[method](endpoint, data);
 
       setOriginalInfo(businessInfo);
       setHasChanges(false);
       setIsEditing(false);
+      setDataExists(true); // Set to true after successful save
     } catch (error) {
       console.error("Error saving business info:", error);
     } finally {

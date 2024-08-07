@@ -152,7 +152,7 @@ export function ProviderSignupForm() {
             </AlertDialog>
 
             <RailsErrors error={{ errors: formState?.railsErrors }} />
-            {/* <Message message={formState?.message} /> */}
+            <Message message={formState?.message} />
           </CardFooter>
         </Card>
         <div className="mt-4 text-center text-sm">

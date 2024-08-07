@@ -71,7 +71,7 @@ export async function registerUserAction(prevState: any, formData: FormData) {
 
   const responseData = await registerUserService(userPayload);
 
-  if (!responseData) {
+  if (responseData === undefined || responseData === null) {
     return {
       ...prevState,
       railsErrors: null,
@@ -157,8 +157,8 @@ export async function loginUserAction(prevState: any, formData: FormData) {
     const responseData = await loginUserService(userEmailAndPassword);
 
   
-    if (!responseData.ok) {
-      
+    if (!responseData || !responseData.ok) {
+
       return {
         ...prevState,
         railsErrors: responseData.error,

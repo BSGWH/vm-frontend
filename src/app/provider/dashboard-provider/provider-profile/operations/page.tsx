@@ -1,5 +1,4 @@
 import { NormalOperationTime } from "@/components/providerComponents/providerProfile/NormalOperationTime";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function OperationsPage() {
   return (
