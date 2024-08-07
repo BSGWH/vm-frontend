@@ -19,12 +19,6 @@ export default function ProviderSettings() {
         </div>
         Add more setting
       </div>
-      <div>da</div>
-      <div>da</div>
-      <div>da</div>
-      <div>da</div>
-      <div>da</div>
-      <div>da</div>
     </ScrollArea>
   );
 }

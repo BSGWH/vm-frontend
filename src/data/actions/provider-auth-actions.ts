@@ -68,10 +68,11 @@ export async function registerProviderAction(prevState: any, formData: FormData)
     }
   };
 
-  console.log(userPayload)
+
   const responseData = await registerProviderService(userPayload);
-  console.log(responseData.message)
-  if (!responseData) {
+
+  if (responseData === undefined || responseData === null) {
+
     return {
       ...prevState,
       railsErrors: null,
@@ -154,16 +155,17 @@ export async function loginProviderAction(prevState: any, formData: FormData) {
   };
 
   try {
+
     const responseData = await loginProviderService(userEmailAndPassword);
 
   
-    if (!responseData.ok) {
+    if (!responseData || !responseData.ok) {
       
       return {
         ...prevState,
         railsErrors: responseData.error,
-        zodErrors: null,
-        message: "Failed to Login.",
+        zodErrors:  "Failed to Login.",
+        message: null,
       };
     }
   

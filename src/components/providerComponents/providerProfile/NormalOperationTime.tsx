@@ -7,7 +7,6 @@ import { Spinner } from "@/components/ui/spinner";
 import { Separator } from "@/components/ui/separator";
 import EditIcon from "@mui/icons-material/Edit";
 import { Switch } from "@/components/ui/switch";
-import { SwitchCamera } from "lucide-react";
 
 interface OperationTime {
   id: number;
@@ -206,9 +205,11 @@ export function NormalOperationTime() {
           <p className={`text-sm`}>
             {time === null
               ? "No data"
-              : time.is_closed
+              : time?.is_closed
               ? `Closed`
-              : `${formatTime(time.start_time)} - ${formatTime(time.end_time)}`}
+              : `${formatTime(time?.start_time)} - ${formatTime(
+                  time?.end_time
+                )}`}
           </p>
         )}
       </div>
