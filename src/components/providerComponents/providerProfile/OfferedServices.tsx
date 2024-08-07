@@ -75,7 +75,11 @@ export function OfferedServices() {
     value: string | number
   ) => {
     const updatedServices = [...selectedServices];
-    updatedServices[index][field] = value;
+    if (field === "duration") {
+      updatedServices[index][field] = value as number;
+    } else {
+      updatedServices[index][field] = value as string;
+    }
     setSelectedServices(updatedServices);
   };
 
