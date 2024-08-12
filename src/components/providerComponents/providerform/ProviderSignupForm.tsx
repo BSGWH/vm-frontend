@@ -109,7 +109,7 @@ export function ProviderSignupForm() {
               <AlertDialog open={isAlertOpen}>
                 <AlertDialogTrigger asChild>
                   <SubmitButton
-                    className="w-full bg-primaryProvider hover:bg-primaryProvider-hover py-3 mt-6 rounded"
+                    className="w-full bg-primaryProvider text-black hover:bg-primaryProvider-hover py-3 mt-6 rounded"
                     text="Sign Up"
                     loadingText="Loading"
                   />

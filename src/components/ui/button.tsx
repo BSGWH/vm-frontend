@@ -14,7 +14,7 @@ const buttonVariants = cva(
         customerOutline:
           "border border-primaryCustomer text-primaryCustomer-foreground hover:bg-primaryCustomer-hover/10",
         providerDefault:
-          "bg-primaryProvider text-white hover:bg-primaryProvider-hover",
+          "bg-primaryProvider text-black hover:bg-primaryProvider-hover",
         providerOutline:
           "border border-primaryProvider text-primaryProvider-foreground hover:bg-primaryProvider-hover/10",
         newsroomNav: "hover:bg-newsroom-hover",

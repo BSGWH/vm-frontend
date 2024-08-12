@@ -15,27 +15,21 @@ interface ServiceProps {
 
 const serviceList: ServiceProps[] = [
   {
-    title: "Grow Your Business",
-    description: "Join Logic Auto to reach more local customers looking for auto repair services. Increase your business visibility and attract new clients.",
-    icon: <QueryStatsIcon className="w-8 h-8 fill-primaryProvider" />,
-    imageSrc: "/images/provider-services/Revenue_Growth.png",
+    title: "Add Your Services",
+    description: "Easily add and manage your services on Logic Auto. Your offerings will be displayed to local customers actively searching for auto services.",
+    icon: <LeaderboardIcon className="w-8 h-8 fill-primaryProvider" />,
+    imageSrc: "/images/provider-services/New_Requests.png",
   },
   {
-    title: "Manage Requests Easily",
+    title: "Accept Booking Requests",
     description: "Effortlessly manage customer requests with our platform. Accept or reschedule bookings based on your availability, ensuring a seamless experience for both you and your customers.",
     icon: <MiscellaneousServicesIcon className="w-8 h-8 fill-primaryProvider" />,
     imageSrc: "/images/provider-services/Message_Board.png",
   },
   {
-    title: "Promote Your Services",
-    description: "Drive more business by creating and managing promotions directly through our platform. Attract new customers with special offers and retain existing ones with exclusive deals.",
-    icon: <LeaderboardIcon className="w-8 h-8 fill-primaryProvider" />,
-    imageSrc: "/images/provider-services/New_Requests.png",
-  },
-  {
-    title: "Monitor Performance",
+    title: "Grow Your Business",
     description: "Use our comprehensive dashboard to track your earnings, monitor key performance metrics, and gain valuable insights into your business operations.",
-    icon: <LeaderboardIcon className="w-8 h-8 fill-primaryProvider" />,
+    icon: <QueryStatsIcon className="w-8 h-8 fill-primaryProvider" />,
     imageSrc: "/images/provider-services/Earning.png",
   },
 ];

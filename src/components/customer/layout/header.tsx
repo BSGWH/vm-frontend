@@ -23,7 +23,7 @@ export default function Header() {
 
         <div className="hidden sm:flex w-full items-center gap-2 justify-end">
           <Button variant="link" asChild>
-            <Link href={"/provider"}>I'm a Provider </Link>
+            <Link href={"/provider"}>Become a Provider </Link>
           </Button>
           <Button variant="customerDefault" asChild>
             <Link href={"/signup"}>Sign Up</Link>
