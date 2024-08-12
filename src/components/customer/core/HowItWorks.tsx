@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
-import { useInView } from "react-intersection-observer";
 
 interface FeatureProps {
   imageSrcLight: string;
@@ -13,35 +12,35 @@ interface FeatureProps {
 
 const features: FeatureProps[] = [
   {
-    imageSrcLight: "/images/customer-how-it-works/select-vehicle.png",
-    imageSrcDark: "images/customer-how-it-works/select-vehicle-dark.png",
+    imageSrcLight: "/images/customer-how-it-works/sign-up.png",
+    imageSrcDark: "images/customer-how-it-works/sign-up-dark.png",
     title: "Sign Up",
     description:
-      "Register for an account on Logic Auto's platform and add your first vehicle to begin.",
+      "Simply enter basic information to create an account on Logic Auto and hit the road!",
     step: 1,
   },
   {
-    imageSrcLight: "/images/customer-how-it-works/select-service.png",
-    imageSrcDark: "images/customer-how-it-works/select-service-dark.png",
-    title: "Book Services",
+    imageSrcLight: "/images/customer-how-it-works/add-vehicles.png",
+    imageSrcDark: "images/customer-how-it-works/add-vehicles-dark.png",
+    title: "Add Vehicles",
     description:
-      "Track usage and conduct cost analysis easily with Logic Auto's advanced features.",
+      "Add your vehicles to the platform to easily find and connect with nearby service providers.",
     step: 2,
   },
   {
-    imageSrcLight: "/images/customer-how-it-works/documents.png",
-    imageSrcDark: "images/customer-how-it-works/documents-dark.png",
-    title: "Store Documents",
+    imageSrcLight: "/images/customer-how-it-works/book-services.png",
+    imageSrcDark: "images/customer-how-it-works/book-services-dark.png",
+    title: "Book Services",
     description:
-      "Keep all your important vehicle documents organized and easily accessible with Logic Auto.",
+      "Schedule maintenance and other services at your convenience through Logic Auto",
     step: 3,
   },
   {
-    imageSrcLight: "/images/customer-how-it-works/my-vehicles.png",
-    imageSrcDark: "images/customer-how-it-works/my-vehicles-dark.png",
-    title: "Gain Insights",
+    imageSrcLight: "/images/customer-how-it-works/sit-back.png",
+    imageSrcDark: "images/customer-how-it-works/sit-back-dark.png",
+    title: "Sit Back and Relax",
     description:
-      "Gain service reminders and data-driven insights into your vehicle's performance with Logic Auto.",
+      "Enjoy peace of mind while Logic Auto takes care of your vehicle's maintenance, providing you with reminders and insights.",
     step: 4,
   },
 ];
@@ -75,14 +74,16 @@ export const HowItWorks = () => {
                 key={title}
                 className={`flex flex-col md:flex-row ${
                   isEven ? "md:flex-row-reverse" : ""
-                } items-center md:space-x-8 rounded-lg border-b border-gray-100 py-6`}
+                } items-center md:space-x-8 rounded-lg border-b ${
+                  isDarkMode ? "border-gray-900" : "border-gray-100"
+                } py-6`}
               >
                 <div
                   className={`flex w-full md:w-1/2 px-1 sm:px-10 md:px-16 ${
                     isEven ? "md:pl-8" : "md:pr-8"
                   } text-left flex flex-col justify-center items-center`}
                 >
-                  <div className={`text-left ${ isEven ? "" : "md:ml-8" } `}>
+                  <div className={`text-left ${isEven ? "" : "md:ml-8"} `}>
                     <h3 className="text-lg md:text-xl font-bold mb-2">
                       Step {step} : {title}
                     </h3>
@@ -93,7 +94,7 @@ export const HowItWorks = () => {
                   <img
                     src={isDarkMode ? imageSrcDark : imageSrcLight}
                     alt={title}
-                    className="object-contain py-4 md:py-0"
+                    className="object-contain py-4 md:py-0 max-w-[400px]"
                   />
                 </div>
               </div>

@@ -79,10 +79,10 @@ export const Footer = () => {
             <a href="#pricing" className="opacity-60 hover:opacity-100">
               Pricing
             </a>
-            <a href="#" className="opacity-60 hover:opacity-100">
+            <a href="/legal/terms-and-conditions" className="opacity-60 hover:opacity-100">
               Terms & Conditions
             </a>
-            <a href="#" className="opacity-60 hover:opacity-100">
+            <a href="/legal/privacy-policy" className="opacity-60 hover:opacity-100">
               Privacy Policy
             </a>
           </div>

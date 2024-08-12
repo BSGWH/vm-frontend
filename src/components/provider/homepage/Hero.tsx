@@ -61,7 +61,7 @@ export const Hero = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       handleAnim();
-    }, 2000);
+    }, 2500);
     return () => clearInterval(interval);
   }, [handleAnim]);
 

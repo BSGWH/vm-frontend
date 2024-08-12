@@ -165,11 +165,11 @@ export function SignupForm() {
           <div className="flex justify-center">
             <div className="text-center text-sm text-gray-400 w-2/3">
               By clicking sign up, you agree to our
-              <Link className="underline ml-2" href="/termsofservice">
+              <Link className="underline ml-2" href="/legal/terms-and-conditions">
                 Terms of Service
               </Link>{" "}
               and
-              <Link className="underline ml-2" href="/privacypolicy">
+              <Link className="underline ml-2" href="/legal/privacy-policy">
                 Privacy Policy
               </Link>
             </div>

@@ -76,7 +76,9 @@ export const HowItWorks = () => {
               key={service.title}
               className={`flex flex-col md:flex-row ${
                 isEven ? "md:flex-row-reverse" : ""
-              } items-center md:space-x-8 rounded-lg border-b border-gray-100 py-6`}
+              } ${
+                isDarkMode ? "border-gray-900" : "border-gray-100"
+              } items-center md:space-x-8 rounded-lg border-b border-gray-100 py-6` }
             >
               <div
                 className={`flex w-full md:w-1/2 px-1 sm:px-10 md:px-16 ${
@@ -94,7 +96,7 @@ export const HowItWorks = () => {
                 <img
                   src={isDarkMode ? service.imageSrc.replace(".png", "-dark.png") : service.imageSrc}
                   alt={service.title}
-                  className="object-contain py-4 md:py-0"
+                  className="object-contain py-4 md:py-0 max-h-[250px]"
                 />
               </div>
             </div>
