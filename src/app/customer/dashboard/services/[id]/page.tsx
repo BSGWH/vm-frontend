@@ -9,8 +9,8 @@ import VehicleDocuments from "@/components/customer/dashboard/vehicleDetailCompo
 
 export default async function page({ params }: { params: { id: number } }) {
   const breadcrumbItems = [
-    { title: "My Services", link: "/dashboard/services" },
-    { title: "View Service", link: `/dashboard/services/${params.id}` },
+    { title: "My Services", link: "/customer/dashboard/services" },
+    { title: "View Service", link: `/customer/dashboard/services/${params.id}` },
   ];
 
   const service = await fetchRailsData(`/services/${params.id}`);

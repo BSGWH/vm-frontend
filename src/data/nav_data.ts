@@ -17,25 +17,19 @@ export const navItems: NavItem[] = [
     label: "profile",
   },
   {
-    title: "Addresses",
-    href: "/customer/dashboard/addresses",
-    icon: "Addresses",
-    label: "addresses",
-  },
-  {
     title: "My Vehicles",
     href: "/customer/dashboard/vehicles",
     icon: "MyVehicles",
     label: "MyVehicles",
   },
   {
-    title: "My Seivices",
-    href: "/dashboard/services",
+    title: "My Services",
+    href: "/customer/dashboard/services",
     icon: "MySeivices",
     label: "MySeivices",
   },
   {
-    title: "Documents",
+    title: "My Documents",
     href: "/customer/dashboard/documents",
     icon: "Documents",
     label: "Documents",
@@ -57,12 +51,6 @@ export const navItems: NavItem[] = [
     href: "/customer/dashboard/settings",
     icon: "Settings",
     label: "Settings",
-  },
-  {
-    title: "Profile",
-    href: "/dashboard/profile",
-    icon: "Profile",
-    label: "profile",
   },
   
   
@@ -86,13 +74,13 @@ export const providerNavItems: NavItem[]= [
 
   {
     title: "Settings",
-    href: "/provider/dashboard-provider/settings",
+    href: "/provider/dashboard-provider/provider-settings",
     icon: "Settings",
     label: "Settings",
   },
   {
     title: "Profile",
-    href: "/provider/dashboard-provider/profile",
+    href: "/provider/dashboard-provider/provider-profile",
     icon: "Profile",
     label: "profile",
   },

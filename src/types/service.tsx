@@ -7,5 +7,5 @@ export interface Service{
     provider:string;
     service_date: string;
     service_time:string;
-    is_completed:boolean;
+    status:string;
 }

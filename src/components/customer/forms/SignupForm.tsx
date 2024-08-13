@@ -158,8 +158,9 @@ export function SignupForm() {
                 </AlertDialogContent>
               </AlertDialog>
 
+
               <RailsErrors error={{ errors: formState?.railsErrors }} />
-              {/* <Message message={formState?.message} /> */}
+              <Message message={formState?.message} />
             </CardFooter>
           </Card>
           <div className="flex justify-center">
@@ -187,6 +188,7 @@ export function SignupForm() {
           </div>
         </form>
       </div>
+
     </div>
   );
 }

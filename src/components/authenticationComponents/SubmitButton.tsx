@@ -36,6 +36,7 @@ export function SubmitButton({
       disabled={status.pending || loading}
       className={cn(className)}
       onClick={onClick}
+      variant={"customerDefault"}
     >
       {status.pending || loading ? <Loader text={loadingText} /> : text}
     </Button>

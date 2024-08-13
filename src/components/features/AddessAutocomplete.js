@@ -2,11 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Input } from "@/components/ui/input";
 import useLoadScript from '@/hooks/useLoadScript';
 
-const AddressAutocomplete = ({ value, onChange }) => {
+const AddressAutocomplete = ({ value, onChange, disabled }) => {
     const inputRef = useRef(null);
     const [manualEntry, setManualEntry] = useState(false); // Check if it's typed manually
 
-    useLoadScript(`https://maps.googleapis.com/maps/api/js?key=AIzaSyCzMsKBStfaN6gAYSmzV1rz5cCkfw1JpIc&libraries=places`);
+
+    
+
+    useLoadScript(`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_AUTOCOMPLETE_API_KEY}&libraries=places`);
 
     useEffect(() => {
         const handleScriptLoad = () => {
@@ -23,10 +26,10 @@ const AddressAutocomplete = ({ value, onChange }) => {
                     const streetAddress = `${streetNumber} ${route}`.trim();
 
                     const address = {
-                        addressline1: streetAddress,
+                        street: streetAddress,
                         city: place.address_components.find(c => c.types.includes('locality'))?.long_name || '',
                         state: place.address_components.find(c => c.types.includes('administrative_area_level_1'))?.short_name || '',
-                        zip: place.address_components.find(c => c.types.includes('postal_code'))?.long_name || '',
+                        zip_code: place.address_components.find(c => c.types.includes('postal_code'))?.long_name || '',
                     };
                     onChange(address);
                     setManualEntry(false);
@@ -45,11 +48,12 @@ const AddressAutocomplete = ({ value, onChange }) => {
         <Input
             ref={inputRef}
             placeholder="Enter address"
-            value={value.addressline1}
+            value={value.street}
             onChange={(e) => {
-                onChange({ ...value, addressline1: e.target.value });
+                onChange({ ...value, street: e.target.value });
                 setManualEntry(true);
             }}
+            disabled={disabled}
         />
     );
 };

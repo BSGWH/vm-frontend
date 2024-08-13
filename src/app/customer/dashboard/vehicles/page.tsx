@@ -8,7 +8,7 @@ import { Vehicle } from "@/types/car";
 import * as React from "react";
 import { fetchRailsData } from "@/lib/fetch_util_server";
 
-import VehicleCard from "@/components/customer/dashboard/VehicleCard";
+import VehicleCard from "@/components/customer/dashboard/vehicleComponents/VehicleCard";
 
 const breadcrumbItems = [{ title: "My Vehicles", link: "/dashboard/vehicles" }];
 
@@ -62,7 +62,7 @@ export default async function page() {
         <div className="flex justify-between">
           <Heading title="My Vecicles" description="Manage my vehicles" />
           <Button>
-            <Link href="/dashboard/vehicles/new_vehicles">Add a vehicle</Link>
+            <Link href="/customer/dashboard/vehicles/new_vehicles">Add a vehicle</Link>
           </Button>
         </div>
         <Separator />

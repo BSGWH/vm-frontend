@@ -16,6 +16,7 @@ export async function middleware(request: NextRequest) {
   } else if (jwtProvider) {
     provider = await getProviderMeLoader();
   }
+  
 
 
   // // Protect /dashboard route if user is null or user.ok is false
@@ -31,7 +32,7 @@ export async function middleware(request: NextRequest) {
   //   }
   // }
 
-//   // Protect /provider/dashboard-provider route if provider is null or provider.ok is false
+  // Protect /provider/dashboard-provider route if provider is null or provider.ok is false
 //   if (currentPath.startsWith("/provider/dashboard-provider")) {
 //     if (!provider || (provider && !provider.ok)) {
 //       return NextResponse.redirect(new URL("/provider/signin", request.url));

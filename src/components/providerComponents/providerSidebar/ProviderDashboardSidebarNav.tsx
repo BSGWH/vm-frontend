@@ -29,6 +29,12 @@ export function ProviderDashboardSidebarNav({
     <nav className="grid items-start gap-2">
       {items.map((item, index) => {
         const Icon = Icons[item.icon] || SpaceDashboardIcon;
+        const isActive = (itemHref: string) => {
+          if (itemHref === "/provider/dashboard-provider") {
+            return path === itemHref;
+          }
+          return path.startsWith(itemHref);
+        };
         return (
           item.href && (
             <Link
@@ -41,10 +47,13 @@ export function ProviderDashboardSidebarNav({
               <span
                 className={cn(
                   "group flex items-center rounded-md px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground",
-                  path === item.href ? "bg-accent" : "transparent"
+                  isActive(item.href) ? "bg-accent" : "transparent"
                 )}
               >
-                <Icon className="mr-2 h-4 w-4" />
+                <Icon
+                  className="mr-2 h-4 w-4"
+                  style={{ width: "16px", height: "16px" }}
+                />
                 <span>{item.title}</span>
               </span>
             </Link>

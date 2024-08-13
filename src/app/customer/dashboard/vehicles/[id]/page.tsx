@@ -10,11 +10,11 @@ import { VehicleAction } from "@/components/customer/dashboard/vehicleDetailComp
 
 export default async function page({ params }: { params: { id: number } }) {
   const breadcrumbItems = [
-    { title: "My Vehicles", link: "/dashboard/vehicles" },
-    { title: "View Vehicle", link: `/dashboard/vehicles/${params.id}` },
+    { title: "My Vehicles", link: "/customer/dashboard/vehicles" },
+    { title: "View Vehicle", link: `/customer/dashboard/vehicles/${params.id}` },
   ];
 
-  const vehicle = await fetchRailsData(`/vehicles/${params.id}`);
+  const vehicle = await fetchRailsData(`/customer/vehicles/${params.id}`);
   console.log(vehicle);
 
   return (

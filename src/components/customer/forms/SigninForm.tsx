@@ -42,7 +42,7 @@ export function SigninForm() {
 
   useEffect(() => {
     if (formState.success) {
-      router.push("/dashboard");
+      router.push("/customer/dashboard");
     }
   }, [formState.success, router]);
 
@@ -90,6 +90,7 @@ export function SigninForm() {
           <Link className="underline ml-2" href="/signup">
             Sign Up
           </Link>
+
         </div>
       </div>
     </div>
