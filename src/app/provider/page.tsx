@@ -1,6 +1,5 @@
 import Header from "@/components/provider/nav/header";
 import { Hero } from "@/components/provider/homepage/Hero";
-import { Services } from "@/components/provider/homepage/Services";
 import { HowItWorks } from "@/components/provider/homepage/HowItWorks";
 import { Pricing } from "@/components/provider/homepage/Pricing";
 import { FAQ } from "@/components/provider/homepage/FAQ";
@@ -15,7 +14,6 @@ export default function Home() {
         <main>
             <Header /> 
             <Hero />
-            <Services />
             <HowItWorks />
             <Pricing />
             <FAQ />

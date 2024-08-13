@@ -1,0 +1,120 @@
+/* General styles for the navigation */
+nav.fixed {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0px;
+  width: 200px;
+  height: 20rem;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  transition: all 0.3s ease-in-out;
+  background-color: transparent;
+}
+
+nav.fixed ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav.fixed ul li a {
+  display: block;
+  padding: 0.5rem 0;
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.2s ease, font-weight 0.2s ease;
+}
+
+nav.fixed ul li a:hover {
+  color: #ccc;
+}
+
+/* Active navigation item style */
+nav.fixed ul li a.active {
+  font-weight: bold; /* Only bold text without changing color or background */
+}
+
+nav.fixed ul li {
+  margin-left: 0;
+}
+
+nav.fixed ul li.ml-2 {
+  margin-left: 1rem;
+}
+
+nav.fixed ul li.ml-4 {
+  margin-left: 2rem;
+}
+
+/* Scrollbar styling */
+nav.custom-scrollbar {
+  height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  background-color: transparent;
+}
+
+.custom-scrollbar:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+}
+
+.custom-scrollbar:hover::-webkit-scrollbar {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+/* Article content styles */
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4 {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-weight: 700;
+  text-align: left;
+}
+
+.article-content h1 {
+  font-size: 2.5rem;
+}
+
+.article-content h2 {
+  font-size: 2rem;
+}
+
+.article-content h3 {
+  font-size: 1.75rem;
+}
+
+.article-content h4 {
+  font-size: 1.5rem;
+}
+
+.article-content a {
+  color: var(--primaryCustomer);
+}
+
+.article-content p {
+  margin: 1rem 0;
+}
+
+.article-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}

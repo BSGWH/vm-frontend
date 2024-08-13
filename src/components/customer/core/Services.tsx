@@ -33,17 +33,17 @@ const serviceList: ServiceProps[] = [
 
 export const Services = () => {
   return (
-    <section className="container py-32 sm:py-20">
+    <section className="container py-10 lg:py-16">
       <div className="grid lg:grid-cols-[1fr,1fr] gap-8 place-items-center">
         <div>
-          <h2 className="text-4xl font-bold">
+          <h2 className="text-3xl sm:text-4xl font-bold">
 						A full overview,{" "}
             <span className="bg-gradient-to-b text-primaryCustomer bg-clip-text">
               simplified
             </span>
           </h2>
 
-          <p className="text-muted-foreground text-xl mt-4 mb-8 ">
+          <p className="text-muted-foreground text-base md:text-xl mt-4 mb-8 ">
 						Logic Auto offers a packaged overview of your vehicle's maintenance, expenses, and documentation, all presented in a simplified and user-friendly format, making it efficient and easy.
 					</p>
 

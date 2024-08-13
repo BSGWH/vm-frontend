@@ -44,9 +44,9 @@ export const Features = () => {
   return (
     <section
       id="features"
-      className="container py-24 sm:py-12 space-y-8"
+      className="container py-10 lg:py-16 space-y-8"
     >
-      <h2 className="text-4xl font-bold md:text-center leading-loose">
+      <h2 className="text-3xl sm:text-4xl font-bold md:text-center leading-loose">
         Many{" "}
         <span className="bg-gradient-to-b text-primaryCustomer bg-clip-text">
           Great Features
@@ -66,11 +66,11 @@ export const Features = () => {
         ))}
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {features.map(({ title, description }: FeatureProps) => (
           <Card key={title}>
             <CardHeader>
-              <CardTitle>{title}</CardTitle>
+              <CardTitle className="leading-normal">{title}</CardTitle>
             </CardHeader>
 
             <CardContent>{description}</CardContent>
