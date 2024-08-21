@@ -22,7 +22,7 @@ export function Message() {
   ];
 
   return (
-    <div className="my-4 mx-auto xsm:p-4 space-y-8">
+    <div className=" mx-auto xsm:p-4 space-y-8">
       {message.slice(0, 3).map((msg, index) => (
         <MessageItems
           key={index}
