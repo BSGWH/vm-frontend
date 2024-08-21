@@ -1,16 +1,16 @@
-import ProviderDashboardHeader from "@/components/providerComponents/providerHeader/ProviderDashboardHeader";
-import ProviderDashboardSidebar from "@/components/providerComponents/providerSidebar/ProviderDashboardSidebar";
+import DashboardHeader from "@/components/providerComponents/providerHeader/ProviderDashboardHeader";
+import Sidebar from "@/components/providerComponents/providerSidebar/ProviderDashboardSidebar";
 
-export default function ProviderDashboardLayout({
-  children, // will be a page or nested layout
+export default function DashboardLayout({
+  children,
 }: {
   children: React.ReactNode;
 }) {
   return (
     <>
-      <ProviderDashboardHeader />
-      <div className="flex h-screen overflow-hidden">
-        <ProviderDashboardSidebar />
+      <DashboardHeader />
+      <div className="flex h-screen">
+        <Sidebar />
         <main className="w-full pt-16">{children}</main>
       </div>
     </>
