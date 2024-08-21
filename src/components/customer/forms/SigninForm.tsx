@@ -47,8 +47,30 @@ export function SigninForm() {
   }, [formState.success, router]);
 
   return (
-    <div className="flex h-screen w-full">
-      <div className="hidden md:flex justify-between w-1/2 bg-black pt-14"></div>
+    <div className="flex h-screen w-full select-none">
+      <div className="hidden md:flex justify-between w-1/2 bg-black pt-14 relative">
+        <img
+          src="/images/customer-sign-left.jpg"
+          alt="customer-sign-left.jpg"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute top-0 left-0 w-full h-full bg-gray-800 dark:bg-gray-900 bg-opacity-30 dark:bg-opacity-70"></div>
+        <div className="absolute inset-0 flex justify-center items-center">
+          <div className="flex flex-col items-center text-center text-4xl font-bold text-gray-300 dark:text-gray-400 p-10">
+            <span>
+              The Easiest Way to <br />
+              Service Your Vehicles
+            </span>
+            <div className="w-1/2 h-px bg-gray-200 dark:bg-gray-500 mt-6"></div>
+            <img
+              src="/images/logo-light.png"
+              alt="logo"
+              className="w-1/3 mt-4 filter dark:brightness-75"
+            />
+          </div>
+        </div>
+      </div>
+
       <div className="flex flex-col justify-center bg-white dark:bg-gray-900 items-center justify-center w-full md:w-1/2">
         <Card className="border-0 shadow-none dark:bg-gray-900 text-black dark:text-white w-2/3">
           <CardHeader className="space-y-1 pt-0">
@@ -90,7 +112,6 @@ export function SigninForm() {
           <Link className="underline ml-2" href="/signup">
             Sign Up
           </Link>
-
         </div>
       </div>
     </div>
