@@ -15,7 +15,7 @@ export default function Header() {
 
         <div className="flex items-center gap-2">
           <Button asChild variant="link">
-            <Link href={"/"}>I'm a Customer</Link>
+            <Link href={"/"}>Become a Customer</Link>
           </Button>
           <Button variant="providerDefault" asChild>
             <Link href={"/provider/signup"}>Sign Up</Link>

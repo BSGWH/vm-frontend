@@ -69,7 +69,7 @@ export const FAQ = () => {
   return (
     <section
       id="faq"
-      className="container py-24 sm:py-12"
+      className="container py-10 lg:py-16"
     >
       <h2 className="text-3xl md:text-4xl font-bold mb-4">
         Frequently Asked{" "}

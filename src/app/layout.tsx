@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Onest } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Script from "next/script";
 import { Toaster, toast } from "sonner";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Onest({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://vm-frontend-shadcn.vercel.app/"),

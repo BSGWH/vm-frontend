@@ -1,0 +1,22 @@
+.article-content p {
+  margin-bottom: 2.5rem;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.article-content h1,
+.article-content h2,
+.article-content h3 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.article-content h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.article-content a {
+  font-weight: 500;
+  text-decoration: underline;
+}

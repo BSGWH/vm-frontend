@@ -7,9 +7,6 @@ import { FAQ } from "@/components/customer/core/FAQ";
 import { Footer } from "@/components/customer/core/Footer";
 {/* import { ScrollToTop } from "@/components/core/ScrollToTop"; */}
 
-
-import "./index.css";
-
 export default function Home() {
   return (
     <main>

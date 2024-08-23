@@ -18,6 +18,10 @@ const config = {
       },
     },
     extend: {
+      screens: {
+        'xsm': '535px',
+        'xlg': '1385px',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -34,8 +38,15 @@ const config = {
           foreground: "hsl(var(--primaryProvider-foreground))",
           hover: "hsl(var(--primaryProvider-hover))",
         },
+
         primaryProviderBackground: {
           DEFAULT: "hsl(var(--primaryProviderBackground))",
+
+        newsroom: {
+          DEFAULT: "hsl(var(--newsroom))",
+          foreground: "hsl(var(--newsroom-foreground))",
+          hover: "hsl(var(--newsroom-hover))",
+
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
