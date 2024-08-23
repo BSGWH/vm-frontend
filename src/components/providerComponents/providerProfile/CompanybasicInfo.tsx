@@ -133,7 +133,7 @@ export function CompanyBasicInfo() {
             disabled={!isEditing}
             placeholder={placeholder}
             className={`w-1/3 text-sm bg-transparent h-8 px-2 border ${
-              isEditing ? "border-gray-300 rounded-md" : "border-transparent"
+              isEditing ? "border-gray-500 rounded-md" : "border-transparent"
             }`}
           />
         )}
@@ -142,8 +142,12 @@ export function CompanyBasicInfo() {
   );
 
   return (
-    <div>
-      <div className="flex flex-row justify-between items-center mt-6 mb-2">
+    <div
+      className={`transition-all duration-300 ease-in-out ${
+        isEditing ? "bg-gray-100 rounded-lg p-4" : ""
+      }`}
+    >
+      <div className="flex flex-row justify-between items-center">
         <p className="text-lg font-bold">Company Information</p>
         {isEditing ? (
           <div className="flex space-x-2">
@@ -176,7 +180,9 @@ export function CompanyBasicInfo() {
           </Button>
         )}
       </div>
-      <Separator />
+      <Separator
+        className={`mt-2 ${isEditing ? "bg-gray-500" : "bg-gray-200"}`}
+      />
       <div className="py-2">
         {renderInfoRow(
           "Company Name",

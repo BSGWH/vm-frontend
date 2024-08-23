@@ -5,14 +5,14 @@ import axios from "axios";
 export async function GET(request: NextRequest) {
   const jwtProvider = request.cookies.get("jwt-provider");
   const railsUrl = process.env.RAILS_URL;
-
   if (!jwtProvider) {
     return NextResponse.json({ error: "No jwt" }, { status: 401 });
   }
   const token = jwtProvider.value;
+
   try {
     const response = await axios.get(
-      `${railsUrl}/api/v1/providers/providers_business_info/providers_availabilities/`,
+      `${railsUrl}/api/v1/providers/provider_services`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -21,15 +21,15 @@ export async function GET(request: NextRequest) {
     );
     return NextResponse.json(response.data);
   } catch (error) {
-    console.error("Error fetching operation info:", error);
+    console.error("Error fetching service info:", error);
     return NextResponse.json(
-      { error: "Failed to fetch operation info" },
+      { error: "Failed to fetch service info" },
       { status: 500 }
     );
   }
 }
 
-export async function PATCH(request: NextRequest) {
+export async function POST(request: NextRequest) {
   const jwtProvider = request.cookies.get("jwt-provider");
   const railsUrl = process.env.RAILS_URL;
 
@@ -37,23 +37,15 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({ error: "No jwt" }, { status: 401 });
   }
   const token = jwtProvider.value;
+
   try {
     const body = await request.json();
-
-    const filteredAvailabilities = body.providers_availabilities.map(
-      (availability: any) => ({
-        id: availability.id,
-        day_of_week: availability.day_of_week,
-        start_time: availability.start_time,
-        end_time: availability.end_time,
-        is_closed: availability.is_closed,
-      })
-    );
-
-    const response = await axios.patch(
-      `${railsUrl}/api/v1//providers/providers_business_info/providers_availabilities/bulk_update`,
+    console.log(body.service_name);
+    const response = await axios.post(
+      `${railsUrl}/api/v1/stripe_integration/stripe_product`,
       {
-        providers_availabilities: filteredAvailabilities,
+        name: body.service_name,
+        default_service_id: body.id,
       },
       {
         headers: {
@@ -63,9 +55,9 @@ export async function PATCH(request: NextRequest) {
     );
     return NextResponse.json(response.data);
   } catch (error) {
-    console.error("Error updating operation info:", error);
+    console.error("Error creating product:", error);
     return NextResponse.json(
-      { error: "Failed to update operation info" },
+      { error: "Failed to create product" },
       { status: 500 }
     );
   }
