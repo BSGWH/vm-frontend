@@ -1,72 +1,89 @@
-"use client";
-
 import React from "react";
-
-interface Service {
-  name: string;
-  questions: string[];
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  serviceQuestions,
+  ServiceQuestion,
+} from "./OfferedService/ServiceQuestions";
+interface ProviderService {
+  id: number;
+  provider_id: number;
+  default_service_id: number;
+  provider_service_name: string;
+  product_id: string;
+  is_mobile: boolean;
+  created_at: string;
+  updated_at: string;
 }
 
 interface ServiceDetailsProps {
-  service: Service;
+  service: ProviderService;
 }
 
+type QuestionType = "checkbox" | "text" | "date";
+
 const ServiceDetails: React.FC<ServiceDetailsProps> = ({ service }) => {
-  return (
-    <div className="bg-white p-6 bg:white rounded shadow-md">
-      <h2 className="text-2xl font-bold mb-4">{service.name}</h2>
-      <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-2">Customer questions</h3>
-        <p className="text-gray-600 mb-4">
-          Every customer answers this series of questions, allowing you to
-          define exactly which type of leads you see.
-        </p>
-        {service.questions.map((question, index) => (
-          <div key={index} className="mb-2">
-            <button className="w-full text-left p-3 bg-gray-100 hover:bg-gray-200 rounded flex justify-between items-center">
-              <span>
-                {index + 1}. {question}
-              </span>
-              <svg
-                className="w-5 h-5 text-gray-500"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </button>
+  const questions = serviceQuestions[service.provider_service_name] || [];
+
+  const renderQuestionInput = (question: ServiceQuestion, index: number) => {
+    switch (question.type) {
+      case "checkbox":
+        return (
+          <div className="flex flex-row space-x-8">
+            {question.options?.map((option, optionIndex) => (
+              <div key={optionIndex} className="flex items-center space-x-2">
+                <Checkbox id={`question-${index}-option-${optionIndex}`} />
+                <Label htmlFor={`question-${index}-option-${optionIndex}`}>
+                  {option}
+                </Label>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <div className="mb-4">
-        <p className="text-blue-600 hover:text-blue-800 cursor-pointer">
-          Suggest a question
-        </p>
-      </div>
+        );
+      case "text":
+        return <Input type="text" placeholder="Enter your answer here" />;
+      case "date":
+        return <Calendar mode="single" className="rounded-md border" />;
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="bg-muted p-6 rounded shadow-md">
+      <h2 className="text-2xl font-bold mb-4">
+        {service.provider_service_name}
+      </h2>
       <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-2">Your locations</h3>
-        <div className="flex items-center">
-          <input type="checkbox" id="location" className="mr-2" checked />
-          <label htmlFor="location">Within 150 miles of 02125</label>
-        </div>
-        <button className="text-blue-600 hover:text-blue-800 mt-2">
-          + Add a location
-        </button>
+        <h3 className="text-lg font-semibold mb-2">Service questions</h3>
+        <p className="text-gray-600 mb-4">
+          You need to answer this series of questions, allowing customers to
+          find your services seamlessly.
+        </p>
+        <Accordion type="single" collapsible className="w-full">
+          {questions.map((question, index) => (
+            <AccordionItem key={index} value={`item-${index}`}>
+              <AccordionTrigger>{question.question}</AccordionTrigger>
+              <AccordionContent>
+                {renderQuestionInput(question, index)}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
       </div>
+
       <div className="flex justify-between">
-        <button className="text-red-600 hover:text-red-800">
-          Remove this service
-        </button>
-        <button className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400">
-          Save
-        </button>
+        <Button variant="providerOutline">Remove this service</Button>
+        <Button variant="providerDefault">Save</Button>
       </div>
     </div>
   );
