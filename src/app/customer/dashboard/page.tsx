@@ -1,156 +1,185 @@
-import { CalendarDateRangePicker } from "@/components/customer/dashboard/date-range-picker";
-import { Overview } from "@/components/customer/dashboard/overview";
-import { Reminder } from "@/components/ui/reminder";
+"use client"
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { MessageBoard } from "@/components/ui/messageBoard";
+import { Calendar } from "@/components/ui/calendar";
+import { Vehicle } from "@/types/car";
+import VehicleCard from "@/components/customer/dashboard/vehicleComponents/VehicleCard";
+import { Heading } from "@/components/ui/heading";
+import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
+import { useState } from "react";
 
-export default function page() {
+const vehicles: Vehicle[] = [
+  {
+    vehicle_id: 1,
+    make_id: 1,
+    make_name: "Toyota",
+    model_id: 1,
+    model_name: "Explorer",
+    color: "white",
+    year: "2023",
+    lisence_plate: "DEF456",
+    vin: "2HJHK234HB843901",
+    created_at: "2024-05-14T19:41:18.210Z",
+  },
+  {
+    vehicle_id: 1,
+    make_id: 1,
+    make_name: "Ford",
+    model_id: 1,
+    model_name: "Explorer",
+    color: "white",
+    year: "2023",
+    lisence_plate: "DEF456",
+    vin: "2HJHK234HB843901",
+    created_at: "2024-05-14T19:41:18.210Z",
+  },
+];
+
+const services = [
+  {
+    service_id: 1,
+    vehicle: "Ford Explorer",
+    type: "Oil Change",
+    location: "Auto Zone, Aurora Ave, Boston",
+    date: "2024-08-15",
+    time: "9:30 am",
+    day: "Thursday",
+    make_name: "Ford",
+  },
+  {
+    service_id: 2,
+    vehicle: "Toyota Camry",
+    type: "Brake Pad Replacement",
+    location: "Manny's Auto Repair, Main Street, Los Angeles",
+    date: "2024-08-15",
+    time: "11:00 am",
+    day: "Thursday",
+    make_name: "Toyota",
+  },
+  {
+    service_id: 3,
+    vehicle: "Chevrolet Silverado",
+    type: "Tire Rotation",
+    location: "Speedy Lube, Elm Street, Chicago",
+    date: "2024-08-15",
+    time: "12:00 pm",
+    day: "Thursday",
+    make_name: "Chevrolet",
+  },
+  {
+    service_id: 4,
+    vehicle: "Ford Explorer",
+    type: "Oil Change",
+    location: "Auto Zone, Aurora Ave, Boston",
+    date: "2024-08-16",
+    time: "11:00 am",
+    day: "Friday",
+    make_name: "Ford",
+  },
+  {
+    service_id: 5,
+    vehicle: "Toyota Camry",
+    type: "Brake Pad Replacement",
+    location: "Manny's Auto Repair, Main Street, Los Angeles",
+    date: "2024-08-16",
+    time: "11:00 am",
+    day: "Friday",
+    make_name: "Toyota",
+  },
+];
+
+export default function Page() {
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+
+  const filteredServices = selectedDate
+    ? services.filter(
+        (service) =>
+          new Date(service.date).toISOString().split("T")[0] ===
+          new Date(selectedDate).toISOString().split("T")[0]
+      )
+    : services;
+
   return (
     <ScrollArea className="h-full">
-      <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
-        <div className="flex items-center justify-between space-y-2">
-          <h2 className="text-3xl font-bold tracking-tight">
-            Hi, Welcome back!
-          </h2>
-          <div className="hidden md:flex items-center space-x-2">
-            <CalendarDateRangePicker />
-            <Button variant="customerDefault">Download</Button>
-          </div>
+      <div className="flex space-x-4 p-4 md:p-8 pt-6">
+        {/* 第一列：日历和服务列表 */}
+        <div className="w-1/2 space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Upcoming Services</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Calendar
+                markedDates={services.map((service) =>
+                  new Date(service.date).toISOString().split("T")[0]
+                )} // 传入有日程的日期
+                onSelectDate={(date) =>
+                  setSelectedDate(new Date(date).toISOString().split("T")[0])
+                } // 设置选择日期
+              />
+              <Separator className="my-4" />
+              <div className="space-y-2">
+                {filteredServices.map((service) => (
+                  <div key={service.service_id} className="flex items-center">
+                    <div className="flex items-center flex w-[32px] h-[32px] px-1 bg-white rounded-full">
+                      <img
+                        src={`/car_make_logos/${service.make_name.replace(
+                          /\s+/g,
+                          "_"
+                        ).toLowerCase()}.png`}
+                        alt={`${service.make_name} logo`}
+                        className="max-w-full max-h-full object-contain"
+                      />
+                    </div>
+                    <div className="ml-4 space-y-1">
+                      <p className="text-sm font-medium leading-none">
+                        {service.type} for {service.vehicle}
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        {service.location}
+                      </p>
+                    </div>
+                    <div className="ml-auto font-medium">
+                      <p className="text-sm font-medium leading-none">
+                        {service.day}
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        {service.time}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         </div>
-        <Tabs defaultValue="overview" className="space-y-4">
-          <TabsList>
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="analytics" disabled>
-              Analytics
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent value="overview" className="space-y-4">
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-m font-medium">Vehicles</CardTitle>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <AddCircleOutlineIcon />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Add a vehicle</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">5</div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-m font-medium">
-                    Scheduled Serv
-                  </CardTitle>
 
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <AddCircleOutlineIcon />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Add a scheduled service</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">3</div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-m font-medium">
-                    Documents
-                  </CardTitle>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <AddCircleOutlineIcon />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Add a document</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">15</div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-m font-medium">
-                    Completed Servs
-                  </CardTitle>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <AddCircleOutlineIcon />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Add a completed service</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold flex">7</div>
-                </CardContent>
-              </Card>
+        {/* 第二列：车辆列表 */}
+        <div className="w-1/2 space-y-4">
+          <Card>
+            <div className="flex justify-between items-center">
+              <Heading title="My Vehicles" description="Manage my vehicles" />
+              <Button>
+                <Link href="/customer/dashboard/vehicles/new_vehicles">
+                  Add a vehicle
+                </Link>
+              </Button>
             </div>
-
-            <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-9">
-              <Card className="col-span-9">
-                <CardHeader>
-                  <CardTitle>2023 Total Cost By Month</CardTitle>
-                </CardHeader>
-                <CardContent className="pl-2">
-                  <Overview />
-                </CardContent>
-              </Card>
+            <Separator className="my-4" />
+            <div className="space-y-6">
+              {vehicles.map((vehicle: Vehicle) => (
+                <VehicleCard key={vehicle.vehicle_id} vehicle={vehicle}>
+                  <button>Edit</button>
+                  <button>Book</button>
+                </VehicleCard>
+              ))}
             </div>
-
-            <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
-              <Card className="w-full">
-                <CardHeader>
-                  <CardTitle>Reminder</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <Reminder />
-                </CardContent>
-              </Card>
-
-              <Card className="w-full">
-                <CardHeader>
-                  <CardTitle>Message Board</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <MessageBoard />
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-        </Tabs>
+          </Card>
+        </div>
       </div>
     </ScrollArea>
   );
 }
+

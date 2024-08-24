@@ -18,7 +18,7 @@ export function ThemeToggle() {
     <Button
       variant="outline"
       size="icon"
-      className="focus-visible:outline-none focus-visible:ring-0 rounded-full p-0 inline-flex items-center justify-center relative"
+      className="focus-visible:outline-none focus-visible:ring-0 rounded-full p-0 inline-flex items-center justify-center relative border-primaryProvider"
       onClick={changeTheme}
     >
       <Sun className={`h-[1.2rem] w-[1.2rem] transition-transform duration-500 ease-in-out transform ${theme === "dark" ? "rotate-90 scale-0" : "rotate-0 scale-100"}`} />
