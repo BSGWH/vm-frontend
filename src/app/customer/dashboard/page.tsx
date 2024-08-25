@@ -90,22 +90,31 @@ const services = [
   },
 ];
 
+// 你的Page组件代码
 export default function Page() {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
   const filteredServices = selectedDate
     ? services.filter(
-        (service) =>
-          new Date(service.date).toISOString().split("T")[0] ===
-          new Date(selectedDate).toISOString().split("T")[0]
-      )
+      (service) =>
+        new Date(service.date).toISOString().split("T")[0] ===
+        new Date(selectedDate).toISOString().split("T")[0]
+    )
     : services;
+
+  const handleEdit = (vehicle: Vehicle) => {
+    console.log("Editing vehicle:", vehicle);
+  };
+
+  const handleBook = (vehicle: Vehicle) => {
+    console.log("Booking service for vehicle:", vehicle);
+  };
 
   return (
     <ScrollArea className="h-full">
       <div className="flex space-x-4 p-4 md:p-8 pt-6">
-        {/* 第一列：日历和服务列表 */}
-        <div className="w-1/2 space-y-4">
+        {/* Calendar and Upcoming Services */}
+        <div className="w-1/3 space-y-4">
           <Card>
             <CardHeader>
               <CardTitle>Upcoming Services</CardTitle>
@@ -114,10 +123,14 @@ export default function Page() {
               <Calendar
                 markedDates={services.map((service) =>
                   new Date(service.date).toISOString().split("T")[0]
-                )} // 传入有日程的日期
-                onSelectDate={(date) =>
-                  setSelectedDate(new Date(date).toISOString().split("T")[0])
-                } // 设置选择日期
+                )}
+                onSelectDate={(date) => {
+                  if (date) {
+                    setSelectedDate(new Date(date).toISOString().split("T")[0]);
+                  } else {
+                    setSelectedDate(null);
+                  }
+                }}
               />
               <Separator className="my-4" />
               <div className="space-y-2">
@@ -156,8 +169,8 @@ export default function Page() {
           </Card>
         </div>
 
-        {/* 第二列：车辆列表 */}
-        <div className="w-1/2 space-y-4">
+        {/* Vehicles Lists */}
+        <div className="w-2/3 space-y-4">
           <Card>
             <div className="flex justify-between items-center">
               <Heading title="My Vehicles" description="Manage my vehicles" />
@@ -170,10 +183,12 @@ export default function Page() {
             <Separator className="my-4" />
             <div className="space-y-6">
               {vehicles.map((vehicle: Vehicle) => (
-                <VehicleCard key={vehicle.vehicle_id} vehicle={vehicle}>
-                  <button>Edit</button>
-                  <button>Book</button>
-                </VehicleCard>
+                <VehicleCard
+                  key={vehicle.vehicle_id}
+                  vehicle={vehicle}
+                  onEdit={handleEdit}
+                  onBook={handleBook}
+                />
               ))}
             </div>
           </Card>
@@ -182,4 +197,3 @@ export default function Page() {
     </ScrollArea>
   );
 }
-

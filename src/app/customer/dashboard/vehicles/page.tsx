@@ -1,3 +1,4 @@
+"use client"
 import DashboardBreadcrumb from "@/components/customer/dashboard/DashboardBreadcrumb";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Heading } from "@/components/ui/heading";
@@ -52,6 +53,14 @@ const vehicles: Vehicle[] = [
   },
 ];
 
+const handleEdit = (vehicle: Vehicle) => {
+  console.log("Editing vehicle:", vehicle);
+};
+
+const handleBook = (vehicle: Vehicle) => {
+  console.log("Booking service for vehicle:", vehicle);
+};
+
 export default async function page() {
   // const vehicles = await fetchRailsData("/vehicles");
 
@@ -69,7 +78,9 @@ export default async function page() {
         <div className="pt-2">
           {vehicles.map((vehicle: Vehicle) => (
             <div className="mt-6">
-              <VehicleCard vehicle={vehicle} />
+              <VehicleCard vehicle={vehicle} 
+                onEdit={handleEdit}
+                onBook={handleBook} />
             </div>
           ))}
         </div>
