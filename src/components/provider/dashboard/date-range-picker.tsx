@@ -74,7 +74,6 @@ export function CalendarDateRangePicker({
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="end">
           <Calendar
-            initialFocus
             mode="single"
             defaultMonth={from}
             selected={from && !to ? from : undefined}

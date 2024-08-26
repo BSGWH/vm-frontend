@@ -171,7 +171,6 @@ export function NewServiceForm() {
                       selected={field.value}
                       onSelect={field.onChange}
                       disabled={(date) => date < new Date()}
-                      initialFocus
                     />
                   </PopoverContent>
                 </Popover>
