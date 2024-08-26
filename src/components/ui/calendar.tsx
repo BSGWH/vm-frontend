@@ -1,80 +1,43 @@
 import * as React from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { DayPicker } from "react-day-picker";
+import { DayPicker, getDefaultClassNames } from "react-day-picker";
 
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
-  markedDates?: string[];
-  onSelectDate?: (date: Date) => void;
 };
 
 function Calendar({
   className,
   classNames,
-  showOutsideDays = true,
-  markedDates = [],
-  onSelectDate,
   ...props
 }: CalendarProps) {
-  const markedDatesSet = new Set(markedDates.map(date => new Date(date).toISOString().split('T')[0]));
+
+  const defaultClassNames = getDefaultClassNames();
 
   return (
     <DayPicker
-      showOutsideDays={showOutsideDays}
+      mode="single"
+      showOutsideDays
+      captionLayout="dropdown"
       className={cn("p-3", className)}
       classNames={{
-        months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
+        months: "relative",
         month: "space-y-4",
-        caption: "flex justify-center pt-1 relative items-center",
-        caption_label: "text-sm font-medium",
-        nav: "space-x-1 flex items-center",
-        nav_button: cn(
-          buttonVariants({ variant: "outline" }),
-          "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100"
-        ),
-        nav_button_previous: "absolute left-1",
-        nav_button_next: "absolute right-1",
-        table: "w-full border-collapse space-y-1",
-        head_row: "flex",
-        head_cell:
-          "text-muted-foreground rounded-md w-9 font-normal text-[0.8rem]",
-        row: "flex w-full mt-2",
-        cell: "h-9 w-9 text-center text-sm p-0 relative",
-        day: cn(
-          buttonVariants({ variant: "ghost" }),
-          "h-9 w-9 p-0 font-normal aria-selected:opacity-100"
-        ),
-        day_selected:
-          "bg-primaryCustomer text-primaryCustomer-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primaryCustomer focus:text-primaryCustomer-foreground rounded-full", // 强调选中的日期
-        day_today: "bg-accent text-accent-foreground",
-        day_outside:
-          "text-muted-foreground opacity-50",
-        day_disabled: "text-muted-foreground opacity-50",
+        dropdown: "outline-none",
+        caption_label: "hidden",
+        nav: "absolute right-0",
+        chevron: "${defaultClassNames.chevron} fill-primaryCustomer",
+        weekday: "justify-start",
+        day: "h-9 w-9 p-0 text-center hover:bg-muted hover:text-muted-foreground rounded-full",
+        selected: "bg-primaryCustomer text-primaryCustomer-foreground rounded-full",
+        today: "text-primaryCustomer",
+        outside: "text-muted-foreground opacity-50",
+        disabled: "text-muted-foreground opacity-50",
         ...classNames,
       }}
-      modifiers={{
-        marked: (date) => markedDatesSet.has(date.toISOString().split('T')[0]),
-      }}
-      modifiersClassNames={{
-        marked: "after:absolute after:content-[''] after:w-2 after:h-2 after:bg-primaryCustomer after:rounded-full after:bottom-[0px] after:left-1/2 after:transform after:-translate-x-1/2",
-        selected: "bg-primaryCustomer text-primaryCustomer-foreground rounded-full",
-      }}
-      onDayClick={(date) => {
-        if (onSelectDate) {
-          onSelectDate(date);
-        }
-      }}
-      components={{
-        IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
-        IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />,
-      }}
-      {...props}
     />
   );
 }
 Calendar.displayName = "Calendar";
 
 export { Calendar };
-
