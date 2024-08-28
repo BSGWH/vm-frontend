@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import ServiceDetails from "./ServiceDetails";
+import ServiceDetails from "./OfferedService/ServiceDetails";
 import {
   Dialog,
   DialogContent,
@@ -85,7 +85,7 @@ const OfferedService: React.FC = () => {
       try {
         setIsLoading(true);
         const response = await axios.post(
-          "/api/provider/profile/offered-service",
+          "/api/provider/profile/offered-service/create_stripe_product",
           {
             service_name: selectedServiceOption.service_name,
             id: selectedServiceOption.id,
