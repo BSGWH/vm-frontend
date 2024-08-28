@@ -2,13 +2,13 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { MyVehicles } from "@/components/customer/dashboard/myvehicles";
 import { Messages } from "@/components/customer/dashboard/messages";
-import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
+import { Calendar } from "@/components/ui/calendar";
 
 const services = [
   {
@@ -69,17 +69,20 @@ export default function Page() {
 
   const serviceDates = services.map((service) => new Date(service.date));
 
-const filteredServices = selectedDate
-  ? services.filter(
-      (service) =>
-        new Date(service.date).toLocaleDateString() ===
-        new Date(selectedDate).toLocaleDateString()
-    )
-  : services;
-
+  const filteredServices = selectedDate
+    ? services.filter(
+        (service) =>
+          new Date(service.date).toLocaleDateString() ===
+          new Date(selectedDate).toLocaleDateString()
+      )
+    : services;
 
   const toggleServiceDetails = (serviceId: number) => {
     setExpandedServiceId(serviceId === expandedServiceId ? null : serviceId);
+  };
+
+  const handleDayClick = (date: Date | undefined) => {
+    setSelectedDate(date);
   };
 
   return (
@@ -98,13 +101,14 @@ const filteredServices = selectedDate
               <CardTitle>Upcoming Services</CardTitle>
             </CardHeader>
             <CardContent
-              className="overflow-y-auto h-full max-h-[calc(100vh-14rem)] pr-2"
+              className="overflow-y-auto h-full max-h-[calc(100vh-14rem)]"
               style={{ scrollbarGutter: "stable" }}
             >
+              {/* Calendar */}
               <Calendar
-                selected={selectedDate}
-                onSelect={setSelectedDate}
-                markedDates={serviceDates}
+                selectedDate={selectedDate}
+                onDateSelect={handleDayClick}
+                serviceDates={serviceDates}
               />
               <Separator className="my-4" />
               <div className="space-y-2">
@@ -144,7 +148,7 @@ const filteredServices = selectedDate
                         variant="link"
                         size="sm"
                         onClick={(e) => {
-                          e.stopPropagation(); // 阻止事件冒泡
+                          e.stopPropagation();
                           toggleServiceDetails(service.service_id);
                         }}
                       >

@@ -1,41 +1,38 @@
-import * as React from "react";
-import { DayPicker } from "react-day-picker";
-import { cn } from "@/lib/utils";
+import { DayPicker, getDefaultClassNames } from "react-day-picker";
+import "react-day-picker/dist/style.css";
 
-export type CalendarProps = React.ComponentProps<typeof DayPicker> & {};
+interface CalendarProps {
+  selectedDate: Date | undefined;
+  onDateSelect: (date: Date | undefined) => void;
+  serviceDates: Date[];
+}
 
-function Calendar({
-  className,
-  classNames,
-  ...props
-}: CalendarProps) {
+export function Calendar({ selectedDate, onDateSelect, serviceDates }: CalendarProps) {
   return (
     <DayPicker
       mode="single"
       showOutsideDays
-      captionLayout="dropdown"
-      className={cn("p-3", className)}
-      classNames={{
-        button: "relative top-50%",
-        months: "relative grid grid-cols-1 gap-4",
-        month: "space-y-4",
-        month_grid: "w-full table",
-        dropdown: "outline-none",
-        caption_label: "hidden",
-        nav: "absolute right-2",
-        chevron: "fill-primaryCustomer",
-        weekday: "justify-start",
-        day: "h-9 w-9 p-0 text-center hover:bg-muted hover:text-muted-foreground rounded-full",
-        selected: "bg-primaryCustomer text-primaryCustomer-foreground rounded-full",
-        today: "text-primaryCustomer",
-        outside: "text-muted-foreground opacity-50",
-        disabled: "text-muted-foreground opacity-50",
-        ...classNames,
+      selected={selectedDate}
+      onSelect={onDateSelect}
+      modifiers={{
+        hasServices: serviceDates,
       }}
-      {...props}
+      modifiersClassNames={{
+        hasServices: "relative before:absolute before:content-[''] before:w-1.5 before:h-1.5 before:rounded-full before:bg-primaryCustomer before:bottom-0 before:left-1/2 before:-translate-x-1/2",
+      }}
+      classNames={{
+        month_caption: "px-2 py-2",
+        month: "max-w-full",
+        weekdays: "flex flex-row",
+        week: "flex flex-row",
+        weekday: "h-6 w-10 flex items-center justify-center",
+        day: "h-10 w-10 flex items-center justify-center hover:bg-primaryCustomer hover:bg-opacity-50 hover:rounded-full",
+        today: `border border-primaryCustomer rounded-full`,
+        outside: 'text-gray-300',
+        selected: `bg-primaryCustomer text-white rounded-full`,
+        root: `${getDefaultClassNames().root} p-0 max-w-fit mx-auto`,
+        chevron: `${getDefaultClassNames().chevron} fill-primaryCustomer`,
+      }}
     />
   );
 }
-Calendar.displayName = "Calendar";
-
-export { Calendar };
