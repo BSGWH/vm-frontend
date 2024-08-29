@@ -31,7 +31,7 @@ export default function Header() {
           <Button variant="customerOutline" asChild>
             <Link href={"/signin"}>Sign In</Link>
           </Button>
-          <ThemeToggle className={undefined} />
+          <ThemeToggle/>
         </div>
         <div>
           <button
@@ -62,7 +62,7 @@ export default function Header() {
             <Button variant="link" asChild>
               <Link href={"/provider"}>I'm a Provider </Link>
             </Button>
-            <ThemeToggle className="border-0" />
+            <ThemeToggle/>
             <hr className="w-11/12 mx-auto my-4" />
           </div>
           <div className="flex flex-row justify-center p-4">

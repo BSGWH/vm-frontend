@@ -79,28 +79,35 @@ export function SigninForm() {
             </CardTitle>
             <CardTitle className="text-3xl font-bold">Sign In</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-8 pb-4">
-            <div className="space-y-2 my-4">
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" name="email" type="email" placeholder="Email" />
-              <ZodErrors error={formState?.zodErrors?.email} />
-            </div>
-            <div className="space-y-2 my-4">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                placeholder="Password"
+          <form action={formAction}>
+            <CardContent className="space-y-8 pb-4">
+              <div className="space-y-2 my-4">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="Email"
+                />
+                <ZodErrors error={formState?.zodErrors?.email} />
+              </div>
+              <div className="space-y-2 my-4">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  id="password"
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                />
+                <ZodErrors error={formState?.zodErrors?.email} />
+              </div>
+              <SubmitButton
+                className="w-full bg-primaryCustomer hover:bg-primaryCustomer-hover text-white py-3 mt-10 rounded"
+                text="Sign In"
+                loadingText="Loading"
               />
-              <ZodErrors error={formState?.zodErrors?.email} />
-            </div>
-            <SubmitButton
-              className="w-full bg-primaryCustomer hover:bg-primaryCustomer-hover text-white py-3 mt-10 rounded"
-              text="Sign In"
-              loadingText="Loading"
-            />
-          </CardContent>
+            </CardContent>
+          </form>
         </Card>
         <div className="mt-4 text-center text-sm text-gray-700 dark:text-gray-300">
           <Link className="underline ml-2" href="/provider/signin">
