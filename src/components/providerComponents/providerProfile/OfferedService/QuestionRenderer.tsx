@@ -21,6 +21,7 @@ const QuestionRenderer: React.FC<QuestionRendererProps> = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Update the checkbox selection in the database
   const handleCheckboxChange = async (checked: boolean) => {
     setLoading(true);
     setError(null);
