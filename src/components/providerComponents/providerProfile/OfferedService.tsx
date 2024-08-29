@@ -62,6 +62,7 @@ const OfferedService: React.FC = () => {
   const [open, setOpen] = useState(false);
   // Loading state
   const [isLoading, setIsLoading] = useState(false);
+  const [isServiceLoading, setIsServiceLoading] = useState(false);
 
   useEffect(() => {
     async function loadServices() {
@@ -110,6 +111,32 @@ const OfferedService: React.FC = () => {
       }
     }
   };
+
+  // New useEffect to fetch updated service details when selected service changes
+  useEffect(() => {
+    if (selectedService) {
+      const fetchUpdatedServiceDetails = async () => {
+        try {
+          setIsServiceLoading(true);
+          const response = await axios.get(
+            `/api/provider/profile/offered-service/get-one-service/${selectedService?.id}`
+          );
+          const updatedService = response.data;
+          setSelectedService(updatedService);
+          setServices((prevServices) =>
+            prevServices.map((service) =>
+              service.id === updatedService.id ? updatedService : service
+            )
+          );
+        } catch (error) {
+          console.error("Error fetching updated service details", error);
+        } finally {
+          setIsServiceLoading(false);
+        }
+      };
+      fetchUpdatedServiceDetails();
+    }
+  }, [selectedService?.id]);
 
   return (
     <div className="flex h-screen">
@@ -232,7 +259,11 @@ const OfferedService: React.FC = () => {
             {/* Add illustration here */}
           </div>
         ) : selectedService ? (
-          <ServiceDetails service={selectedService} />
+          isServiceLoading ? (
+            <div>Loading</div>
+          ) : (
+            <ServiceDetails service={selectedService} />
+          )
         ) : (
           <div className="text-center text-gray-600">
             Select a service to view details
