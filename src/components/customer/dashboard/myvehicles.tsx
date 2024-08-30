@@ -13,7 +13,7 @@ const vehicles: Vehicle[] = [
         make_name: "Toyota",
         model_id: 1,
         model_name: "Explorer",
-        color: "white",
+        color: "White",
         year: "2023",
         lisence_plate: "DEF456",
         vin: "2HJHK234HB843901",
@@ -25,7 +25,7 @@ const vehicles: Vehicle[] = [
         make_name: "Ford",
         model_id: 1,
         model_name: "Explorer",
-        color: "white",
+        color: "Black",
         year: "2023",
         lisence_plate: "DEF456",
         vin: "2HJHK234HB843901",
@@ -80,8 +80,8 @@ export function MyVehicles() {
                                         {vehicle.year} - {vehicle.color}
                                     </p>
                                 </div>
-                                <Button variant="link" size="sm" onClick={() => handleBook(vehicle)}>
-                                    book
+                                <Button variant="link" className="text-primaryCustomer" size="sm" onClick={() => handleBook(vehicle)}>
+                                    New Service
                                 </Button>
                                 <Button variant="link" size="sm" onClick={() => toggleVehicleDetails(vehicle.vehicle_id)}>
                                     {expandedVehicleId === vehicle.vehicle_id ? <ChevronUp size={16} /> : <ChevronDown size={16} />}

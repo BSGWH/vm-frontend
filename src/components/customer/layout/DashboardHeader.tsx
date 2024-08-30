@@ -3,6 +3,7 @@ import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
 import { UserNav } from "./user-nav";
 import Link from "next/link";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Logo } from "@/components/logo/Logo";
 import { UserDashBoardMobileSidebar } from "./UserDashboardMobileSidebar";
 
@@ -24,6 +25,7 @@ export default function Header() {
           </Link>
         </div>
         <div className="flex items-center gap-4">
+          <Button variant={"customerDefault"}><Link href="#" >New Service</Link></Button>
           <UserNav />
           <ThemeToggle/>
         </div>
