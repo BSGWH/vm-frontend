@@ -25,7 +25,7 @@ export default function Header() {
           </Link>
         </div>
         <div className="flex items-center gap-4">
-          <Button variant={"customerDefault"}><Link href="#" >New Service</Link></Button>
+          <Button variant={"customerDefault"}><Link href="/customer/book/select-vehicle" >New Service</Link></Button>
           <UserNav />
           <ThemeToggle/>
         </div>

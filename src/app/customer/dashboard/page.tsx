@@ -76,10 +76,10 @@ export default function Page() {
 
   const filteredServices = selectedDate
     ? services.filter(
-        (service) =>
-          new Date(service.date).toLocaleDateString() ===
-          new Date(selectedDate).toLocaleDateString()
-      )
+      (service) =>
+        new Date(service.date).toLocaleDateString() ===
+        new Date(selectedDate).toLocaleDateString()
+    )
     : services;
 
   const toggleServiceDetails = (serviceId: number) => {
@@ -131,6 +131,7 @@ export default function Page() {
                             .toLowerCase()}.png`}
                           alt={`${service.make_name} logo`}
                           className="max-w-full max-h-full object-contain"
+                          loading="lazy"
                         />
                       </div>
                       <div className="flex-1 ml-4">
@@ -138,7 +139,7 @@ export default function Page() {
                           {service.type}
                         </p>
                         <p className="text-sm font-medium leading-none">
-                        {service.vehicle}
+                          {service.vehicle}
                         </p>
                       </div>
                       <div className="ml-auto text-right">
