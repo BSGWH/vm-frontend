@@ -49,15 +49,25 @@ export default function SelectProviderPage() {
     const [isCancelDialogOpen, setIsCancelDialogOpen] = useState(false);
     const [pendingNavigationUrl, setPendingNavigationUrl] = useState<string | null>(null);
     const [allowNavigation, setAllowNavigation] = useState(false);
+    const [showVehicleAlert, setShowVehicleAlert] = useState(false);
+    const [showServiceAlert, setShowServiceAlert] = useState(false);
     const dispatch = useDispatch();
     const router = useRouter();
-    
-    // useRef to store the handleBeforeUnload function
+
     const handleBeforeUnloadRef = useRef<(event: BeforeUnloadEvent) => void>();
 
+    const selectedVehicleId = useSelector((state: any) => state.booking.vehicleID);
+    const selectedServiceId = useSelector((state: any) => state.booking.serviceID);
     const selectedProviderId = useSelector((state: any) => state.booking.providerID);
 
-    // On mount, set the local state to the value from Redux
+    useEffect(() => {
+        if (!selectedVehicleId) {
+            setShowVehicleAlert(true);
+        } else if (!selectedServiceId) {
+            setShowServiceAlert(true);
+        }
+    }, [selectedVehicleId, selectedServiceId]);
+
     useEffect(() => {
         if (selectedProviderId) {
             setSelectedProviderIdLocal(selectedProviderId);
@@ -157,10 +167,20 @@ export default function SelectProviderPage() {
         setPendingNavigationUrl(null);
     };
 
+    const redirectToSelectVehicle = () => {
+        setShowVehicleAlert(false);
+        router.push('/customer/book/select-vehicle');
+    };
+
+    const redirectToSelectService = () => {
+        setShowServiceAlert(false);
+        router.push('/customer/book/select-service');
+    };
+
     return (
         <div className="flex flex-col">
             <StepBar />
-            <h1 className="text-2xl py-4">Select Provider for Your Service:</h1>
+            <h1 className="text-2xl p-4">Select Provider for Your Service:</h1>
             <div className="flex flex-col items-center w-full">
                 <div className="bg-white px-4 mt-2 mb-8 rounded w-full max-w-lg max-h-[calc(66vh-200px)] overflow-y-auto">
                     {/* Table Header */}
@@ -295,6 +315,32 @@ export default function SelectProviderPage() {
                     </Dialog>
                 </div>
             </div>
+
+            {/* Vehicle Alert Dialog */}
+            <Dialog open={showVehicleAlert} onOpenChange={setShowVehicleAlert}>
+                <DialogContent>
+                    <DialogTitle>Vehicle Not Selected</DialogTitle>
+                    <DialogDescription>
+                        You need to select a vehicle before choosing a provider. You will be redirected to the vehicle selection page.
+                    </DialogDescription>
+                    <DialogFooter>
+                        <Button onClick={redirectToSelectVehicle}>OK</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
+            {/* Service Alert Dialog */}
+            <Dialog open={showServiceAlert} onOpenChange={setShowServiceAlert}>
+                <DialogContent>
+                    <DialogTitle>Service Not Selected</DialogTitle>
+                    <DialogDescription>
+                        You need to select a service before choosing a provider. You will be redirected to the service selection page.
+                    </DialogDescription>
+                    <DialogFooter>
+                        <Button onClick={redirectToSelectService}>OK</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 }

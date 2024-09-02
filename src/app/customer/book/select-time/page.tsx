@@ -174,6 +174,9 @@ export default function SelectTimePage() {
     const [isCancelDialogOpen, setIsCancelDialogOpen] = useState(false);
     const [pendingNavigationUrl, setPendingNavigationUrl] = useState<string | null>(null);
     const [allowNavigation, setAllowNavigation] = useState(false);
+    const [showVehicleAlert, setShowVehicleAlert] = useState(false);
+    const [showServiceAlert, setShowServiceAlert] = useState(false);
+    const [showProviderAlert, setShowProviderAlert] = useState(false);
     const dispatch = useDispatch();
     const router = useRouter();
 
@@ -197,6 +200,17 @@ export default function SelectTimePage() {
             setSelectedTime(null);
         }
     }, [savedDateTime]);
+
+    // Check if vehicle, service, and provider are selected
+    useEffect(() => {
+        if (!selectedVehicleId) {
+            setShowVehicleAlert(true);
+        } else if (!selectedServiceId) {
+            setShowServiceAlert(true);
+        } else if (!selectedProviderId) {
+            setShowProviderAlert(true);
+        }
+    }, [selectedVehicleId, selectedServiceId, selectedProviderId]);
 
     // Get today's date and set time to 00:00:00 to only compare the date portion
     const today = new Date();
@@ -288,6 +302,21 @@ export default function SelectTimePage() {
     const stayOnPage = () => {
         setIsCancelDialogOpen(false);
         setPendingNavigationUrl(null);
+    };
+
+    const redirectToSelectVehicle = () => {
+        setShowVehicleAlert(false);
+        router.push('/customer/book/select-vehicle');
+    };
+
+    const redirectToSelectService = () => {
+        setShowServiceAlert(false);
+        router.push('/customer/book/select-service');
+    };
+
+    const redirectToSelectProvider = () => {
+        setShowProviderAlert(false);
+        router.push('/customer/book/select-provider');
     };
 
     return (
@@ -437,6 +466,45 @@ export default function SelectTimePage() {
                     </Dialog>
                 </div>
             </div>
+
+            {/* Vehicle Alert Dialog */}
+            <Dialog open={showVehicleAlert} onOpenChange={setShowVehicleAlert}>
+                <DialogContent>
+                    <DialogTitle>Vehicle Not Selected</DialogTitle>
+                    <DialogDescription>
+                        You need to select a vehicle before choosing a time. You will be redirected to the vehicle selection page.
+                    </DialogDescription>
+                    <DialogFooter>
+                        <Button onClick={redirectToSelectVehicle}>OK</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
+            {/* Service Alert Dialog */}
+            <Dialog open={showServiceAlert} onOpenChange={setShowServiceAlert}>
+                <DialogContent>
+                    <DialogTitle>Service Not Selected</DialogTitle>
+                    <DialogDescription>
+                        You need to select a service before choosing a time. You will be redirected to the service selection page.
+                    </DialogDescription>
+                    <DialogFooter>
+                        <Button onClick={redirectToSelectService}>OK</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
+            {/* Provider Alert Dialog */}
+            <Dialog open={showProviderAlert} onOpenChange={setShowProviderAlert}>
+                <DialogContent>
+                    <DialogTitle>Provider Not Selected</DialogTitle>
+                    <DialogDescription>
+                        You need to select a provider before choosing a time. You will be redirected to the provider selection page.
+                    </DialogDescription>
+                    <DialogFooter>
+                        <Button onClick={redirectToSelectProvider}>OK</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 }

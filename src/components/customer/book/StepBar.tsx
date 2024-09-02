@@ -13,6 +13,7 @@ const steps = [
 export default function StepBar() {
     const pathname = usePathname();
     const currentStepIndex = steps.findIndex(s => s.path === pathname);
+    const isConfirmationStep = pathname === "/customer/book/confirmation";
 
     return (
         <div className="flex justify-between items-center text-sm relative">
@@ -32,14 +33,14 @@ export default function StepBar() {
                                     ? "polygon(0 0, 10% 50%, 0 100%, 100% 100%, 100% 0%)"
                                     : "polygon(0 0, 10% 50%, 0 100%, 90% 100%, 100% 50%, 90% 0 )"
                         }}>
-                        {index <= currentStepIndex ? (
+                        {index <= currentStepIndex && !isConfirmationStep ? (
                             <Link href={step.path} passHref>
                                 <p className={`cursor-pointer ${pathname === step.path ? "text-white font-bold" : "text-white"}`}>
                                     {step.label}
                                 </p>
                             </Link>
                         ) : (
-                            <p className="cursor-not-allowed text-white">
+                            <p className={`cursor-${index <= currentStepIndex ? "pointer" : "not-allowed"} text-white`}>
                                 {step.label}
                             </p>
                         )}

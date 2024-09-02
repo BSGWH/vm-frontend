@@ -54,13 +54,20 @@ export default function SelectServicePage() {
     const [isCancelDialogOpen, setIsCancelDialogOpen] = useState(false);
     const [pendingNavigationUrl, setPendingNavigationUrl] = useState<string | null>(null);
     const [allowNavigation, setAllowNavigation] = useState(false);
+    const [showVehicleAlert, setShowVehicleAlert] = useState(false);
     const dispatch = useDispatch();
     const router = useRouter();
-    
-    // useRef to store the handleBeforeUnload function
+
     const handleBeforeUnloadRef = useRef<(event: BeforeUnloadEvent) => void>();
 
+    const selectedVehicleId = useSelector((state: any) => state.booking.vehicleID);
     const selectedServiceId = useSelector((state: any) => state.booking.serviceID);
+
+    useEffect(() => {
+        if (!selectedVehicleId) {
+            setShowVehicleAlert(true);
+        }
+    }, [selectedVehicleId]);
 
     useEffect(() => {
         if (selectedServiceId) {
@@ -72,7 +79,7 @@ export default function SelectServicePage() {
         const handleBeforeUnload = (event: BeforeUnloadEvent) => {
             if (!allowNavigation) {
                 event.preventDefault();
-                event.returnValue = ''; // This triggers a confirmation dialog in the browser
+                event.returnValue = ''; 
             }
         };
 
@@ -83,7 +90,7 @@ export default function SelectServicePage() {
                 event.preventDefault();
                 setPendingNavigationUrl(window.location.pathname);
                 setIsCancelDialogOpen(true);
-                window.history.pushState(null, '', '/customer/book/select-service'); // Prevent navigation
+                window.history.pushState(null, '', '/customer/book/select-service');
             }
         };
 
@@ -92,7 +99,7 @@ export default function SelectServicePage() {
             const closestAnchor = target.closest('a');
             if (closestAnchor && closestAnchor.href && !closestAnchor.href.includes('/customer/book')) {
                 event.preventDefault();
-                event.stopImmediatePropagation(); // Stop other event listeners
+                event.stopImmediatePropagation(); 
                 setPendingNavigationUrl(closestAnchor.href);
                 setIsCancelDialogOpen(true);
             }
@@ -100,7 +107,7 @@ export default function SelectServicePage() {
 
         window.addEventListener('beforeunload', handleBeforeUnloadRef.current);
         window.addEventListener('popstate', handlePopState);
-        document.addEventListener('click', handleLinkClick, true); // Capture phase
+        document.addEventListener('click', handleLinkClick, true);
 
         return () => {
             window.removeEventListener('beforeunload', handleBeforeUnloadRef.current!);
@@ -137,14 +144,13 @@ export default function SelectServicePage() {
     };
 
     const handleCancel = () => {
-        // 取消 beforeunload 事件监听
         window.removeEventListener('beforeunload', handleBeforeUnloadRef.current!);
 
         dispatch(clearBooking());
         setIsCancelDialogOpen(false);
         if (pendingNavigationUrl) {
             setAllowNavigation(true);
-            window.location.href = pendingNavigationUrl; // Use window.location.href to ensure a full reload
+            window.location.href = pendingNavigationUrl; 
         } else {
             router.push('/customer/dashboard');
         }
@@ -155,13 +161,17 @@ export default function SelectServicePage() {
         setPendingNavigationUrl(null);
     };
 
+    const redirectToSelectVehicle = () => {
+        setShowVehicleAlert(false);
+        router.push('/customer/book/select-vehicle');
+    };
+
     return (
         <div className="flex flex-col">
             <StepBar />
-            <h1 className="text-2xl py-4">Select Service for Your Vehicle:</h1>
+            <h1 className="text-2xl p-4">Select Service for Your Vehicle:</h1>
             <div className="flex flex-col items-center w-full">
                 <div className="bg-white px-4 mt-2 mb-8 rounded w-full max-w-md max-h-[calc(66vh-200px)] overflow-y-auto">
-                    {/* Search Bar */}
                     <input
                         type="text"
                         placeholder="Search for a service..."
@@ -170,7 +180,6 @@ export default function SelectServicePage() {
                         className="mb-4 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                     />
 
-                    {/* Most Popular Services */}
                     {!searchTerm && (
                         <>
                             <h2 className="text-lg font-semibold mb-2">Popular Services</h2>
@@ -194,7 +203,6 @@ export default function SelectServicePage() {
                         </>
                     )}
 
-                    {/* Categorized Services */}
                     {filteredServices.map((category) => (
                         <div key={category.category} className="w-full">
                             <div 
@@ -246,6 +254,18 @@ export default function SelectServicePage() {
                     </Dialog>
                 </div>
             </div>
+
+            <Dialog open={showVehicleAlert} onOpenChange={setShowVehicleAlert}>
+                <DialogContent>
+                    <DialogTitle>Vehicle Not Selected</DialogTitle>
+                    <DialogDescription>
+                        You need to select a vehicle before choosing a service. You will be redirected to the vehicle selection page.
+                    </DialogDescription>
+                    <DialogFooter>
+                        <Button onClick={redirectToSelectVehicle}>OK</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 }
