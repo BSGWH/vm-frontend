@@ -1,13 +1,12 @@
 "use client";
 import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Logo } from "../../logo/Logo";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import XIcon from "@mui/icons-material/X";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import { buttonVariants } from "@/components/ui/button";
 import { useState } from "react";
 
 export default function Header() {

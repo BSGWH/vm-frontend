@@ -20,6 +20,7 @@ const services = [
     time: "9:30 am",
     day: "Thursday",
     make_name: "Ford",
+    license_plate: "DIJF87",
   },
   {
     service_id: 2,
@@ -30,6 +31,7 @@ const services = [
     time: "11:00 am",
     day: "Thursday",
     make_name: "Toyota",
+    license_plate: "7HHS3I",
   },
   {
     service_id: 3,
@@ -40,6 +42,7 @@ const services = [
     time: "12:00 pm",
     day: "Thursday",
     make_name: "Chevrolet",
+    license_plate: "OPKSNM",
   },
   {
     service_id: 4,
@@ -50,6 +53,7 @@ const services = [
     time: "11:00 am",
     day: "Friday",
     make_name: "Ford",
+    license_plate: "DIJF87",
   },
   {
     service_id: 5,
@@ -60,6 +64,7 @@ const services = [
     time: "11:00 am",
     day: "Friday",
     make_name: "Toyota",
+    license_plate: "7HHS3I",
   },
 ];
 
@@ -71,10 +76,10 @@ export default function Page() {
 
   const filteredServices = selectedDate
     ? services.filter(
-        (service) =>
-          new Date(service.date).toLocaleDateString() ===
-          new Date(selectedDate).toLocaleDateString()
-      )
+      (service) =>
+        new Date(service.date).toLocaleDateString() ===
+        new Date(selectedDate).toLocaleDateString()
+    )
     : services;
 
   const toggleServiceDetails = (serviceId: number) => {
@@ -126,11 +131,15 @@ export default function Page() {
                             .toLowerCase()}.png`}
                           alt={`${service.make_name} logo`}
                           className="max-w-full max-h-full object-contain"
+                          loading="lazy"
                         />
                       </div>
                       <div className="flex-1 ml-4">
-                        <p className="text-sm font-medium leading-none">
+                        <p className="text-sm font-medium leading-o">
                           {service.type}
+                        </p>
+                        <p className="text-sm font-medium leading-none">
+                          {service.vehicle}
                         </p>
                       </div>
                       <div className="ml-auto text-right">
@@ -198,7 +207,7 @@ export default function Page() {
                               <p className="text-sm font-medium w-28 flex-shrink-0">
                                 License Plate:
                               </p>
-                              <p className="text-sm">{service.vehicle}</p>
+                              <p className="text-sm">{service.license_plate}</p>
                             </div>
                           </div>
                         </motion.div>

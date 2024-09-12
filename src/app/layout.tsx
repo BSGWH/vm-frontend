@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Onest } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
 import Script from "next/script";
-import { Toaster, toast } from "sonner";
+import { Toaster } from "sonner";
+import ClientLayout from "./layout.client";
 
 const inter = Onest({ subsets: ["latin"] });
 
@@ -22,14 +22,7 @@ export default function RootLayout({
     <html lang="en" className="light">
       <body className={inter.className}>
         <Script async src="https://js.stripe.com/v3/pricing-table.js" />
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+        <ClientLayout>{children}</ClientLayout> 
         <Toaster />
       </body>
     </html>
